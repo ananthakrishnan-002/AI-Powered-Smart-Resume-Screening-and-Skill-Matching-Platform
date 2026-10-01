@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign In | ScreenAI{% endblock %}
+
+{% block content %}
+<div class="row g-0 min-vh-90 rounded-5 overflow-hidden border border-secondary-subtle shadow-lg" data-aos="fade-up">
+    <!-- Left Panel: Futuristic AI Banner -->
+    <div class="col-lg-6 d-none d-lg-flex flex-column align-items-center justify-content-center bg-dark position-relative p-5 overflow-hidden">
+        <!-- Inner glow blob -->
+        <div class="position-absolute top-50 start-50 translate-middle w-75 h-75 bg-primary opacity-25 rounded-circle blur-3xl" style="filter: blur(140px); animation: floatBlob 20s infinite alternate ease-in-out;"></div>
+        
+        <div class="text-center position-relative z-1">
+            <i class="bi bi-fingerprint text-primary display-1 mb-4 animate-float d-inline-block"></i>
+            <h2 class="text-white fw-extrabold display-5 font-montserrat mb-3">Cognitive Screening</h2>
+            <p class="text-secondary fs-5 mx-auto mb-0" style="max-width: 450px;">
+                Enter the recruiter command dashboard or check your candidate ATS optimization timeline in real-time.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Right Panel: Login Card -->
+    <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 p-md-5 bg-body-tertiary">
+        <div class="w-100" style="max-width: 420px;">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold mb-2">Welcome Back</h2>
+                <p class="text-muted small">Sign in to your ScreenAI workspace account</p>
+            </div>
+            
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Non-Field Validation Errors -->
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger border-0 small rounded-3 mb-4">
+                        {% for error in form.non_field_errors %}
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                <!-- Username Input (Floating Label) -->
+                <div class="form-floating mb-4">
+                    <input type="text" name="username" class="form-control form-control-premium" id="id_username" placeholder="Username" required autofocus>
+                    <label for="id_username" class="text-muted">
+                        <i class="bi bi-person-fill me-1 text-primary"></i> Username or Email
+                    </label>
+                    {% if form.username.errors %}
+                        <div class="text-danger small mt-1">
+                            {{ form.username.errors|first }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Password Input (Floating Label) -->
+                <div class="form-floating mb-4">
+                    <input type="password" name="password" class="form-control form-control-premium" id="id_password" placeholder="Password" required>
+                    <label for="id_password" class="text-muted">
+                        <i class="bi bi-shield-lock-fill me-1 text-primary"></i> Password
+                    </label>
+                    {% if form.password.errors %}
+                        <div class="text-danger small mt-1">
+                            {{ form.password.errors|first }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Remember and Forgot Links -->
+                <div class="d-flex justify-content-between align-items-center mb-4 small">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                        <label class="form-check-label text-muted" for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="text-primary text-decoration-none fw-semibold">Forgot Password?</a>
+                </div>
+                
+                <!-- Submit Action Button -->
+                <div class="d-grid mb-4">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> Access Dashboard
+                    </button>
+                </div>
+            </form>
+            
+            <hr class="opacity-50">
+            
+            <p class="text-center text-muted small mb-0">
+                Don't have an account? 
+                <a href="{% url 'register' %}" class="text-primary text-decoration-none fw-semibold">Create Account</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

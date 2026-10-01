@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block title %}Recruiter Dashboard | ScreenAI{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4 px-4">
+    <!-- Header banner -->
+    <div class="glass-card mb-4 shadow-sm p-4">
+        <div class="row align-items-center g-3">
+            <div class="col-md-8">
+                <span class="badge bg-primary-subtle text-primary mb-2 px-3 py-2 rounded-pill"><i class="bi bi-shield-lock-fill"></i> Recruiter Portal</span>
+                <h2 class="fw-extrabold mb-1">Recruiter Command Centre</h2>
+                <p class="text-muted mb-0">Post jobs, track applicant rankings, explore candidate analytics, and download reports.</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <a href="{% url 'create_job' %}" class="btn btn-primary rounded-pill px-4 py-2 shadow"><i class="bi bi-plus-circle-fill me-1"></i> Post New Job</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats Row -->
+    <div class="row g-4 mb-4">
+        <!-- Stat 1 -->
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-card primary">
+                <h5 class="text-muted small fw-semibold uppercase tracking-wider mb-2">Total Candidates</h5>
+                <h1 class="display-5 fw-extrabold text-primary mb-0">{{ candidate_count }}</h1>
+                <span class="small text-muted">Distinct applicants</span>
+            </div>
+        </div>
+        
+        <!-- Stat 2 -->
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-card secondary">
+                <h5 class="text-muted small fw-semibold uppercase tracking-wider mb-2">Active Jobs</h5>
+                <h1 class="display-5 fw-extrabold text-success mb-0">{{ job_count }}</h1>
+                <span class="small text-muted">Posted positions</span>
+            </div>
+        </div>
+        
+        <!-- Stat 3 -->
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-card danger">
+                <h5 class="text-muted small fw-semibold uppercase tracking-wider mb-2">Shortlisted</h5>
+                <h1 class="display-5 fw-extrabold text-danger mb-0">{{ shortlisted_count }}</h1>
+                <span class="small text-muted">Candidates matching criteria</span>
+            </div>
+        </div>
+        
+        <!-- Stat 4 -->
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-card warning">
+                <h5 class="text-muted small fw-semibold uppercase tracking-wider mb-2">Average Match Score</h5>
+                <h1 class="display-5 fw-extrabold text-warning mb-0">{{ avg_match_score }}%</h1>
+                <span class="small text-muted">System average</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content Grid -->
+    <div class="row g-4">
+        <!-- Main lists Column (Left) -->
+        <div class="col-xl-7">
+            <!-- Active Jobs Panel -->
+            <div class="glass-card shadow-sm p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-briefcase text-primary me-2"></i>My Job Postings</h5>
+                    <a href="{% url 'job_list' %}" class="btn btn-link btn-sm text-decoration-none">View All</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr class="table-light">
+                                <th>Job Title</th>
+                                <th>Location</th>
+                                <th>Applicants</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for job in latest_jobs %}
+                                <tr>
+                                    <td>
+                                        <h6 class="fw-bold mb-0">{{ job.title }}</h6>
+                                        <small class="text-muted">{{ job.company }}</small>
+                                    </td>
+                                    <td><span class="small text-muted">{{ job.location|default:"-" }}</span></td>
+                                    <td>
+                                        <span class="badge bg-primary-subtle text-primary">{{ job.applications.count }} applied</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="{% url 'job_detail' job.id %}" class="btn btn-sm btn-outline-primary px-3 rounded-pill">Manage</a>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-4 text-muted small">No active jobs posted. Post a job to start screening.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Recent Applicants Panel -->
+            <div class="glass-card shadow-sm p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-people-fill text-primary me-2"></i>Recent Applicants</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr class="table-light">
+                                <th>Candidate</th>
+                                <th>Position</th>
+                                <th>Match Score</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for app in recent_applicants %}
+                                <tr>
+                                    <td>
+                                        <h6 class="fw-bold mb-0">{{ app.candidate.username }}</h6>
+                                        <small class="text-muted">{{ app.applied_at|date:"M d, Y" }}</small>
+                                    </td>
+                                    <td><span class="small fw-medium">{{ app.job.title }}</span></td>
+                                    <td>
+                                        <span class="badge bg-success-subtle text-success fs-6">{{ app.match_score }}%</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="{% url 'applicant_detail' app.id %}" class="btn btn-sm btn-outline-secondary px-3 rounded-pill">Analyze</a>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-4 text-muted small">No applications received yet.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Analytics Column (Right) -->
+        <div class="col-xl-5">
+            <!-- Skill Distribution -->
+            <div class="glass-card shadow-sm p-4 mb-4">
+                <h5 class="fw-bold mb-3 border-bottom pb-2"><i class="bi bi-bar-chart-fill text-primary me-2"></i>Top Skills Distribution</h5>
+                <div style="height: 250px; position: relative;">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- ATS score Distribution -->
+            <div class="glass-card shadow-sm p-4">
+                <h5 class="fw-bold mb-3 border-bottom pb-2"><i class="bi bi-pie-chart-fill text-primary me-2"></i>ATS Score Spread</h5>
+                <div style="height: 250px; position: relative;">
+                    <canvas id="atsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js initialization script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Skill Distribution Bar Chart
+        const skillsCtx = document.getElementById('skillsChart').getContext('2d');
+        const skillsChart = new Chart(skillsCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ skills_labels|safe }},
+                datasets: [{
+                    label: 'Count of Resumes',
+                    data: {{ skills_data|safe }},
+                    backgroundColor: 'rgba(79, 70, 229, 0.65)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { precision: 0 }
+                    }
+                }
+            }
+        });
+
+        // ATS Distribution Doughnut Chart
+        const atsCtx = document.getElementById('atsChart').getContext('2d');
+        const atsChart = new Chart(atsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: {{ ats_distribution_labels|safe }},
+                datasets: [{
+                    data: {{ ats_distribution_data|safe }},
+                    backgroundColor: [
+                        'rgba(244, 63, 94, 0.65)',  // Red for low
+                        'rgba(245, 158, 11, 0.65)', // Yellow for mid
+                        'rgba(16, 185, 129, 0.65)'  // Green for high
+                    ],
+                    borderColor: [
+                        'rgba(244, 63, 94, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(16, 185, 129, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

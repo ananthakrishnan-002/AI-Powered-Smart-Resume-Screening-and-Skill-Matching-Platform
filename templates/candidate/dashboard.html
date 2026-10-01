@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block title %}Candidate Dashboard | ScreenAI{% endblock %}
+
+{% block content %}
+<div class="row g-0 min-vh-90 rounded-4 overflow-hidden border border-secondary-subtle shadow-lg" data-aos="fade-up">
+    <!-- Left Sidebar Menu -->
+    <div class="col-lg-3 sidebar-premium">
+        <div class="text-center mb-4 pb-3 border-bottom border-secondary-subtle">
+            <div class="bg-primary-subtle text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 55px; height: 55px;">
+                <i class="bi bi-person-badge-fill fs-3"></i>
+            </div>
+            <h5 class="fw-bold mb-0 text-gradient">{{ name|default:user.username }}</h5>
+            <span class="text-muted small">Candidate Account</span>
+        </div>
+        
+        <div class="d-grid gap-1">
+            <a href="{% url 'candidate_dashboard' %}" class="sidebar-menu-link active">
+                <i class="bi bi-grid-1x2-fill me-3"></i> Dashboard Overview
+            </a>
+            <a href="{% url 'upload_resume' %}" class="sidebar-menu-link">
+                <i class="bi bi-cloud-arrow-up-fill me-3"></i> Upload / Sync CV
+            </a>
+            <a href="{% url 'job_list' %}" class="sidebar-menu-link">
+                <i class="bi bi-briefcase-fill me-3"></i> Search & Browse Jobs
+            </a>
+            <a href="{% url 'applied_jobs' %}" class="sidebar-menu-link">
+                <i class="bi bi-check2-all me-3"></i> Applied Jobs List
+            </a>
+            <a href="{% url 'profile' %}" class="sidebar-menu-link">
+                <i class="bi bi-person-gear-fill me-3"></i> Account Profile
+            </a>
+        </div>
+    </div>
+
+    <!-- Right Main Panel -->
+    <div class="col-lg-9 p-4 p-md-5 bg-body-tertiary overflow-auto" style="max-height: 85vh;">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3 border-bottom pb-3">
+            <div>
+                <h3 class="fw-bold mb-1">Overview Dashboard</h3>
+                <p class="text-muted small mb-0">Evaluate resume parsed parameters, ATS metrics, and match openings.</p>
+            </div>
+            {% if resume %}
+                <a href="{% url 'upload_resume' %}" class="btn btn-primary rounded-pill px-4 shadow"><i class="bi bi-arrow-repeat me-1"></i> Update Resume</a>
+            {% endif %}
+        </div>
+
+        {% if not resume %}
+            <!-- Upload Prompt -->
+            <div class="glass-card text-center py-5 shadow-sm my-5" data-aos="zoom-in">
+                <div class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle mb-3 animate-float" style="width: 75px; height: 75px;">
+                    <i class="bi bi-file-earmark-arrow-up fs-2"></i>
+                </div>
+                <h4 class="fw-bold">No Resume Uploaded Yet</h4>
+                <p class="text-muted mx-auto mb-4" style="max-width: 480px;">Upload your resume in PDF/DOCX format to parse credentials, compute ATS scores, and unlock job recommendations.</p>
+                <a href="{% url 'upload_resume' %}" class="btn btn-primary rounded-pill px-4 py-2"><i class="bi bi-cloud-arrow-up-fill me-1"></i> Upload Resume</a>
+            </div>
+        {% else %}
+            <!-- Quick Metrics Row -->
+            <div class="row g-4 mb-4">
+                <!-- ATS Circular progress -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="stat-card-premium text-center">
+                        <h6 class="text-muted small fw-semibold text-uppercase tracking-wider mb-3">ATS Score</h6>
+                        <div class="circular-progress shadow-sm mx-auto mb-3" style="--value: {{ ats_score }}">
+                            <div class="circular-progress-value text-gradient">{{ ats_score }}%</div>
+                        </div>
+                        <span class="small text-muted"><i class="bi bi-shield-check text-success me-1"></i>Overall compliance rating</span>
+                    </div>
+                </div>
+
+                <!-- Skill count -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="stat-card-premium h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <h6 class="text-muted small fw-semibold text-uppercase tracking-wider mb-2">Skills Found</h6>
+                            <h1 class="display-4 fw-extrabold text-gradient-sec font-montserrat mb-1">{{ skills|length }}</h1>
+                            <p class="text-muted small">Technical skillsets extracted from text.</p>
+                        </div>
+                        <div class="d-flex flex-wrap gap-1">
+                            {% for s in skills|slice:":3" %}
+                                <span class="badge bg-secondary-subtle text-secondary small">{{ s }}</span>
+                            {% endfor %}
+                            {% if skills|length > 3 %}
+                                <span class="badge bg-primary-subtle text-primary small">+{{ skills|length|add:"-3" }} more</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applications count -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="stat-card-premium h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <h6 class="text-muted small fw-semibold text-uppercase tracking-wider mb-2">Job Applications</h6>
+                            <h1 class="display-4 fw-extrabold text-danger font-montserrat mb-1">{{ applied_count }}</h1>
+                            <p class="text-muted small">Active submissions in this portal.</p>
+                        </div>
+                        <a href="{% url 'applied_jobs' %}" class="btn btn-sm btn-outline-danger rounded-pill px-3 mt-2">Manage Status</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Detailed Columns -->
+            <div class="row g-4 mb-4">
+                <!-- Parsed details -->
+                <div class="col-lg-7">
+                    <div class="glass-card shadow-sm h-100">
+                        <h5 class="fw-bold mb-4 border-bottom pb-2 text-dark"><i class="bi bi-card-checklist text-primary me-2"></i>CV Extraction Metadata</h5>
+                        
+                        <div class="row g-3 mb-4 text-muted small">
+                            <div class="col-sm-6">
+                                <span class="d-block text-muted small mb-1">Parsed Full Name</span>
+                                <strong class="text-dark fs-6">{{ name|default:"-" }}</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span class="d-block text-muted small mb-1">Contact Email</span>
+                                <strong class="text-dark fs-6">{{ email|default:"-" }}</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span class="d-block text-muted small mb-1">Contact Phone</span>
+                                <strong class="text-dark fs-6">{{ phone|default:"-" }}</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span class="d-block text-muted small mb-1">Analysis Timestamp</span>
+                                <strong class="text-muted fs-6">{{ resume.uploaded_at|date:"M d, Y H:i" }}</strong>
+                            </div>
+                        </div>
+
+                        <h6 class="fw-bold text-muted mb-2">Parsed Skills Matrix:</h6>
+                        <div class="d-flex flex-wrap gap-2 mb-4">
+                            {% for s in skills %}
+                                <span class="badge bg-primary-subtle text-primary badge-custom">{{ s }}</span>
+                            {% empty %}
+                                <span class="text-muted small">No skills parsed from content.</span>
+                            {% endfor %}
+                        </div>
+
+                        <hr>
+
+                        <h6 class="fw-bold mb-3 small text-muted">ATS Structural Breakdowns:</h6>
+                        <div class="row g-3 small mb-2">
+                            <div class="col-6 col-sm-4">
+                                <span class="d-block text-muted">Formatting Score</span>
+                                <strong class="text-primary">{{ ats_breakdown.formatting_score }}/20</strong>
+                            </div>
+                            <div class="col-6 col-sm-4">
+                                <span class="d-block text-muted">Education Qualifier</span>
+                                <strong class="text-success">{{ ats_breakdown.education_score }}/20</strong>
+                            </div>
+                            <div class="col-6 col-sm-4">
+                                <span class="d-block text-muted">Work Experience</span>
+                                <strong class="text-info">{{ ats_breakdown.experience_score }}/20</strong>
+                            </div>
+                            <div class="col-6 col-sm-4">
+                                <span class="d-block text-muted">Projects & Github</span>
+                                <strong class="text-warning">{{ ats_breakdown.projects_score }}/20</strong>
+                            </div>
+                            <div class="col-6 col-sm-4">
+                                <span class="d-block text-muted">Certifications</span>
+                                <strong class="text-danger">{{ ats_breakdown.certification_score }}/20</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggestions Panel -->
+                <div class="col-lg-5">
+                    <div class="glass-card shadow-sm h-100">
+                        <h5 class="fw-bold mb-4 border-bottom pb-2 text-dark"><i class="bi bi-lightbulb-fill text-warning me-2"></i>ATS Optimization Tasks</h5>
+                        {% if suggestions %}
+                            <ul class="list-group list-group-flush bg-transparent">
+                                {% for sug in suggestions %}
+                                    <li class="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-start gap-2">
+                                        <i class="bi bi-check2-circle text-warning fs-6 mt-1"></i>
+                                        <span class="text-muted small">{{ sug }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <div class="alert alert-success border-0 rounded-4 p-3 shadow-sm" role="alert">
+                                <i class="bi bi-patch-check-fill text-success fs-5 me-2"></i>Excellent! Your document complies with all standard layout criteria.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations Grid -->
+            <div class="glass-card shadow-sm p-4">
+                <h5 class="fw-bold mb-4 border-bottom pb-2 text-dark"><i class="bi bi-stars text-primary me-2"></i>Smart AI Job Matching</h5>
+                <div class="row g-4">
+                    {% for item in recommended_jobs %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="p-3 bg-body-secondary rounded-4 border h-100 d-flex flex-column justify-content-between">
+                                <div>
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h6 class="fw-bold mb-0 text-dark">{{ item.job.title }}</h6>
+                                        <span class="badge bg-primary-subtle text-primary border rounded-pill">{{ item.match_score }}%</span>
+                                    </div>
+                                    <span class="text-primary small fw-semibold d-block mb-2">{{ item.job.company }}</span>
+                                    <p class="text-muted small mb-3">{{ item.job.location }} • {{ item.job.salary|default:"Salary open" }}</p>
+                                </div>
+                                <div class="d-grid mt-2">
+                                    <a href="{% url 'job_detail' item.job.id %}" class="btn btn-sm btn-outline-primary rounded-pill">View Posting</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="col-12 text-center py-4 text-muted">
+                            <i class="bi bi-briefcase fs-3"></i>
+                            <p class="mb-0 mt-2 small">No active jobs matching your profile's skill set. Try adding more skills or browsing general listings.</p>
+                            <a href="{% url 'job_list' %}" class="btn btn-sm btn-primary rounded-pill px-4 mt-2">Browse All Jobs</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

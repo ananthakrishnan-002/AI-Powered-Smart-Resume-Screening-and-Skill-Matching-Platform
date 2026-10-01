@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Jobs | ScreenAI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Advanced Search Header -->
+    <div class="glass-card mb-5 shadow-sm p-4">
+        <h3 class="fw-bold mb-3"><i class="bi bi-search text-primary me-2"></i>Find Your Match</h3>
+        <form method="GET" action="{% url 'job_list' %}" class="row g-3">
+            <div class="col-md-5">
+                <label class="form-label small fw-semibold">Keywords</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-briefcase text-muted"></i></span>
+                    <input type="text" name="q" value="{{ query }}" class="form-control border-start-0" placeholder="Job title, company, description...">
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <label class="form-label small fw-semibold">Location</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-geo-alt text-muted"></i></span>
+                    <input type="text" name="location" value="{{ location }}" class="form-control border-start-0" placeholder="e.g. Remote, Mumbai">
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <label class="form-label small fw-semibold">Required Skill</label>
+                <select name="skill" class="form-select">
+                    <option value="">-- All Skills --</option>
+                    {% for skill in all_skills %}
+                        <option value="{{ skill }}" {% if selected_skill == skill %}selected{% endif %}>{{ skill }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="col-md-1 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100 rounded-3 py-2">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+        {% if query or location or selected_skill %}
+            <div class="mt-3">
+                <a href="{% url 'job_list' %}" class="btn btn-link btn-sm text-muted p-0"><i class="bi bi-x-circle me-1"></i>Clear Filters</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Job Listings Grid -->
+    <div class="row g-4">
+        {% for job in jobs %}
+            <div class="col-md-6">
+                <div class="glass-card h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h4 class="fw-bold mb-1">{{ job.title }}</h4>
+                                <h5 class="text-primary fw-medium mb-0">{{ job.company }}</h5>
+                            </div>
+                            <span class="badge bg-secondary-subtle text-secondary py-2 border rounded-pill">{{ job.created_at|timesince }} ago</span>
+                        </div>
+                        
+                        <div class="d-flex flex-wrap gap-3 mb-3 text-muted small">
+                            {% if job.location %}
+                                <span><i class="bi bi-geo-alt me-1"></i>{{ job.location }}</span>
+                            {% endif %}
+                            {% if job.salary %}
+                                <span><i class="bi bi-currency-dollar me-1"></i>{{ job.salary }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <p class="text-muted small mb-4 line-clamp-3">
+                            {{ job.description|truncatewords:28 }}
+                        </p>
+                        
+                        <!-- Skills Required -->
+                        <div class="mb-4">
+                            <span class="d-block small text-muted mb-2 fw-medium">Required Skills:</span>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for s in job.get_skills_list %}
+                                    <span class="badge bg-primary-subtle text-primary badge-custom">{{ s }}</span>
+                                {% empty %}
+                                    <span class="text-muted small">No skills specified</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="{% url 'job_detail' job.id %}" class="btn btn-outline-secondary w-50 rounded-pill">
+                            <i class="bi bi-eye me-1"></i> View Details
+                        </a>
+                        {% if job.id in applied_job_ids %}
+                            <button class="btn btn-success w-50 rounded-pill" disabled>
+                                <i class="bi bi-check-circle me-1"></i> Applied
+                            </button>
+                        {% else %}
+                            <a href="{% url 'apply_job' job.id %}" class="btn btn-primary w-50 rounded-pill">
+                                <i class="bi bi-send me-1"></i> Quick Apply
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12 text-center py-5">
+                <div class="display-1 text-muted mb-3"><i class="bi bi-database-exclamation"></i></div>
+                <h4 class="text-muted">No Job Openings Found</h4>
+                <p class="text-muted">Try adjusting your keywords or filter parameters.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

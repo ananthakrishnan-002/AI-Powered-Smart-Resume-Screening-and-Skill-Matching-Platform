@@ -1,0 +1,15 @@
+SKILLS = [
+    "Python",
+    "Django",
+    "Java",
+    "SQL",
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Git",
+    "Machine Learning",
+    "Data Structures",
+    "C",
+    "C++",
+]

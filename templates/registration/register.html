@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Account | ScreenAI{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="glass-card shadow-lg p-5" data-aos="zoom-in">
+                
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold mb-1">Create Account</h2>
+                    <p class="text-muted small">Select your profile role and register credentials</p>
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <!-- Non-Field Validation Errors -->
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger border-0 small rounded-3 mb-4">
+                            {% for error in form.non_field_errors %}
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Interactive Role Selection Cards -->
+                    <label class="form-label small fw-semibold text-muted d-block mb-2 text-center">I want to register as a:</label>
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <div class="role-card-wrapper p-3 text-center border glass-card active" id="role-candidate-btn">
+                                <i class="bi bi-person-workspace text-primary display-6 mb-2 d-block"></i>
+                                <span class="fw-bold d-block small">Candidate</span>
+                                <span class="text-muted small d-block" style="font-size: 0.725rem;">Apply for jobs & get ATS scores</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="role-card-wrapper p-3 text-center border glass-card" id="role-recruiter-btn">
+                                <i class="bi bi-buildings-fill text-primary display-6 mb-2 d-block"></i>
+                                <span class="fw-bold d-block small">Recruiter</span>
+                                <span class="text-muted small d-block" style="font-size: 0.725rem;">Post jobs & rank candidates</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hidden Django select field (to preserve backend functionality) -->
+                    <div style="display:none;">
+                        {{ form.role }}
+                    </div>
+
+                    <!-- Username Field -->
+                    <div class="form-floating mb-3">
+                        <input type="text" name="username" class="form-control form-control-premium" id="id_username" placeholder="Username" required value="{{ form.username.value|default:'' }}">
+                        <label for="id_username" class="text-muted">
+                            <i class="bi bi-person-fill me-1 text-primary"></i> Username
+                        </label>
+                        {% if form.username.errors %}
+                            <div class="text-danger small mt-1">
+                                <i class="bi bi-exclamation-circle-fill me-1"></i>{{ form.username.errors|first }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-floating mb-3">
+                        <input type="email" name="email" class="form-control form-control-premium" id="id_email" placeholder="Email" required value="{{ form.email.value|default:'' }}">
+                        <label for="id_email" class="text-muted">
+                            <i class="bi bi-envelope-fill me-1 text-primary"></i> Email Address
+                        </label>
+                        {% if form.email.errors %}
+                            <div class="text-danger small mt-1">
+                                <i class="bi bi-exclamation-circle-fill me-1"></i>{{ form.email.errors|first }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password Field 1 -->
+                    <div class="form-floating mb-3">
+                        <input type="password" name="password1" class="form-control form-control-premium" id="id_password1" placeholder="Password" required>
+                        <label for="id_password1" class="text-muted">
+                            <i class="bi bi-shield-lock-fill me-1 text-primary"></i> Password
+                        </label>
+                        {% if form.password1.errors %}
+                            <div class="text-danger small mt-1">
+                                <i class="bi bi-exclamation-circle-fill me-1"></i>{{ form.password1.errors|first }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password Field 2 -->
+                    <div class="form-floating mb-4">
+                        <input type="password" name="password2" class="form-control form-control-premium" id="id_password2" placeholder="Confirm Password" required>
+                        <label for="id_password2" class="text-muted">
+                            <i class="bi bi-shield-lock-fill me-1 text-primary"></i> Confirm Password
+                        </label>
+                        {% if form.password2.errors %}
+                            <div class="text-danger small mt-1">
+                                <i class="bi bi-exclamation-circle-fill me-1"></i>{{ form.password2.errors|first }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Action Submit Button -->
+                    <div class="d-grid mb-4">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                            <i class="bi bi-person-plus-fill me-2"></i> Register Account
+                        </button>
+                    </div>
+
+                </form>
+
+                <hr class="opacity-50">
+
+                <p class="text-center text-muted small mb-0">
+                    Already have an account? 
+                    <a href="{% url 'login' %}" class="text-primary text-decoration-none fw-semibold">Sign In</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript to synchronize custom role selection cards with Django select field -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const candBtn = document.getElementById('role-candidate-btn');
+        const recBtn = document.getElementById('role-recruiter-btn');
+        const roleSelect = document.getElementById('id_role'); // Django form widget select tag
+
+        // Synchronize on load
+        if (roleSelect) {
+            if (roleSelect.value === 'recruiter') {
+                recBtn.classList.add('active');
+                candBtn.classList.remove('active');
+            } else {
+                roleSelect.value = 'candidate';
+                candBtn.classList.add('active');
+                recBtn.classList.remove('active');
+            }
+        }
+
+        // Toggle state
+        candBtn.addEventListener('click', () => {
+            candBtn.classList.add('active');
+            recBtn.classList.remove('active');
+            if (roleSelect) roleSelect.value = 'candidate';
+        });
+
+        recBtn.addEventListener('click', () => {
+            recBtn.classList.add('active');
+            candBtn.classList.remove('active');
+            if (roleSelect) roleSelect.value = 'recruiter';
+        });
+    });
+</script>
+{% endblock %}

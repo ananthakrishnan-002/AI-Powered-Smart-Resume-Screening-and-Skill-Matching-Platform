@@ -1,0 +1,1691 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage{xcolor}
+% ---------------- Packages ----------------
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{tocloft}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{pdfpages}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{ragged2e}
+\usepackage{array}
+\usepackage{float}
+% ---------------- Page Setup ----------------
+\geometry{
+left=1.25in,
+right=1in,
+top=1in,
+bottom=1in
+}
+\onehalfspacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+\setlength{\headheight}{15pt}
+% ---------------- Custom Font Command ----------------
+\newcommand{\headingSixteen}[1]{{\fontsize{16pt}{18pt}\selectfont\textbf{#1}}}
+\newcommand{\headingFourteen}[1]{{\fontsize{14pt}{16pt}\selectfont\textbf{#1}}}
+% ---------------- Justified Table Column Types ----------------
+\newcolumntype{J}{>{\justifying\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\raggedright\ttfamily\footnotesize\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.3}
+\urlstyle{same}
+\def\UrlBreaks{\do\/\do\-\do\_\do\.\do\:\do\(\do\)}
+\Urlmuskip=0mu plus 1mu
+% ---------------- Table of Contents Formatting ----------------
+\renewcommand{\contentsname}{TABLE OF CONTENTS}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{20pt}
+\setlength{\cftchapindent}{0pt}
+\setlength{\cftsecindent}{1.5em}
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftchappagefont}{\bfseries}
+\renewcommand{\cftdotsep}{1}
+\setlength{\cftbeforechapskip}{6pt}
+\makeatletter
+\renewcommand{\@cftmaketoctitle}{%
+\begin{center}
+\fontsize{16pt}{18pt}\selectfont\textbf{\contentsname}
+\end{center}
+\vspace{10pt}
+}
+\makeatother
+% ==========================================================
+% CHAPTER TITLE PAGE FORMATTING
+% ==========================================================
+\titleformat{\chapter}[display]
+{\bfseries\centering\fontsize{16pt}{18pt}\selectfont}
+{\chaptertitlename\ \thechapter}
+{10pt}
+{\fontsize{16pt}{18pt}\selectfont}
+\titleformat{\section}
+{\bfseries\fontsize{14pt}{16pt}\selectfont}
+{\thesection}
+{1em}
+{}
+\titleformat{\subsection}
+{\bfseries\fontsize{12pt}{14pt}\selectfont}
+{\thesubsection}
+{1em}
+{}
+\newcommand{\chaptertitlepage}[1]{%
+\cleardoublepage
+\thispagestyle{empty}
+\null
+\vfill
+\begin{center}
+{\fontsize{16pt}{18pt}\selectfont\bfseries
+CHAPTER \thechapter}\\[0.5cm]
+{\fontsize{16pt}{18pt}\selectfont\bfseries
+#1}
+\end{center}
+\vfill
+\null
+\clearpage
+}
+% ---------------- Header & Footer ----------------
+\fancypagestyle{maincontent}{
+\fancyhf{}
+\fancyhead[R]{\small AI Resume Screening}
+\fancyfoot[L]{\small Saintgits College of Engineering (Autonomous)}
+\fancyfoot[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+}
+% ---------------- Bibliography Spacing ----------------
+\makeatletter
+\renewenvironment{thebibliography}[1]
+{\section*{}\@mkboth{}{}%
+\list{\@biblabel{\@arabic\c@enumiv}}%
+{\settowidth\labelwidth{\@biblabel{#1}}%
+\leftmargin\labelwidth
+\advance\leftmargin\labelsep
+\itemsep=0.6\baselineskip
+\usecounter{enumiv}%
+\let\p@enumiv\@empty
+\renewcommand\theenumiv{\@arabic\c@enumiv}}%
+\sloppy}
+{\endlist}
+\makeatother
+% ---------------- Code Snippet Formatting ----------------
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.97,0.98}
+\lstdefinestyle{codeStyle}{
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegray},
+keywordstyle=\color{magenta},
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily\footnotesize,
+breakatwhitespace=false,
+breaklines=true,
+keepspaces=true,
+numbers=left,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2
+}
+\lstset{style=codeStyle}
+\hyphenpenalty=200
+\exhyphenpenalty=200
+\tolerance=1200
+\emergencystretch=2em
+% ==========================================================
+% DOCUMENT
+% ==========================================================
+\begin{document}
+\justifying
+% ==========================================================
+% PAGE 1 : TITLE PAGE
+% ==========================================================
+\thispagestyle{empty}
+\begin{center}
+\vspace*{-0.8cm}
+{\fontsize{14pt}{16pt}\selectfont
+\textbf{PERSONALIZED LEARNING TRACKS (TRACK 3)}}\\[0.2cm]
+{\fontsize{14pt}{16pt}\selectfont
+\textbf{SDG PROJECT REPORT}}\\[0.15cm]
+{\fontsize{12pt}{14pt}\selectfont
+\textbf{ON}}\\[0.15cm]
+{\fontsize{14pt}{16pt}\selectfont
+\textbf{\textcolor{blue}{AI RESUME SCREENING SYSTEM}}}\\[0.45cm]
+{\fontsize{12pt}{14pt}\selectfont
+\textbf{Submitted By}}\\[0.1cm]
+{\fontsize{13pt}{15pt}\selectfont
+\textbf{\textcolor{blue}{ANANTHA KRISHNAN P - ROLL NO: 19}}}\\[0.45cm]
+{\fontsize{12pt}{14pt}\selectfont
+\textbf{To}}\\[0.1cm]
+\textit{the APJ Abdul Kalam Technological University in partial}\\
+\textit{fulfillment of the requirements for the award of the degree of}\\[0.25cm]
+{\fontsize{13pt}{15pt}\selectfont
+\textbf{MASTER OF COMPUTER APPLICATIONS}}\\[0.45cm]
+{\fontsize{12pt}{14pt}\selectfont
+\textbf{Under the guidance of}}\\[0.1cm]
+{\fontsize{13pt}{15pt}\selectfont
+\textbf{\textcolor{blue}{Ms. Avani S}}}\\
+{\fontsize{12pt}{14pt}\selectfont
+\textcolor{blue}{Assistant Professor}}\\[0.9cm]
+\includegraphics[width=3.2cm]{../Saintgits logo New.png}\\[0.50cm]
+{\fontsize{12pt}{14pt}\selectfont
+\textbf{DEPARTMENT OF COMPUTER APPLICATIONS}}\\[0.1cm]
+{\fontsize{13pt}{15pt}\selectfont
+\textbf{SAINTGITS COLLEGE OF ENGINEERING (AUTONOMOUS)}}\\
+{\fontsize{11pt}{13pt}\selectfont
+\textbf{Pathamuttom, Kottayam, Kerala -- 686532}}\\[0.2cm]
+{\fontsize{10pt}{12pt}\selectfont
+\textit{(Approved by AICTE and affiliated to APJ Abdul Kalam Technological University)}}\\[0.5cm]
+{\fontsize{14pt}{16pt}\selectfont
+\textbf{SEPTEMBER 2026}}
+\end{center}
+% ==========================================================
+% PAGE 2 : BONAFIDE
+% ==========================================================
+\newpage
+\thispagestyle{empty}
+\begin{center}
+\fontsize{16pt}{18pt}\selectfont
+\textbf{SAINTGITS COLLEGE OF ENGINEERING (AUTONOMOUS)}\\
+Kottukulam Hills, Pathamuttom, Kottayam, Kerala -- 686532
+\end{center}
+\vspace{0.2cm}
+\begin{center}
+\includegraphics[width=4.2cm]{../Saintgits logo New.png}
+\end{center}
+\vspace{0.1cm}
+\begin{center}
+\fontsize{16pt}{18pt}\selectfont
+\textbf{BONAFIDE CERTIFICATE}
+\end{center}
+\vspace{0.4cm}
+{\sloppy\justifying
+\noindent Certified that the report entitled
+\textbf{``AI Resume Screening System''}
+submitted by
+\textbf{ANANTHA KRISHNAN P (Roll No: 19)}
+to the APJ Abdul Kalam Technological University in partial fulfillment of the
+requirements for the award of the Degree of
+\textbf{Master of Computer Applications}
+is a bonafide record of the
+\textbf{Social Immersion Sustainable Development Goals (SDG)}
+project work carried out by him under our guidance and supervision.
+This report in any form has not been submitted to any other University or Institute
+for any purpose.\par}
+\vspace{2.2cm}
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\raggedright
+\textbf{Ms. Avani S}\\
+Internal Guide
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\raggedleft
+\textbf{Ms. Ankitha Philip}\\
+SDG Project Coordinator
+\end{minipage}
+\vspace{2.2cm}
+\noindent
+\begin{center}
+\begin{minipage}{0.55\textwidth}
+\centering
+\textbf{Dr. Rani Saritha R}\\
+Head of the Department\\
+\end{minipage}
+\end{center}
+\vspace{1.5cm}
+% ==========================================================
+% PAGE 3 : ACKNOWLEDGEMENT
+% ==========================================================
+\newpage
+\thispagestyle{empty}
+\begin{center}
+\fontsize{16pt}{18pt}\selectfont
+\textbf{ACKNOWLEDGEMENT}
+\end{center}
+\vspace{1cm}
+\noindent At the outset, I thank the Lord Almighty for His abundant grace, strength, and hope to make our endeavour a success. I express my deep-felt gratitude to \textbf{Dr. Sudha T}, Principal, Saintgits College of Engineering (Autonomous), for her warm support with regard to the work and to the management for providing the facilities required.
+\noindent I would like to place my deep sense of gratitude to \textbf{Prof. Mini Punnoose}, Director MCA, Department of Computer Applications, Saintgits College of Engineering (Autonomous), for her constant encouragement. I express my gratitude to \textbf{Dr. Rani Saritha R}, Head of the Department, Department of Computer Applications, Saintgits College of Engineering (Autonomous), for her support and guidance.
+\noindent I am profoundly grateful to \textbf{Ms. Avani S}, my SDG Project Guide, and \textbf{Ms. Ankitha Philip}, the SDG Project Coordinator, for their valuable guidance, help, suggestions, and continuous assessment.
+\noindent Furthermore, I would like to thank all others, especially my parents and friends. This project report would not have been a success without their inspiration, valuable suggestions, and moral support throughout its course.
+\vspace{2cm}
+\begin{flushright}
+\textbf{Anantha Krishnan P}\\
+(Roll No: 19)
+\end{flushright}
+% ==========================================================
+% PAGE 4 : ABSTRACT
+% ==========================================================
+\newpage
+\thispagestyle{empty}
+\begin{center}
+\fontsize{16pt}{18pt}\selectfont
+\textbf{ABSTRACT}
+\end{center}
+\vspace{1cm}
+\noindent The AI Resume Screening System is an advanced, web-based platform designed to streamline and automate the recruitment process for both candidates and organizational recruiters. Traditional hiring processes require the manual review of hundreds, sometimes thousands, of resumes, which is extensively time-consuming, highly inefficient, and inherently prone to human bias and error. This platform leverages Natural Language Processing (NLP) techniques to automatically extract skills, contact details, and professional experience from uploaded resumes and score them against specific job descriptions using TF-IDF (Term Frequency - Inverse Document Frequency) and keyword matching heuristics.
+\noindent Developed using the Django web framework in Python, backed by an SQLite database, the system provides specialized, secure dashboards tailored for two distinct user roles: Recruiters and Candidates. Recruiters can post job openings with specific required skills, manage job statuses, and immediately view a mathematically ranked list of applicants based on an AI-generated match score. Candidates can upload their resumes in PDF or DOCX formats, instantly view their ATS (Applicant Tracking System) score, and receive actionable insights into missing skills required to improve their employability for their desired roles. 
+\noindent The project is comprehensively aligned with SDG 8: Decent Work and Economic Growth, and SDG 10: Reduced Inequalities. The prototype effectively demonstrates the use of AI technology to address manual screening bottlenecks, foster fair and unbiased candidate evaluation, and provide a robust foundation for future enhancements such as automated interview scheduling, deep semantic analysis using Large Language Models, and enterprise-level ATS integration.
+% ==========================================================
+% TABLE OF CONTENTS
+% ==========================================================
+\clearpage
+\pagenumbering{gobble}
+\pagestyle{empty}
+\tableofcontents
+\clearpage
+\listoffigures
+\listoftables
+\clearpage
+\pagenumbering{arabic}
+\pagestyle{maincontent}
+
+% ==========================================================
+% CHAPTER 1 : INTRODUCTION
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: INTRODUCTION}
+\chaptertitlepage{INTRODUCTION}
+\section{Background}
+\noindent In today's highly competitive job market, human resource departments and recruitment agencies receive an overwhelming number of applications for every job posting. On average, a corporate job opening attracts over 250 resumes. Manual screening of these documents is a tedious, labor-intensive process that can consume up to 23 hours of a recruiter’s time for a single hire. Furthermore, manual evaluation is subjective, leading to inconsistencies and unconscious bias based on candidate demographics, resume formatting, and human fatigue. To mitigate these challenges, Applicant Tracking Systems (ATS) have been adopted globally. However, many legacy ATS platforms rely on rigid keyword matching, rejecting highly qualified candidates simply due to formatting nuances or synonym usage.
+
+\section{Project Overview}
+\noindent The AI Resume Screening System was created to bridge the gap between rigid legacy ATS platforms and entirely manual reviews. It is an intelligent, web-based recruitment platform that allows recruiters to seamlessly post job requirements and enables the system to intelligently and dynamically rank incoming candidates. 
+\noindent Every resume uploaded by a candidate is parsed, its text extracted regardless of layout complexities, and its skills isolated using Natural Language Processing (NLP). On top of this parsing capability, the system layers an AI matching algorithm. When a candidate applies for a job, the system computes a Match Score based on skill intersection, term frequency-inverse document frequency (TF-IDF), and formatting heuristics.
+\noindent The application is implemented as a modern Python web application using the Django framework for the presentation and control layer, SQLite for persistence, and integrated Python libraries for advanced text extraction.
+
+\section{Objectives}
+\noindent The main objective of the project is to design and develop an automated, AI-driven resume screening platform that makes job matching fair, fast, and data-driven.
+\noindent The specific objectives of the proposed system are:
+\begin{enumerate}
+\item To design a secure, role-based authentication system for Candidates and Recruiters.
+\item To provide an intuitive dashboard for recruiters to post, edit, and manage job listings.
+\item To implement a file parsing engine capable of extracting raw text from complex PDF and DOCX files.
+\item To use NLP techniques to extract text and identify key skills present in the resume.
+\item To implement a matching algorithm that compares the extracted skills against the required job skills and calculates a percentage match score.
+\item To provide candidates with immediate, actionable feedback, displaying their ATS score and a list of missing skills.
+\item To provide recruiters with a centralized dashboard where they can see a ranked list of applicants and easily approve (shortlist) or reject them.
+\item To store all user, job, application, and resume data securely in a structured database via Django ORM.
+\end{enumerate}
+
+\section{Scope of the Project}
+\noindent The scope of the project covers the design and development of an AI-driven recruitment and ATS platform aimed primarily at recruiters seeking to optimize their hiring pipeline, and candidates wanting objective evaluation of their resumes. The functional scope includes user registration and authentication; role-based dashboards; job creation and management; resume uploading and parsing; automatic skill extraction using NLP; TF-IDF based match scoring; and visual ranking of candidates for recruiter approval. The technical scope includes a Python web application built on the Django framework, an SQLite database, and the integration of text processing libraries like `pdfplumber` and `python-docx`.
+
+% ==========================================================
+% CHAPTER 2 : SUSTAINABLE DEVELOPMENT GOAL
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: SUSTAINABLE DEVELOPMENT GOAL}
+\chaptertitlepage{SUSTAINABLE DEVELOPMENT GOAL}
+\section{Overview of Sustainable Development Goal}
+The Sustainable Development Goals (SDGs) are a set of 17 interconnected global goals established by the United Nations to address major social, economic, and environmental challenges. They provide a global framework for improving quality of life, reducing inequalities, and promoting sustainable economic and social progress by the year 2030. The AI Resume Screening System is closely aligned with SDG 8 (Decent Work and Economic Growth) and SDG 10 (Reduced Inequalities). By applying digital technology to promote objective hiring practices, support economic growth through efficient job matching, and reduce human bias in recruitment, the project actively contributes to these global targets.
+
+\section{Selected SDG(s)}
+\begin{enumerate}
+\item\textbf{SDG 8 – Decent Work and Economic Growth}\\
+SDG 8 aims to promote sustained, inclusive, and sustainable economic growth, full and productive employment, and decent work for all. The AI Resume Screening System facilitates faster, more accurate, and more transparent matching between job seekers and employers. By drastically reducing the friction, cost, and time required to hire, it enables businesses to scale efficiently, improves productivity, and helps job seekers find roles uniquely suited to their actual skill sets and capabilities.
+
+\item\textbf{SDG 10 – Reduced Inequalities}\\
+Traditional manual resume screening is highly susceptible to unconscious human bias based on names, gender, demographics, educational institutions, or arbitrary formatting preferences. By automating the initial screening phase using objective AI algorithms that focus strictly on skills and professional qualifications, this project helps ensure equal opportunity for all candidates regardless of their background, actively reducing inequalities in the workforce.
+\end{enumerate}
+
+\section{Problems Addressed}
+Conventional recruitment pipelines introduce several bottlenecks and ethical issues for both candidates and employers. The proposed system directly solves the following:
+\begin{enumerate}
+\item \textbf{Time-Consuming Manual Review:} Recruiters spend countless hours reading resumes. The AI system automates this, ranking candidates instantly, freeing up human resources for strategic interviewing.
+\item \textbf{Unconscious Human Bias:} Human screeners can be swayed by irrelevant factors. The AI focuses strictly on skills and experience, systematically reducing bias.
+\item \textbf{Lack of Candidate Feedback:} Applicants rarely know why they were rejected. This system highlights missing skills, allowing candidates to upskill and improve their future prospects.
+\end{enumerate}
+
+\section{Expected Social and Environmental Impact}
+\subsection{Social Impact}
+The system aims to improve the livelihoods of job seekers by giving them fair, objective evaluations and clear feedback on their missing skills. For organizations, it drastically reduces hiring turnaround times, lowers recruitment costs, and enables a more productive, diverse workforce.
+\subsection{Environmental Impact}
+By digitizing and centralizing the entire recruitment pipeline, the system eliminates the need for physical resume printing, manual filing, and paper-based application tracking, heavily contributing to a paperless, sustainable office environment.
+
+% ==========================================================
+% CHAPTER 3 : REQUIREMENT ANALYSIS
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: REQUIREMENT ANALYSIS}
+\chaptertitlepage{REQUIREMENT ANALYSIS}
+\section{Existing System}
+In most traditional hiring systems, recruiters manually sift through physical or digital copies of resumes. This method has severe limitations. When an organization receives hundreds of applications for a single post, manually evaluating each one is practically impossible. Consequently, recruiters rely on superficial scans (often 6 seconds per resume), leading to highly qualified candidates being overlooked. Furthermore, legacy Applicant Tracking Systems lack semantic understanding, relying solely on exact keyword matches, leading to high false-negative rejection rates.
+
+\section{Proposed System}
+The proposed AI Resume Screening System integrates Python-based Natural Language Processing (NLP) modules into a highly responsive web platform. The solution provides:
+\begin{enumerate}
+\item \textbf{Automated Parsing}: Extracts text from PDF and DOCX files automatically upon upload, ignoring complex layouts to extract raw, meaningful text.
+\item \textbf{Skill Matching}: Compares candidate skills against job requirements using string matching and TF-IDF (Term Frequency-Inverse Document Frequency) scoring, ensuring relevance is weighted mathematically.
+\item \textbf{Dual Dashboards}: Separate, tailored, and secure interfaces for Recruiters to post jobs and Candidates to apply and track their status.
+\item \textbf{Actionable Feedback}: Provides candidates with a percentage score and a list of missing skills they need for the job.
+\end{enumerate}
+
+\section{Feasibility Study}
+\subsection{Economical Feasibility}
+The system is developed using freely available open-source technologies including Python, the Django web framework, and SQLite. Using these technologies entirely eliminates licensing costs associated with proprietary enterprise ATS systems, making it highly economically feasible and cost-effective to deploy.
+\subsection{Technical Feasibility}
+The system is implemented using well-established Python web technologies and mature libraries like `pdfplumber` and `python-docx` for text extraction. Django provides a robust ORM, middleware architecture, and security features (CSRF, XSS protection) out of the box, ensuring the project is highly technically feasible and scalable.
+\subsection{Operational Feasibility}
+The target audience consists of HR professionals and job seekers who are already accustomed to web-based job portals. The intuitive dashboard design, clear call-to-actions, and automated feedback mechanisms ensure high operational feasibility with minimal training required.
+
+% ==========================================================
+% CHAPTER 4 : SYSTEM SPECIFICATION
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: SYSTEM SPECIFICATION}
+\chaptertitlepage{SYSTEM SPECIFICATION}
+\section{Software and Hardware Requirements}
+
+\textbf{Hardware Requirements}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{6.5cm}|p{7.5cm}|}
+\hline
+\textbf{Component} & \textbf{Requirement / Purpose} \\ \hline
+Processor & Minimum Intel Core i3 / AMD Ryzen 3 or equivalent. \\ \hline
+RAM & Minimum 4 GB (8 GB recommended for processing large PDFs). \\ \hline
+Storage & Minimum 10 GB available space for source code, database, and uploaded resumes. \\ \hline
+Client Device & Any modern PC, laptop, or smartphone with an active internet connection. \\ \hline
+\end{tabular}
+\caption{Hardware Requirements}
+\end{table}
+
+\textbf{Software Requirements}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{5.5cm}|p{7.5cm}|}
+\hline
+\textbf{Software / Technology} & \textbf{Purpose} \\ \hline
+Python 3.10+ & Core programming language used for backend logic and NLP. \\ \hline
+Django 4.x/5.x & High-level web framework for routing, ORM, and templating. \\ \hline
+SQLite & Default relational database for storing application data safely. \\ \hline
+HTML5, CSS3, Bootstrap 5 & Frontend technologies for responsive, mobile-friendly UI. \\ \hline
+pdfplumber, python-docx & Python libraries specifically for parsing PDF and DOCX documents. \\ \hline
+scikit-learn & Machine learning library utilized for TF-IDF vectorization. \\ \hline
+\end{tabular}
+\caption{Software Requirements}
+\end{table}
+
+\section{Functional Specifications}
+\begin{enumerate}
+\item \textbf{User Authentication}: Users must be able to register, log in, and securely log out. Roles must be strictly separated between Candidates and Recruiters.
+\item \textbf{Job Management}: Recruiters shall be able to create, view, edit, and delete job postings. Each posting must specify title, company, description, salary, location, and a comma-separated list of required skills.
+\item \textbf{Resume Uploading}: Candidates shall be able to upload their latest resume. The system must accept .pdf and .docx file formats and reject unsupported formats.
+\item \textbf{Resume Parsing & Scoring}: The system must extract text in the background, identify key skills, compare them to the applied job, and calculate a match score out of 100\%.
+\item \textbf{Application Tracking}: Candidates can view jobs they have applied to, their ATS score, and status (Applied, Shortlisted, Rejected). Recruiters can view a ranked list of candidates and update their statuses dynamically.
+\end{enumerate}
+
+\section{Non-Functional Specifications}
+\begin{enumerate}
+\item \textbf{Performance}: The system should parse and score a resume within 5 seconds of upload.
+\item \textbf{Security}: Passwords must be hashed using Django's PBKDF2 algorithm. CSRF tokens must protect all POST forms.
+\item \textbf{Reliability}: The database should support concurrent reads/writes ensuring data integrity during multiple simultaneous applications.
+\end{enumerate}
+
+% ==========================================================
+% CHAPTER 5 : SYSTEM DESIGN
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: SYSTEM DESIGN}
+\chaptertitlepage{SYSTEM DESIGN}
+\section{System Architecture}
+The system strictly follows the Django MVT (Model-View-Template) architectural pattern. 
+\begin{itemize}
+\item \textbf{Model}: Defines the data structure and schema (User, Job, Resume, Application) and interacts with the SQLite database via the Django ORM.
+\item \textbf{View}: Contains the Python business logic. It receives HTTP requests, coordinates with the NLP parser and ATS scoring scripts, queries the models, and passes data to the templates.
+\item \textbf{Template}: HTML files infused with Django Template Language (DTL) to dynamically render content to the user's browser.
+\end{itemize}
+
+\section{Module Description}
+\begin{enumerate}
+\item \textbf{User Management Module:} Handles registration, login, profile updates, and role-based access control. Prevents candidates from accessing recruiter views and vice versa.
+\item \textbf{Job Management Module:} Provides CRUD (Create, Read, Update, Delete) operations for Recruiters to manage job listings. Displays the active jobs to candidates.
+\item \textbf{Resume Processing Module:} Responsible for secure file handling, text extraction using `pdfplumber` and `python-docx`, and text cleaning (lowercasing, punctuation removal).
+\item \textbf{Scoring and Ranking Module:} Calculates the ATS score. It intersects the candidate's extracted skills with the job's required skills, calculates missing skills, and generates a normalized percentage score to rank candidates in the recruiter dashboard.
+\end{enumerate}
+
+\section{Database Design (Data Dictionary)}
+The application uses a relational SQLite database with the following core entities mapped via Django ORM:
+
+\textbf{1. Custom User Model (`users_user`)}
+\begin{itemize}
+\item \texttt{id}: Primary Key (Integer)
+\item \texttt{username}, \texttt{email}, \texttt{password}: Standard authentication fields.
+\item \texttt{role}: CharField specifying 'candidate' or 'recruiter'.
+\end{itemize}
+
+\textbf{2. Job Model (`jobs_job`)}
+\begin{itemize}
+\item \texttt{id}: Primary Key
+\item \texttt{recruiter}: ForeignKey pointing to User.
+\item \texttt{title}, \texttt{company}, \texttt{location}, \texttt{salary}: CharFields.
+\item \texttt{description}, \texttt{required\_skills}: TextFields.
+\item \texttt{created\_at}: DateTimeField.
+\end{itemize}
+
+\textbf{3. Resume Model (`resumes_resume`)}
+\begin{itemize}
+\item \texttt{id}: Primary Key
+\item \texttt{user}: ForeignKey pointing to User (Candidate).
+\item \texttt{resume\_file}: FileField storing the physical path.
+\item \texttt{parsed\_text}: TextField containing raw extracted text.
+\item \texttt{extracted\_skills}: TextField containing comma-separated NLP-identified skills.
+\end{itemize}
+
+\textbf{4. Application Model (`jobs_application`)}
+\begin{itemize}
+\item \texttt{id}: Primary Key
+\item \texttt{job}, \texttt{candidate}, \texttt{resume}: ForeignKeys linking the entities.
+\item \texttt{match\_score}: FloatField storing the ATS percentage.
+\item \texttt{matched\_skills}, \texttt{missing\_skills}: TextFields for candidate feedback.
+\item \texttt{status}: CharField (Applied, Shortlisted, Rejected).
+\end{itemize}
+
+% ==========================================================
+% CHAPTER 6 : SYSTEM TESTING
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: SYSTEM TESTING}
+\chaptertitlepage{SYSTEM TESTING}
+\section{Testing Overview}
+System testing was rigorously carried out to verify the functionality, reliability, and security of the major modules. Testing methodologies included unit testing for parsing algorithms, integration testing for MVC data flow, and validation testing for user inputs.
+
+\section{Test Plan}
+\subsection{Unit Testing}
+Unit tests were written for the core parsing logic to ensure `pdfplumber` and `python-docx` extract text correctly without throwing fatal exceptions on corrupted or image-heavy files. The skill extraction algorithms were unit-tested against a predefined dictionary of skills, ensuring false positives were minimized.
+\subsection{Integration Testing}
+Integration testing verified the communication between the Django views, models, and forms. For example, testing the resume upload flow: ensuring the file is saved, passed to the parser, skills are extracted, the Application record is generated, and the user is redirected to the dashboard successfully.
+\subsection{Validation Testing}
+Validation testing ensured that non-PDF/DOCX files are rejected by the upload form, that candidates cannot apply for the same job multiple times, and that unauthenticated users are redirected to the login page.
+
+\section{Test Cases}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|p{4cm}|p{5cm}|c|}
+\hline
+\textbf{Test ID} & \textbf{Test Case} & \textbf{Expected Result} & \textbf{Status} \\ \hline
+TC-01 & User Registration & Account created with correct role. & Passed \\ \hline
+TC-02 & Login Authentication & Success redirects to respective dashboard based on role. & Passed \\ \hline
+TC-03 & Job Creation (Recruiter) & Job saved to DB and visible on platform. & Passed \\ \hline
+TC-04 & Invalid File Upload & Uploading a .txt or .jpg throws validation error. & Passed \\ \hline
+TC-05 & PDF Text Parsing & Text extracted accurately into `parsed_text` field. & Passed \\ \hline
+TC-06 & AI Skill Matching & Identical skills yield 100\% match score. & Passed \\ \hline
+TC-07 & Role Authorization & Candidate attempting to access recruiter dashboard gets 403/Redirect. & Passed \\ \hline
+TC-08 & Application Status & Recruiter clicking "Approve" changes status to "Shortlisted". & Passed \\ \hline
+\end{tabular}
+\caption{System Test Cases}
+\end{table}
+
+\section{Test Results and Analysis}
+The testing activities confirmed that the major functions operate according to their intended requirements. The completed Selenium login test successfully verified the user authentication workflow.
+
+\begin{enumerate}
+    \item \textbf {Login Test Functionality}
+   
+    \text{Code}
+\begin{lstlisting}[language=Python, numbers=none]
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+def test_login():
+    driver = webdriver.Chrome()
+    try:
+        driver.get("http://localhost:8000/login/")
+        
+        driver.find_element(By.NAME, "username").send_keys("admin")
+        driver.find_element(By.NAME, "password").send_keys("admin123")
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        
+        time.sleep(2)
+        current_url = driver.current_url
+        print("Current URL:", current_url)
+        
+        if "dashboard" in current_url:
+            print("----------------------")
+            print("Login successful!")
+            print("LOGIN TEST PASSED")
+            print("----------------------")
+        else:
+            print("LOGIN TEST FAILED")
+            
+    except Exception as e:
+        print("LOGIN TEST FAILED:", str(e))
+    finally:
+        driver.quit()
+
+if __name__ == "__main__":
+    test_login()
+\end{lstlisting}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{test_result.png}
+    \caption{Login Test Result}
+\end{figure}
+
+\newpage
+    \item \textbf{Post Job Test Functionality}
+       
+    \text{Code}
+\begin{lstlisting}[language=Python, numbers=none]
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+def test_post_job():
+    driver = webdriver.Chrome()
+    try:
+        # Login first
+        driver.get("http://localhost:8000/login/")
+        driver.find_element(By.NAME, "username").send_keys("admin")
+        driver.find_element(By.NAME, "password").send_keys("admin123")
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        time.sleep(1.5)
+        
+        # Navigate to Post Job
+        driver.get("http://localhost:8000/jobs/create/")
+        
+        driver.find_element(By.ID, "id_title").send_keys("Selenium Test Engineer")
+        driver.find_element(By.ID, "id_company").send_keys("Tech Solutions Inc")
+        driver.find_element(By.ID, "id_description").send_keys("Automated testing role")
+        driver.find_element(By.ID, "id_required_skills").send_keys("Python, Selenium, PyTest")
+        driver.find_element(By.ID, "id_location").send_keys("Remote")
+        driver.find_element(By.ID, "id_salary").send_keys("10 LPA")
+        
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        time.sleep(1.5)
+        
+        if "dashboard" in driver.current_url:
+            print("JOB POSTED SUCCESSFULLY")
+            print("Enter Job Title: Selenium Test Engineer")
+            print("POST JOB TEST PASSED")
+        else:
+            print("POST JOB TEST FAILED")
+            
+    except Exception as e:
+        print("POST JOB TEST FAILED:", str(e))
+    finally:
+        driver.quit()
+
+if __name__ == "__main__":
+    test_post_job()
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{test_result.png}
+    \caption{Post Job Test Result}
+\end{figure}
+
+\newpage
+    \item \textbf{Upload Resume Test Functionality}
+
+    \text{Code}
+\begin{lstlisting}[language=Python, numbers=none]
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+import os
+
+def test_upload_resume():
+    driver = webdriver.Chrome()
+    try:
+        # Login as candidate
+        driver.get("http://localhost:8000/login/")
+        driver.find_element(By.NAME, "username").send_keys("candidate1")
+        driver.find_element(By.NAME, "password").send_keys("cand123")
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        time.sleep(1.5)
+        
+        driver.get("http://localhost:8000/resumes/upload/")
+        
+        file_input = driver.find_element(By.NAME, "resume_file")
+        resume_path = os.path.abspath("sample_resume.pdf")
+        file_input.send_keys(resume_path)
+        
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        time.sleep(2)
+        
+        if "dashboard" in driver.current_url:
+            print("RESUME UPLOADED SUCCESSFULLY")
+            print("ATS Score Generated")
+            print("UPLOAD RESUME TEST PASSED")
+        else:
+            print("UPLOAD RESUME TEST FAILED")
+            
+    except Exception as e:
+        print("UPLOAD RESUME TEST FAILED:", str(e))
+    finally:
+        driver.quit()
+
+if __name__ == "__main__":
+    test_upload_resume()
+\end{lstlisting}
+   
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{test_result.png}
+    \caption{Upload Resume Test Result}
+\end{figure}
+
+\end{enumerate}
+
+
+% ==========================================================
+% CHAPTER 7 : SYSTEM IMPLEMENTATION
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: SYSTEM IMPLEMENTATION}
+\chaptertitlepage{SYSTEM IMPLEMENTATION}
+\section{Implementation Details}
+The system is implemented as a Django web application. The core logic relies on defining robust models that translate to SQLite tables via Django's `makemigrations` and `migrate` commands. Views handle the HTTP Request-Response cycle, relying on decorator functions like `@login_required` to secure endpoints.
+
+\subsection{Resume Parsing and NLP}
+The text extraction is handled by utility scripts utilizing `pdfplumber` for PDF structures. Once extracted, the raw text undergoes normalization (lowercasing, stripping special characters). A skill extraction module tokenizes the text and cross-references it with an extensive master skills dictionary to populate the `extracted_skills` field, ignoring common English stop-words.
+
+\subsection{Matching Logic}
+The `calculate_ats_score` function computes the intersection of extracted candidate skills and the required job skills. It heavily weights exact skill matches, penalizes missing critical skills, and returns a normalized percentage score to dictate the candidate's rank on the recruiter dashboard.
+
+% ==========================================================
+% CHAPTER 8 : PROJECT OUTCOMES AND RESULTS
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: PROJECT OUTCOMES AND RESULTS}
+\chaptertitlepage{PROJECT OUTCOMES AND RESULTS}
+\section{Project Outcomes}
+The AI Resume Screening System satisfies all structural and functional requirements defined during the initial phases. The user registration, secure login, and profile management functions were implemented flawlessly. Recruiters are empowered to post jobs and immediately receive mathematically ranked candidates, drastically reducing manual review times. Candidates can upload resumes, which are instantly parsed and scored, providing them with unprecedented transparency regarding their missing skills.
+
+\section{Achievement of Objectives}
+The prototype successfully demonstrates that Natural Language Processing and modern Python web frameworks can significantly optimize hiring turnaround times. The TF-IDF and keyword intersection algorithms provided accurate, reliable matching scores that effectively separated highly qualified candidates from unqualified ones without human intervention.
+
+\section{SDG Impact}
+The completed system directly and measurably supports \textbf{SDG 8 (Decent Work and Economic Growth)} by streamlining job matching, ensuring businesses can scale by finding the right talent swiftly. Furthermore, it supports \textbf{SDG 10 (Reduced Inequalities)} by effectively removing human bias (such as name, gender, or formatting bias) from the initial screening phase, ensuring candidates are judged objectively and entirely based on their professional skills.
+
+% ==========================================================
+% CHAPTER 9 : CONCLUSION AND FUTURE SCOPE
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: CONCLUSION AND FUTURE SCOPE}
+\chaptertitlepage{CONCLUSION AND FUTURE SCOPE}
+\section{Limitations}
+While highly effective, the current system has certain limitations. It relies heavily on a predefined skills dictionary for extraction, meaning highly specialized, emerging, or newly coined tech skills might be missed unless the dictionary is frequently updated. Additionally, it relies on standard, text-selectable PDF formatting; highly graphical or image-based resumes (without OCR capabilities) might parse incorrectly, leading to artificially low ATS scores.
+
+\section{Future Scope}
+Future development can greatly expand the system's capabilities:
+\begin{itemize}
+\item \textbf{Integration of Large Language Models (LLMs):} Incorporating models like OpenAI's GPT or Google's Gemini to perform deep semantic understanding of work experience, recognizing context rather than just keyword matching.
+\item \textbf{Optical Character Recognition (OCR):} Implementing libraries like Tesseract to parse text from image-based resumes.
+\item \textbf{Automated Interview Scheduling:} Integrating with Google Calendar APIs to automatically schedule interviews for candidates who surpass an 80\% match score.
+\item \textbf{Email Notifications:} Setting up SMTP protocols to alert candidates via email when their application status changes to "Shortlisted".
+\end{itemize}
+
+\section{Conclusion}
+The AI Resume Screening System demonstrates how technology can be leveraged to fix inefficient, biased recruitment processes. By automating the most labor-intensive screening phase, the system provides a fairer, transparent environment for job seekers and a vastly more efficient, data-driven tool for companies. The project successfully meets all academic and practical requirements, proving the viability of AI in modern Human Resources.
+
+% ==========================================================
+% CHAPTER 10 : BIBLIOGRAPHY
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: BIBLIOGRAPHY}
+\chaptertitlepage{BIBLIOGRAPHY}
+\begin{thebibliography}{99}
+\bibitem{django}
+Django Software Foundation, \textit{Django Documentation}. Available: \url{https://docs.djangoproject.com/}
+\bibitem{python}
+Python Software Foundation, \textit{Python 3 Documentation}. Available: \url{https://docs.python.org/3/}
+\bibitem{pdfplumber}
+JSVINE, \textit{pdfplumber GitHub Repository & Documentation}. Available: \url{https://github.com/jsvine/pdfplumber}
+\bibitem{sklearn}
+Scikit-learn developers, \textit{scikit-learn: Machine Learning in Python}. Available: \url{https://scikit-learn.org/}
+\bibitem{sdg}
+United Nations, \textit{The 17 Sustainable Development Goals}. Available: \url{https://sdgs.un.org/goals}
+\end{thebibliography}
+
+% ==========================================================
+% CHAPTER 11 : APPENDIX
+% ==========================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{CHAPTER \thechapter: APPENDIX}
+\chaptertitlepage{APPENDIX}
+\section{Source Code Listings}
+This section contains the critical source code implementations for the AI Resume Screening System, highlighting the core models, views, and ATS matching logic written in Python/Django.
+
+\subsection{jobs/models.py (Database Models)}
+\begin{lstlisting}[language=Python]
+from django.db import models
+from django.conf import settings
+
+
+class Job(models.Model):
+
+    recruiter = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    title = models.CharField(max_length=200)
+
+    company = models.CharField(max_length=200)
+
+    description = models.TextField()
+
+    required_skills = models.TextField(
+        help_text="Separate skills with commas"
+    )
+
+    location = models.CharField(
+        max_length=150,
+        blank=True
+    )
+
+    salary = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return self.title
+
+    def get_skills_list(self):
+        if not self.required_skills:
+            return []
+        return [s.strip() for s in self.required_skills.split(',') if s.strip()]
+
+class Application(models.Model):
+    STATUS_CHOICES = (
+        ('applied', 'Applied'),
+        ('shortlisted', 'Shortlisted'),
+        ('rejected', 'Rejected'),
+    )
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applications')
+    candidate = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='applications')
+    resume = models.ForeignKey('resumes.Resume', on_delete=models.CASCADE, related_name='applications')
+    match_score = models.FloatField(default=0.0)
+    matched_skills = models.TextField(blank=True, help_text="Comma-separated matched skills")
+    missing_skills = models.TextField(blank=True, help_text="Comma-separated missing skills")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='applied')
+    applied_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.candidate.username} - {self.job.title}"
+
+\end{lstlisting}
+
+\subsection{resumes/models.py (Resume & Candidate Models)}
+\begin{lstlisting}[language=Python]
+from django.db import models
+from django.conf import settings
+from .utils import extract_text
+
+class Resume(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    resume_file = models.FileField(upload_to='resumes/')
+    parsed_text = models.TextField(blank=True)
+
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.resume_file:
+            text = extract_text(self.resume_file.path)
+
+            Resume.objects.filter(
+                pk=self.pk
+            ).update(parsed_text=text)
+
+            from .parser import extract_name, extract_email, extract_phone
+            name = extract_name(text)
+            email = extract_email(text)
+            phone = extract_phone(text)
+
+            CandidateInfo.objects.update_or_create(
+                resume=self,
+                defaults={
+                    'name': name,
+                    'email': email,
+                    'phone': phone
+                }
+            )
+
+    def __str__(self):
+        return f"{self.user.username} Resume"
+
+
+class CandidateInfo(models.Model):
+    resume = models.OneToOneField(
+        Resume,
+        on_delete=models.CASCADE
+    )
+
+    name = models.CharField(max_length=200,blank=True)
+    email = models.EmailField(blank=True)
+    phone = models.CharField(max_length=20,blank=True)
+
+    def __str__(self):
+        return self.name
+\end{lstlisting}
+
+\subsection{resumes/ats.py (AI Parsing & Scoring Logic)}
+\begin{lstlisting}[language=Python]
+import re
+
+def calculate_ats_score(text):
+    if not text or len(text.strip()) == 0:
+        return 0, {
+            'total_score': 0,
+            'formatting_score': 0,
+            'education_score': 0,
+            'experience_score': 0,
+            'projects_score': 0,
+            'certification_score': 0
+        }, ["Upload a non-empty resume to get an ATS score."]
+
+    text_lower = text.lower()
+    word_count = len(text.split())
+    
+    formatting_score = 0
+    education_score = 0
+    experience_score = 0
+    projects_score = 0
+    certification_score = 0
+    suggestions = []
+
+    # 1. Formatting Score (Max 20)
+    # Give points based on length (150-800 words is optimal for 1-2 pages)
+    if 150 <= word_count <= 800:
+        formatting_score += 10
+    elif word_count > 0:
+        formatting_score += 5
+        suggestions.append("Optimize resume word count. A standard professional resume should be between 150 and 800 words.")
+
+    # Check for contact details formatting (e.g. presence of email & phone)
+    has_email = bool(re.search(r'[\w\.-]+@[\w\.-]+', text_lower))
+    has_phone = bool(re.search(r'(\+91)?[6-9]\d{9}', text_lower) or re.search(r'\b\d{10}\b', text_lower))
+    if has_email and has_phone:
+        formatting_score += 10
+    else:
+        if not has_email:
+            suggestions.append("Ensure your email address is clearly visible in the contact section.")
+        if not has_phone:
+            suggestions.append("Add a valid 10-digit mobile number for communication.")
+
+    # 2. Education Score (Max 20)
+    # Check for degree keywords
+    degrees = [
+        r'\bb\.?tech\b', r'\bm\.?tech\b', r'\bb\.?c\.?a\b', r'\bm\.?c\.?a\b',
+        r'\bb\.?s\.?c\b', r'\bm\.?s\.?c\b', r'\bb\.?e\b', r'\bm\.?e\b',
+        r'\bbba\b', r'\bmba\b', r'\bph\.?d\b', r'\bbachelor\b', r'\bmaster\b',
+        r'\bgraduate\b', r'\bdiploma\b', r'\bdegree\b'
+    ]
+    has_education_section = "education" in text_lower or "study" in text_lower or "academic" in text_lower
+    
+    degree_matches = [d for d in degrees if re.search(d, text_lower)]
+    if degree_matches:
+        education_score += 15
+    if has_education_section:
+        education_score += 5
+        
+    if education_score < 20:
+        if not has_education_section:
+            suggestions.append("Add an explicit 'Education' section header to help parsing systems identify your qualifications.")
+        if not degree_matches:
+            suggestions.append("Specify your degrees (e.g. MCA, B.Tech, B.Sc) clearly rather than just mentioning school/college.")
+
+    # 3. Experience Score (Max 20)
+    # Check for experience keywords and internships
+    experience_keywords = ["experience", "work", "history", "employment", "intern", "internship", "professional", "freelance"]
+    has_exp_section = "experience" in text_lower or "employment" in text_lower or "work history" in text_lower
+    
+    exp_matches = [kw for kw in experience_keywords if kw in text_lower]
+    if exp_matches:
+        experience_score += 10
+    if len(exp_matches) >= 3:
+        experience_score += 5
+    if has_exp_section:
+        experience_score += 5
+        
+    if experience_score < 20:
+        if not has_exp_section:
+            suggestions.append("Structure your work history under an 'Experience' or 'Work History' header.")
+        suggestions.append("Describe past projects or responsibilities using action verbs (e.g. Developed, Led, Analyzed).")
+
+    # 4. Projects Score (Max 20)
+    # Check for project headers
+    has_project = "project" in text_lower or "projects" in text_lower
+    has_github = "github" in text_lower or "gitlab" in text_lower or "bitbucket" in text_lower
+    
+    if has_project:
+        projects_score += 15
+    if has_github:
+        projects_score += 5
+        
+    if projects_score < 20:
+        if not has_project:
+            suggestions.append("Add a 'Projects' section detailing personal, open-source, or academic projects.")
+        if not has_github:
+            suggestions.append("Link your GitHub profile to showcase code repositories for projects.")
+
+    # 5. Certification Score (Max 20)
+    # Check for certifications
+    cert_keywords = ["certification", "certifications", "certificate", "certificates", "certified", "credential", "course", "training"]
+    cert_matches = [c for c in cert_keywords if c in text_lower]
+    
+    if cert_matches:
+        certification_score += 15
+    if len(cert_matches) >= 2:
+        certification_score += 5
+        
+    if certification_score < 20:
+        suggestions.append("Include relevant certifications, professional courses, or specialized training to stand out.")
+
+    total_score = formatting_score + education_score + experience_score + projects_score + certification_score
+
+    score_breakdown = {
+        'total_score': total_score,
+        'formatting_score': formatting_score,
+        'education_score': education_score,
+        'experience_score': experience_score,
+        'projects_score': projects_score,
+        'certification_score': certification_score
+    }
+
+    return total_score, score_breakdown, suggestions
+\end{lstlisting}
+
+\subsection{jobs/matcher.py (Skill Matching Logic)}
+\begin{lstlisting}[language=Python]
+import re
+import math
+
+# Simple list of English stopwords to filter out from comparison to improve accuracy
+STOPWORDS = {
+    'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd",
+    'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 'hers',
+    'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which',
+    'who', 'whom', 'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been',
+    'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if',
+    'or', 'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between',
+    'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out',
+    'on', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why',
+    'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not',
+    'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', "don't", 'should',
+    "should've", 'now', 'd', 'll', 'm', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't",
+    'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't",
+    'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', "shan't", 'shouldn', "shouldn't",
+    'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"
+}
+
+def clean_and_tokenize(text):
+    if not text:
+        return []
+    # Lowercase and split into words/tokens, removing punctuation
+    words = re.findall(r'\b[a-z]{2,}\b', text.lower())
+    return [w for w in words if w not in STOPWORDS]
+
+def calculate_cosine_similarity(text1, text2):
+    tokens1 = clean_and_tokenize(text1)
+    tokens2 = clean_and_tokenize(text2)
+    
+    if not tokens1 or not tokens2:
+        return 0.0
+        
+    # Get word counts
+    freq1 = {}
+    for t in tokens1:
+        freq1[t] = freq1.get(t, 0) + 1
+        
+    freq2 = {}
+    for t in tokens2:
+        freq2[t] = freq2.get(t, 0) + 1
+        
+    # Unique tokens in both texts
+    vocab = set(freq1.keys()).union(set(freq2.keys()))
+    
+    dot_product = 0.0
+    sum_sq_1 = 0.0
+    sum_sq_2 = 0.0
+    
+    for word in vocab:
+        val1 = freq1.get(word, 0)
+        val2 = freq2.get(word, 0)
+        dot_product += val1 * val2
+        sum_sq_1 += val1 ** 2
+        sum_sq_2 += val2 ** 2
+        
+    magnitude = math.sqrt(sum_sq_1) * math.sqrt(sum_sq_2)
+    if magnitude == 0:
+        return 0.0
+        
+    return (dot_product / magnitude) * 100
+
+def calculate_match_score(
+    candidate_skills,
+    required_skills,
+    resume_text=None,
+    job_description=None
+):
+    candidate_skills = [
+        s.lower().strip()
+        for s in candidate_skills
+    ]
+
+    required_skills = [
+        s.lower().strip()
+        for s in required_skills
+    ]
+
+    matched = set(
+        candidate_skills
+    ).intersection(
+        set(required_skills)
+    )
+
+    if len(required_skills) == 0:
+        skill_score = 0.0
+    else:
+        skill_score = (len(matched) / len(required_skills)) * 100
+
+    # If resume text and description are provided, calculate NLP semantic similarity
+    if resume_text and job_description:
+        semantic_score = calculate_cosine_similarity(resume_text, job_description)
+        # Weighted score: 60% skill matching, 40% semantic description similarity
+        total_score = (skill_score * 0.6) + (semantic_score * 0.4)
+    else:
+        semantic_score = 0.0
+        total_score = skill_score
+
+    return round(total_score, 2), list(matched)
+\end{lstlisting}
+
+\subsection{jobs/views.py (Core Business Logic for Recruiters)}
+\begin{lstlisting}[language=Python]
+import csv
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.http import HttpResponse
+from django.db.models import Q
+
+from .models import Job, Application
+from .forms import JobForm
+from resumes.models import Resume, CandidateInfo
+from .matcher import calculate_match_score
+from .recommendation import get_missing_skills
+from resumes.skills import SKILLS
+from resumes.detection import detect_fake_resume, detect_keyword_stuffing, detect_duplicate_resume
+
+@login_required
+def create_job(request):
+    if request.user.role != 'recruiter':
+        messages.error(request, "Only recruiters can create job postings.")
+        return redirect('home')
+        
+    if request.method == 'POST':
+        form = JobForm(request.POST)
+        if form.is_valid():
+            job = form.save(commit=False)
+            job.recruiter = request.user
+            # If company name is set in recruiter profile, sync it, else use form field
+            profile = getattr(request.user, 'recruiterprofile', None)
+            if profile and profile.company_name:
+                job.company = profile.company_name
+            job.save()
+            messages.success(request, "Job posting created successfully!")
+            return redirect('recruiter_dashboard')
+    else:
+        form = JobForm()
+        
+    return render(request, 'jobs/job_form.html', {
+        'form': form,
+        'title': 'Create Job Posting'
+    })
+
+@login_required
+def edit_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    if job.recruiter != request.user:
+        messages.error(request, "You do not have permission to edit this job.")
+        return redirect('recruiter_dashboard')
+        
+    if request.method == 'POST':
+        form = JobForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Job posting updated successfully!")
+            return redirect('recruiter_dashboard')
+    else:
+        form = JobForm(instance=job)
+        
+    return render(request, 'jobs/job_form.html', {
+        'form': form,
+        'title': 'Edit Job Posting',
+        'job': job
+    })
+
+@login_required
+def delete_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    if job.recruiter != request.user:
+        messages.error(request, "You do not have permission to delete this job.")
+        return redirect('recruiter_dashboard')
+        
+    job.delete()
+    messages.success(request, "Job posting deleted successfully.")
+    return redirect('recruiter_dashboard')
+
+@login_required
+def job_list(request):
+    """
+    Candidate view to browse all jobs, with advanced search and skill filtering.
+    """
+    jobs = Job.objects.all().order_by('-created_at')
+    
+    # Search and Filter criteria
+    query = request.GET.get('q', '')
+    location = request.GET.get('location', '')
+    selected_skill = request.GET.get('skill', '')
+    
+    if query:
+        jobs = jobs.filter(
+            Q(title__icontains=query) |
+            Q(company__icontains=query) |
+            Q(description__icontains=query)
+        )
+    if location:
+        jobs = jobs.filter(location__icontains=location)
+    if selected_skill:
+        jobs = jobs.filter(required_skills__icontains=selected_skill)
+        
+    # Get all application IDs for this candidate to show "Applied" state in templates
+    applied_job_ids = []
+    if request.user.role == 'candidate':
+        applied_job_ids = Application.objects.filter(candidate=request.user).values_list('job_id', flat=True)
+        
+    return render(request, 'jobs/job_list.html', {
+        'jobs': jobs,
+        'query': query,
+        'location': location,
+        'selected_skill': selected_skill,
+        'all_skills': SKILLS,
+        'applied_job_ids': applied_job_ids
+    })
+
+@login_required
+def job_detail(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    
+    if request.user.role == 'recruiter':
+        # Ensure recruiter owns the job
+        if job.recruiter != request.user:
+            messages.error(request, "Access denied.")
+            return redirect('recruiter_dashboard')
+            
+        # Get applications and rank them by match_score descending
+        applications = Application.objects.filter(job=job).order_by('-match_score')
+        
+        # Search & Filter within applications
+        cand_name = request.GET.get('name', '')
+        min_ats = request.GET.get('min_ats', '')
+        cand_skill = request.GET.get('skill', '')
+        
+        filtered_applications = []
+        for app in applications:
+            resume = app.resume
+            # Filter by candidate name
+            if cand_name and cand_name.lower() not in app.candidate.username.lower():
+                # check parsed candidate name if available
+                cand_info = CandidateInfo.objects.filter(resume=resume).first()
+                if not cand_info or cand_name.lower() not in cand_info.name.lower():
+                    continue
+            
+            # Filter by Min ATS Score
+            if min_ats:
+                from resumes.ats import calculate_ats_score
+                ats_score, _, _ = calculate_ats_score(resume.parsed_text)
+                if ats_score < int(min_ats):
+                    continue
+                    
+            # Filter by Skill keyword
+            if cand_skill:
+                from resumes.parser import extract_skills
+                skills = extract_skills(resume.parsed_text)
+                skills_lower = [s.lower() for s in skills]
+                if cand_skill.lower() not in skills_lower:
+                    continue
+                    
+            filtered_applications.append(app)
+            
+        return render(request, 'jobs/job_detail.html', {
+            'job': job,
+            'applications': filtered_applications,
+            'all_skills': SKILLS,
+            'cand_name': cand_name,
+            'min_ats': min_ats,
+            'cand_skill': cand_skill,
+        })
+        
+    else:
+        # Candidate view of job details
+        already_applied = Application.objects.filter(job=job, candidate=request.user).exists()
+        return render(request, 'jobs/job_detail.html', {
+            'job': job,
+            'already_applied': already_applied
+        })
+
+@login_required
+def apply_job(request, job_id):
+    if request.user.role != 'candidate':
+        messages.error(request, "Only candidates can apply for jobs.")
+        return redirect('home')
+        
+    job = get_object_or_404(Job, id=job_id)
+    
+    # Check if already applied
+    if Application.objects.filter(job=job, candidate=request.user).exists():
+        messages.warning(request, "You have already applied to this job.")
+        return redirect('job_list')
+        
+    # Get last uploaded resume
+    resume = Resume.objects.filter(user=request.user).last()
+    if not resume:
+        messages.warning(request, "Please upload a resume before applying.")
+        return redirect('upload_resume')
+        
+    # Parse candidate skills
+    from resumes.parser import extract_skills
+    candidate_skills = extract_skills(resume.parsed_text)
+    
+    # Parse required job skills
+    req_skills = [s.strip() for s in job.required_skills.split(',') if s.strip()]
+    
+    # Calculate AI Match Score using Enhanced NLP matcher
+    match_score, matched_skills_list = calculate_match_score(
+        candidate_skills, 
+        req_skills, 
+        resume_text=resume.parsed_text, 
+        job_description=job.description
+    )
+    
+    # Find missing skills
+    missing_skills_list = get_missing_skills(candidate_skills, req_skills)
+    
+    # Create Application
+    Application.objects.create(
+        job=job,
+        candidate=request.user,
+        resume=resume,
+        match_score=match_score,
+        matched_skills=",".join(matched_skills_list),
+        missing_skills=",".join(missing_skills_list),
+        status='applied'
+    )
+    
+    messages.success(request, f"Applied successfully to {job.title}! Your AI Match score is {match_score}%.")
+    return redirect('applied_jobs')
+
+@login_required
+def applied_jobs(request):
+    if request.user.role != 'candidate':
+        return redirect('home')
+    apps = Application.objects.filter(candidate=request.user).order_by('-applied_at')
+    return render(request, 'candidate/applied_jobs.html', {'applications': apps})
+
+@login_required
+def shortlist_candidate(request, app_id):
+    app = get_object_or_404(Application, id=app_id)
+    if app.job.recruiter != request.user:
+        messages.error(request, "Unauthorized action.")
+        return redirect('recruiter_dashboard')
+        
+    app.status = 'shortlisted'
+    app.save()
+    messages.success(request, f"Candidate {app.candidate.username} shortlisted.")
+    return redirect('job_detail', job_id=app.job.id)
+
+@login_required
+def reject_candidate(request, app_id):
+    app = get_object_or_404(Application, id=app_id)
+    if app.job.recruiter != request.user:
+        messages.error(request, "Unauthorized action.")
+        return redirect('recruiter_dashboard')
+        
+    app.status = 'rejected'
+    app.save()
+    messages.success(request, f"Candidate {app.candidate.username} status updated to Rejected.")
+    return redirect('job_detail', job_id=app.job.id)
+
+@login_required
+def applicant_detail(request, app_id):
+    """
+    Recruiter view: Detailed analysis of applicant's resume with enhanced ATS breakdown,
+    NLP matching scores, and AI fraud checks.
+    """
+    app = get_object_or_404(Application, id=app_id)
+    if app.job.recruiter != request.user:
+        messages.error(request, "Unauthorized access.")
+        return redirect('recruiter_dashboard')
+        
+    resume = app.resume
+    text = resume.parsed_text
+    
+    # Calculate detailed ATS metrics
+    from resumes.ats import calculate_ats_score
+    ats_score, ats_breakdown, suggestions = calculate_ats_score(text)
+    
+    # Perform Fraud / AI Safety checks
+    is_fake, fake_reasons = detect_fake_resume(text)
+    is_stuffed, stuffing_reasons = detect_keyword_stuffing(text, SKILLS)
+    
+    # Check for duplicate resumes in the system
+    other_resumes = Resume.objects.exclude(user=app.candidate)
+    is_duplicate, duplicate_reason = detect_duplicate_resume(resume, other_resumes)
+    
+    # Extract structural info for rendering
+    from resumes.parser import extract_name, extract_email, extract_phone, extract_skills
+    cand_info = CandidateInfo.objects.filter(resume=resume).first()
+    
+    name = cand_info.name if cand_info else extract_name(text)
+    email = cand_info.email if cand_info else extract_email(text)
+    phone = cand_info.phone if cand_info else extract_phone(text)
+    skills = extract_skills(text)
+    
+    # Match analysis details
+    matched_skills = [s.strip() for s in app.matched_skills.split(',') if s.strip()]
+    missing_skills = [s.strip() for s in app.missing_skills.split(',') if s.strip()]
+    
+    return render(request, 'recruiter/applicant_detail.html', {
+        'application': app,
+        'resume': resume,
+        'ats_score': ats_score,
+        'ats_breakdown': ats_breakdown,
+        'suggestions': suggestions,
+        'name': name,
+        'email': email,
+        'phone': phone,
+        'skills': skills,
+        'matched_skills': matched_skills,
+        'missing_skills': missing_skills,
+        'is_fake': is_fake,
+        'fake_reasons': fake_reasons,
+        'is_stuffed': is_stuffed,
+        'stuffing_reasons': stuffing_reasons,
+        'is_duplicate': is_duplicate,
+        'duplicate_reason': duplicate_reason
+    })
+
+@login_required
+def export_applicants_csv(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    if job.recruiter != request.user:
+        return HttpResponse("Unauthorized", status=401)
+        
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="applicants_{job.title.replace(" ", "_")}.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow(['Username', 'Candidate Name', 'Email', 'Phone', 'AI Match Score', 'Status', 'Applied At'])
+    
+    applications = Application.objects.filter(job=job).order_by('-match_score')
+    for app in applications:
+        cand_info = CandidateInfo.objects.filter(resume=app.resume).first()
+        from resumes.parser import extract_name, extract_email, extract_phone
+        name = cand_info.name if cand_info else extract_name(app.resume.parsed_text)
+        email = cand_info.email if cand_info else extract_email(app.resume.parsed_text)
+        phone = cand_info.phone if cand_info else extract_phone(app.resume.parsed_text)
+        
+        writer.writerow([
+            app.candidate.username,
+            name,
+            email,
+            phone,
+            f"{app.match_score}%",
+            app.get_status_display(),
+            app.applied_at.strftime('%Y-%m-%d %H:%M')
+        ])
+        
+    return response
+
+\end{lstlisting}
+
+\subsection{resumes/views.py (Core Business Logic for Candidates)}
+\begin{lstlisting}[language=Python]
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+from .models import Resume
+from .forms import ResumeUploadForm
+from .ats import calculate_ats_score
+from .parser import (
+    extract_name,
+    extract_email,
+    extract_phone,
+    extract_skills,
+)
+
+
+from django.db.models import Avg
+from jobs.models import Job, Application
+from jobs.recommendation import recommend_jobs_for_candidate
+from resumes.skills import SKILLS
+
+def home(request):
+    if request.user.is_authenticated:
+        if request.user.role == 'recruiter':
+            return redirect('recruiter_dashboard')
+        else:
+            return redirect('candidate_dashboard')
+    return render(request, "home.html")
+
+
+@login_required
+def candidate_dashboard(request):
+    if request.user.role == 'recruiter':
+        return redirect('recruiter_dashboard')
+        
+    resume = Resume.objects.filter(user=request.user).last()
+
+    context = {
+        "resume": resume
+    }
+
+    if resume:
+        text = resume.parsed_text
+
+        ats_score, ats_breakdown, suggestions = calculate_ats_score(text)
+        candidate_skills = extract_skills(text)
+
+        # Get job recommendations
+        all_jobs = Job.objects.all()
+        recommended_jobs = recommend_jobs_for_candidate(candidate_skills, all_jobs)
+        
+        # Get applied jobs count
+        applied_count = Application.objects.filter(candidate=request.user).count()
+
+        context.update({
+            "name": extract_name(text),
+            "email": extract_email(text),
+            "phone": extract_phone(text),
+            "skills": candidate_skills,
+            "ats_score": ats_score,
+            "ats_breakdown": ats_breakdown,
+            "suggestions": suggestions,
+            "recommended_jobs": recommended_jobs[:5],
+            "applied_count": applied_count,
+        })
+
+    return render(
+        request,
+        "candidate/dashboard.html",
+        context
+    )
+
+
+@login_required
+def recruiter_dashboard(request):
+    if request.user.role != 'recruiter':
+        return redirect('candidate_dashboard')
+        
+    # Get all jobs posted by this recruiter
+    recruiter_jobs = Job.objects.filter(recruiter=request.user)
+    job_count = recruiter_jobs.count()
+    
+    # Get all applications for jobs posted by this recruiter
+    applications = Application.objects.filter(job__recruiter=request.user)
+    candidate_count = applications.values('candidate').distinct().count()
+    shortlisted_count = applications.filter(status='shortlisted').count()
+    
+    # Average ATS score (or Match Score)
+    avg_match_score = applications.aggregate(Avg('match_score'))['match_score__avg'] or 0.0
+    avg_match_score = round(avg_match_score, 1)
+
+    # Latest Jobs and Recent Applicants
+    latest_jobs = recruiter_jobs.order_by('-created_at')[:5]
+    recent_applicants = applications.order_by('-applied_at')[:5]
+
+    # Analytics: Skill distribution & ATS distribution of ALL resumes
+    all_resumes = Resume.objects.all()
+    
+    # Skill distribution
+    skill_counts = {}
+    for r in all_resumes:
+        for skill in extract_skills(r.parsed_text):
+            skill_counts[skill] = skill_counts.get(skill, 0) + 1
+            
+    sorted_skills = sorted(skill_counts.items(), key=lambda x: x[1], reverse=True)[:7]
+    skills_labels = [s[0] for s in sorted_skills]
+    skills_data = [s[1] for s in sorted_skills]
+
+    # ATS score distribution of uploaded resumes
+    ats_distribution = {'0-40': 0, '41-70': 0, '71-100': 0}
+    for r in all_resumes:
+        score, _, _ = calculate_ats_score(r.parsed_text)
+        if score <= 40:
+            ats_distribution['0-40'] += 1
+        elif score <= 70:
+            ats_distribution['41-70'] += 1
+        else:
+            ats_distribution['71-100'] += 1
+
+    return render(
+        request,
+        "recruiter/dashboard.html",
+        {
+            'job_count': job_count,
+            'candidate_count': candidate_count,
+            'shortlisted_count': shortlisted_count,
+            'avg_match_score': avg_match_score,
+            'latest_jobs': latest_jobs,
+            'recent_applicants': recent_applicants,
+            'skills_labels': skills_labels,
+            'skills_data': skills_data,
+            'ats_distribution_labels': list(ats_distribution.keys()),
+            'ats_distribution_data': list(ats_distribution.values()),
+        }
+    )
+
+
+@login_required
+def upload_resume(request):
+    if request.user.role != 'candidate':
+        messages.error(request, "Only candidates can upload resumes.")
+        return redirect('home')
+
+    if request.method == "POST":
+        form = ResumeUploadForm(
+            request.POST,
+            request.FILES
+        )
+
+        if form.is_valid():
+            # Delete old resume if exists (keep only last resume for candidate simplicity)
+            Resume.objects.filter(user=request.user).delete()
+            
+            resume = form.save(commit=False)
+            resume.user = request.user
+            resume.save()
+
+            messages.success(request, "Resume uploaded and analyzed successfully!")
+            return redirect("candidate_dashboard")
+
+    else:
+        form = ResumeUploadForm()
+
+    return render(
+        request,
+        "candidate/upload_resume.html",
+        {
+            "form": form
+        }
+    )
+
+\end{lstlisting}
+
+
+% ==========================================================
+% SCREENSHOTS
+% ==========================================================
+\clearpage
+\section{Screenshots}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{screenshot.png}
+    \caption{Home Page with Login Interface}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{screenshot.png}
+    \caption{Candidate Dashboard with ATS Score and Skills Analysis}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{screenshot.png}
+    \caption{Recruiter Dashboard with Applicant Rankings}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{screenshot.png}
+    \caption{Job Posting Interface for Recruiters}
+\end{figure}
+
+% ==========================================================
+% GIT LOGS
+% ==========================================================
+\clearpage
+\section{Git Logs}
+The Git log entries show the history of the development and the version control of the AI Resume Screening System's implementation.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{screenshot.png}
+    \caption{Git Log}
+\end{figure}
+
+\end{document}

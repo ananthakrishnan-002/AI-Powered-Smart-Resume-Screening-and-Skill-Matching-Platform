@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}My Applications | ScreenAI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="glass-card mb-4 shadow-sm p-4">
+        <h3 class="fw-bold mb-0 text-dark"><i class="bi bi-check2-circle text-primary me-2"></i>My Job Applications</h3>
+        <p class="text-muted mb-0">Track all job positions you have applied to, check match rankings and interview shortlists.</p>
+    </div>
+
+    <!-- Application Table -->
+    <div class="glass-card shadow-lg p-4">
+        <div class="table-responsive">
+            <table class="table glass-table align-middle">
+                <thead>
+                    <tr class="table-light">
+                        <th class="ps-4">Job Details</th>
+                        <th>AI Match Score</th>
+                        <th>Application Status</th>
+                        <th>Applied Date</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in applications %}
+                        <tr>
+                            <td class="ps-4">
+                                <h6 class="fw-bold mb-1">{{ app.job.title }}</h6>
+                                <span class="text-primary small fw-medium">{{ app.job.company }}</span>
+                                <div class="text-muted small"><i class="bi bi-geo-alt me-1"></i>{{ app.job.location }}</div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="fw-bold text-primary">{{ app.match_score }}%</span>
+                                    <div class="progress" style="width: 80px; height: 6px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ app.match_score }}%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {% if app.status == 'shortlisted' %}
+                                    <span class="badge bg-success-subtle text-success badge-custom"><i class="bi bi-check-circle-fill me-1"></i> Shortlisted</span>
+                                {% elif app.status == 'rejected' %}
+                                    <span class="badge bg-danger-subtle text-danger badge-custom"><i class="bi bi-x-circle-fill me-1"></i> Rejected</span>
+                                {% else %}
+                                    <span class="badge bg-warning-subtle text-warning badge-custom"><i class="bi bi-clock-history me-1"></i> Applied</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-muted">{{ app.applied_at|date:"M d, Y" }}</td>
+                            <td class="text-end pe-4">
+                                <a href="{% url 'job_detail' app.job.id %}" class="btn btn-sm btn-outline-secondary px-3 rounded-pill"><i class="bi bi-eye"></i> View Job</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                <div class="fs-1"><i class="bi bi-briefcase"></i></div>
+                                <h5 class="mt-3">No Applications Yet</h5>
+                                <p class="mb-0 small">Browse available jobs and submit your resume to start tracking applications.</p>
+                                <a href="{% url 'job_list' %}" class="btn btn-primary rounded-pill px-4 mt-3"><i class="bi bi-search me-1"></i> Browse Jobs</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

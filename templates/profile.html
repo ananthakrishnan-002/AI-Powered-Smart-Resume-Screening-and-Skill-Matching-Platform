@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile | ScreenAI{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="glass-card shadow-lg p-5">
+                <div class="text-center mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle mb-3" style="width: 70px; height: 70px;">
+                        <i class="bi bi-person-gear fs-2"></i>
+                    </div>
+                    <h2 class="fw-bold">Account Profile</h2>
+                    <p class="text-muted">Update your profile parameters for correct resume scoring and identification</p>
+                </div>
+                
+                <div class="mb-4 text-center">
+                    <span class="badge bg-secondary-subtle text-secondary px-3 py-2 rounded-pill border">
+                        Username: <strong>{{ user.username }}</strong>
+                    </span>
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill border ms-2">
+                        Role: <strong>{{ user.get_role_display }}</strong>
+                    </span>
+                </div>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="mb-4">
+                            <label for="{{ field.id_for_label }}" class="form-label fw-semibold">
+                                {{ field.label }}
+                            </label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <div class="form-text text-muted">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    
+                    <div class="d-grid mt-5">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill">
+                            <i class="bi bi-floppy me-2"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

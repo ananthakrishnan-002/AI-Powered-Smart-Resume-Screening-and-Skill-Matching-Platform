@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+
+{% block title %}Applicant Analysis | ScreenAI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Back to Job -->
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+        <a href="{% url 'job_detail' application.job.id %}" class="btn btn-outline-secondary btn-sm rounded-pill"><i class="bi bi-arrow-left me-1"></i> Back to Applicants</a>
+        <div>
+            <button onclick="window.print()" class="btn btn-outline-dark btn-sm rounded-pill"><i class="bi bi-printer me-1"></i> Print Report</button>
+        </div>
+    </div>
+
+    <!-- Applicant Header -->
+    <div class="glass-card mb-4 shadow-sm p-4">
+        <div class="row align-items-center g-4">
+            <div class="col-md-8">
+                <div class="d-flex align-items-center gap-3 mb-2">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill"><i class="bi bi-person-badge-fill me-1"></i> Candidate Profile</span>
+                    {% if application.status == 'shortlisted' %}
+                        <span class="badge bg-success-subtle text-success badge-custom"><i class="bi bi-check-circle-fill"></i> Shortlisted</span>
+                    {% elif application.status == 'rejected' %}
+                        <span class="badge bg-danger-subtle text-danger badge-custom"><i class="bi bi-x-circle-fill"></i> Rejected</span>
+                    {% endif %}
+                </div>
+                <h1 class="fw-extrabold mb-1">{{ name|default:application.candidate.username }}</h1>
+                <p class="text-muted mb-3">Applying for: <strong class="text-dark">{{ application.job.title }}</strong> at {{ application.job.company }}</p>
+                
+                <div class="d-flex flex-wrap gap-4 text-muted small">
+                    <span><i class="bi bi-envelope-fill me-1 text-primary"></i>{{ email|default:application.candidate.email }}</span>
+                    <span><i class="bi bi-telephone-fill me-1 text-success"></i>{{ phone|default:"Not specified" }}</span>
+                </div>
+            </div>
+            
+            <div class="col-md-4 text-md-end">
+                <div class="d-flex gap-2 justify-content-md-end">
+                    {% if application.status != 'shortlisted' %}
+                        <a href="{% url 'shortlist_candidate' application.id %}" class="btn btn-success px-4 rounded-pill"><i class="bi bi-check-lg me-1"></i> Shortlist</a>
+                    {% endif %}
+                    {% if application.status != 'rejected' %}
+                        <a href="{% url 'reject_candidate' application.id %}" class="btn btn-danger px-4 rounded-pill"><i class="bi bi-x-lg me-1"></i> Reject</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Safety & Fraud Alerts Banner -->
+    {% if is_fake or is_stuffed or is_duplicate %}
+        <div class="alert alert-warning border-0 rounded-4 shadow-sm p-4 mb-4">
+            <h5 class="alert-heading fw-bold mb-3 text-warning-emphasis"><i class="bi bi-shield-fill-exclamation me-2"></i>AI Security & Integrity Warnings</h5>
+            <div class="row g-3">
+                {% if is_fake %}
+                    <div class="col-12">
+                        <div class="p-3 bg-white bg-opacity-50 rounded-3 border border-warning-subtle">
+                            <h6 class="fw-bold text-danger mb-2"><i class="bi bi-exclamation-triangle-fill me-2"></i>Potential Template / Fake Profile Flagged</h6>
+                            <ul class="mb-0 small text-muted">
+                                {% for reason in fake_reasons %}
+                                    <li>{{ reason }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                {% if is_stuffed %}
+                    <div class="col-12">
+                        <div class="p-3 bg-white bg-opacity-50 rounded-3 border border-warning-subtle">
+                            <h6 class="fw-bold text-danger mb-2"><i class="bi bi-file-earmark-code-fill me-2"></i>Abnormal Keyword Repetition (Keyword Stuffing)</h6>
+                            <ul class="mb-0 small text-muted">
+                                {% for reason in stuffing_reasons %}
+                                    <li>{{ reason }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                {% if is_duplicate %}
+                    <div class="col-12">
+                        <div class="p-3 bg-white bg-opacity-50 rounded-3 border border-danger-subtle">
+                            <h6 class="fw-bold text-danger mb-2"><i class="bi bi-copy me-2"></i>Plagiarism / Duplicate Resume Detected</h6>
+                            <p class="mb-0 small text-muted">{{ duplicate_reason }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Core Metrics Dashboard -->
+    <div class="row g-4 mb-5">
+        <!-- Match & ATS Cards -->
+        <div class="col-lg-6">
+            <div class="glass-card shadow-sm h-100">
+                <h4 class="fw-bold mb-4 border-bottom pb-2"><i class="bi bi-cpu-fill text-primary me-2"></i>AI Analysis Scores</h4>
+                
+                <div class="row text-center g-3 mb-4">
+                    <div class="col-6">
+                        <div class="p-3 bg-light rounded-4 border">
+                            <span class="d-block small text-muted mb-1 fw-medium">AI Match Score</span>
+                            <h1 class="display-5 fw-extrabold gradient-text mb-0">{{ application.match_score }}%</h1>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 bg-light rounded-4 border">
+                            <span class="d-block small text-muted mb-1 fw-medium">Composite ATS Score</span>
+                            <h1 class="display-5 fw-extrabold gradient-text-sec mb-0">{{ ats_score }}/100</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="fw-semibold small text-muted mb-3">ATS Sub-Score Breakdowns:</h5>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>Formatting & Contact (Length, Email, Phone)</span>
+                        <span class="fw-semibold">{{ ats_breakdown.formatting_score }}/20</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-primary" style="width: {% widthratio ats_breakdown.formatting_score 20 100 %}%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>Education Qualification Section</span>
+                        <span class="fw-semibold">{{ ats_breakdown.education_score }}/20</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-success" style="width: {% widthratio ats_breakdown.education_score 20 100 %}%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>Work History / Internships Section</span>
+                        <span class="fw-semibold">{{ ats_breakdown.experience_score }}/20</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-info" style="width: {% widthratio ats_breakdown.experience_score 20 100 %}%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>Projects & Github Section</span>
+                        <span class="fw-semibold">{{ ats_breakdown.projects_score }}/20</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-warning" style="width: {% widthratio ats_breakdown.projects_score 20 100 %}%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>Certifications & Specialized Courses</span>
+                        <span class="fw-semibold">{{ ats_breakdown.certification_score }}/20</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-danger" style="width: {% widthratio ats_breakdown.certification_score 20 100 %}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Matching Analysis -->
+        <div class="col-lg-6">
+            <div class="glass-card shadow-sm h-100">
+                <h4 class="fw-bold mb-4 border-bottom pb-2"><i class="bi bi-layers-half text-primary me-2"></i>Skills Comparison Matrix</h4>
+                
+                <div class="mb-4">
+                    <h6 class="fw-bold text-success mb-2"><i class="bi bi-patch-check-fill me-1"></i>Matched Skills ({{ matched_skills|length }}):</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for skill in matched_skills %}
+                            <span class="badge bg-success-subtle text-success badge-custom fs-6">{{ skill }}</span>
+                        {% empty %}
+                            <span class="text-muted small">No overlapping skills matching required job description.</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h6 class="fw-bold text-danger mb-2"><i class="bi bi-patch-minus-fill me-1"></i>Missing Required Skills ({{ missing_skills|length }}):</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for skill in missing_skills %}
+                            <span class="badge bg-danger-subtle text-danger badge-custom fs-6">{{ skill }}</span>
+                        {% empty %}
+                            <span class="text-muted small">All required skills exist in candidate profile!</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h6 class="fw-bold text-muted mb-2"><i class="bi bi-tags me-1"></i>Other Extracted Skills:</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for skill in skills %}
+                            {% if skill not in matched_skills %}
+                                <span class="badge bg-secondary-subtle text-secondary badge-custom">{{ skill }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Suggested Improvements & Plain Text Resume -->
+    <div class="row g-4">
+        <!-- Suggestions -->
+        <div class="col-lg-6">
+            <div class="glass-card shadow-sm h-100">
+                <h4 class="fw-bold mb-4 border-bottom pb-2"><i class="bi bi-lightbulb-fill text-warning me-2"></i>System Suggestions</h4>
+                {% if suggestions %}
+                    <ul class="list-group list-group-flush bg-transparent">
+                        {% for sug in suggestions %}
+                            <li class="list-group-item bg-transparent border-0 px-0 d-flex align-items-start gap-2">
+                                <i class="bi bi-arrow-right-short text-warning fs-5"></i>
+                                <span class="text-muted">{{ sug }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="alert alert-success border-0 rounded-3" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i>Excellent! No immediate resume optimization suggestions needed.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Parsed Text -->
+        <div class="col-lg-6">
+            <div class="glass-card shadow-sm h-100">
+                <h4 class="fw-bold mb-4 border-bottom pb-2"><i class="bi bi-file-code-fill text-primary me-2"></i>Extracted Resume Plain Text</h4>
+                <div class="border rounded-3 p-3 bg-light-subtle overflow-auto text-muted small" style="max-height: 250px; font-family: monospace; white-space: pre-wrap;">
+                    {{ resume.parsed_text }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ job.title }} | ScreenAI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Back Navigation -->
+    <div class="mb-4">
+        {% if user.role == 'recruiter' %}
+            <a href="{% url 'recruiter_dashboard' %}" class="btn btn-outline-secondary btn-sm rounded-pill"><i class="bi bi-arrow-left me-1"></i> Back to Dashboard</a>
+        {% else %}
+            <a href="{% url 'job_list' %}" class="btn btn-outline-secondary btn-sm rounded-pill"><i class="bi bi-arrow-left me-1"></i> Back to Listings</a>
+        {% endif %}
+    </div>
+
+    <!-- Job Header Block -->
+    <div class="glass-card mb-4 shadow-sm p-4">
+        <div class="row align-items-center g-4">
+            <div class="col-md-8">
+                <span class="badge bg-primary-subtle text-primary mb-2 px-3 py-2 rounded-pill"><i class="bi bi-briefcase-fill me-1"></i> Job Posting</span>
+                <h1 class="fw-extrabold mb-1">{{ job.title }}</h1>
+                <h4 class="text-primary fw-medium mb-3">{{ job.company }}</h4>
+                
+                <div class="d-flex flex-wrap gap-4 text-muted small">
+                    <span><i class="bi bi-geo-alt-fill me-1 text-secondary"></i>{{ job.location|default:"Not specified" }}</span>
+                    <span><i class="bi bi-currency-dollar me-1 text-secondary"></i>{{ job.salary|default:"Not specified" }}</span>
+                    <span><i class="bi bi-calendar-event-fill me-1 text-secondary"></i>Posted on {{ job.created_at|date:"M d, Y" }}</span>
+                </div>
+            </div>
+            
+            <div class="col-md-4 text-md-end">
+                {% if user.role == 'recruiter' %}
+                    <a href="{% url 'edit_job' job.id %}" class="btn btn-warning px-4 rounded-pill me-2"><i class="bi bi-pencil-square me-1"></i> Edit Job</a>
+                    <a href="{% url 'delete_job' job.id %}" class="btn btn-danger px-4 rounded-pill" onclick="return confirm('Are you sure you want to delete this job posting?')"><i class="bi bi-trash3 me-1"></i> Delete</a>
+                {% else %}
+                    {% if already_applied %}
+                        <button class="btn btn-success btn-lg px-5 rounded-pill" disabled><i class="bi bi-check-circle-fill me-2"></i> Already Applied</button>
+                    {% else %}
+                        <a href="{% url 'apply_job' job.id %}" class="btn btn-primary btn-lg px-5 rounded-pill shadow"><i class="bi bi-send-fill me-2"></i> Apply to Job</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Description / Details Grid -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-8">
+            <div class="glass-card shadow-sm h-100">
+                <h4 class="fw-bold mb-4 border-bottom pb-2"><i class="bi bi-file-text-fill text-primary me-2"></i>Job Description</h4>
+                <div style="white-space: pre-wrap; line-height: 1.7; font-size: 1.05rem;" class="text-muted">
+                    {{ job.description }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="glass-card shadow-sm h-100">
+                <h4 class="fw-bold mb-4 border-bottom pb-2"><i class="bi bi-tags-fill text-primary me-2"></i>Requirements</h4>
+                
+                <h5 class="fw-semibold text-muted small mb-3">Required Skills Matrix:</h5>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    {% for s in job.get_skills_list %}
+                        <span class="badge bg-primary-subtle text-primary badge-custom fs-6">{{ s }}</span>
+                    {% empty %}
+                        <span class="text-muted small">No specific skills listed.</span>
+                    {% endfor %}
+                </div>
+                
+                <hr>
+                
+                <div class="alert alert-info border-0 rounded-3 mt-3 shadow-sm" role="alert">
+                    <h6 class="alert-heading fw-bold mb-2"><i class="bi bi-cpu-fill me-2"></i>AI Screening Active</h6>
+                    <p class="small mb-0 text-muted">
+                        Applicants are automatically scored and ranked using NLP skill extraction, ATS layout heuristics, and TF-IDF description semantic comparisons.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recruiter Applicant List Section -->
+    {% if user.role == 'recruiter' %}
+        <div class="glass-card shadow-lg p-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3 border-bottom pb-3">
+                <h3 class="fw-bold mb-0 text-dark"><i class="bi bi-people-fill text-primary me-2"></i>Applicant Rankings</h3>
+                <a href="{% url 'export_applicants_csv' job.id %}" class="btn btn-outline-success rounded-pill"><i class="bi bi-download me-1"></i> Export to CSV</a>
+            </div>
+            
+            <!-- Applicant Search and Filter -->
+            <form method="GET" class="row g-3 mb-4 p-3 bg-body-tertiary rounded-3 shadow-sm border border-secondary-subtle">
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold">Search by Name</label>
+                    <input type="text" name="name" value="{{ cand_name }}" class="form-control" placeholder="Candidate or Username">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold">Min ATS Score</label>
+                    <input type="number" name="min_ats" value="{{ min_ats }}" class="form-control" placeholder="e.g. 50">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold">Has Skill</label>
+                    <select name="skill" class="form-select">
+                        <option value="">-- Any Skill --</option>
+                        {% for skill in all_skills %}
+                            <option value="{{ skill }}" {% if cand_skill == skill %}selected{% endif %}>{{ skill }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100 rounded-3">Filter</button>
+                </div>
+            </form>
+            
+            <!-- Applicant Table -->
+            <div class="table-responsive">
+                <table class="table glass-table align-middle">
+                    <thead>
+                        <tr class="table-light">
+                            <th class="ps-4">Candidate Username</th>
+                            <th>AI Match Score</th>
+                            <th>Status</th>
+                            <th>Applied Date</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for app in applications %}
+                            <tr>
+                                <td class="ps-4 font-semibold">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                            <i class="bi bi-person-fill fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-0">{{ app.candidate.username }}</h6>
+                                            <span class="text-muted small">{{ app.candidate.email }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="fw-bold text-primary">{{ app.match_score }}%</span>
+                                        <div class="progress" style="width: 80px; height: 6px;">
+                                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ app.match_score }}%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if app.status == 'shortlisted' %}
+                                        <span class="badge bg-success-subtle text-success badge-custom"><i class="bi bi-check-circle-fill me-1"></i> Shortlisted</span>
+                                    {% elif app.status == 'rejected' %}
+                                        <span class="badge bg-danger-subtle text-danger badge-custom"><i class="bi bi-x-circle-fill me-1"></i> Rejected</span>
+                                    {% else %}
+                                        <span class="badge bg-warning-subtle text-warning badge-custom"><i class="bi bi-clock-history me-1"></i> Applied</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-muted">{{ app.applied_at|date:"M d, Y H:i" }}</td>
+                                <td class="text-end pe-4">
+                                    <div class="d-inline-flex gap-2">
+                                        <a href="{% url 'applicant_detail' app.id %}" class="btn btn-sm btn-outline-primary px-3 rounded-pill"><i class="bi bi-cpu-fill"></i> Analyze</a>
+                                        {% if app.status != 'shortlisted' %}
+                                            <a href="{% url 'shortlist_candidate' app.id %}" class="btn btn-sm btn-success rounded-circle" title="Shortlist"><i class="bi bi-check-lg"></i></a>
+                                        {% endif %}
+                                        {% if app.status != 'rejected' %}
+                                            <a href="{% url 'reject_candidate' app.id %}" class="btn btn-sm btn-danger rounded-circle" title="Reject"><i class="bi bi-x-lg"></i></a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-muted">
+                                    <div class="fs-1"><i class="bi bi-people"></i></div>
+                                    <p class="mb-0">No applicants matching current criteria.</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

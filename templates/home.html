@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Premium Hero Section with Animated Mesh Blobs -->
+<div class="hero-glass text-center position-relative overflow-hidden mb-5 rounded-5 shadow-sm border border-secondary-subtle py-5 px-4" data-aos="fade-up">
+    <!-- Inner glowing blob -->
+    <div class="position-absolute top-50 start-50 translate-middle w-50 h-50 bg-primary opacity-10 rounded-circle blur-3xl" style="filter: blur(140px);"></div>
+    
+    <!-- Floating Tech Tags (Visual decor) -->
+    <div class="position-absolute d-none d-lg-block animate-float" style="top: 15%; left: 10%; animation-delay: 0s;">
+        <span class="badge bg-body-secondary text-primary border border-secondary-subtle shadow-sm rounded-pill p-3 px-4 fw-semibold">
+            <i class="bi bi-file-earmark-pdf-fill me-1 text-danger"></i> PDF Parsing
+        </span>
+    </div>
+    <div class="position-absolute d-none d-lg-block animate-float" style="top: 25%; right: 10%; animation-delay: 2s;">
+        <span class="badge bg-body-secondary text-success border border-secondary-subtle shadow-sm rounded-pill p-3 px-4 fw-semibold">
+            <i class="bi bi-patch-check-fill me-1 text-success"></i> ATS Optimized
+        </span>
+    </div>
+    <div class="position-absolute d-none d-lg-block animate-float" style="bottom: 20%; left: 15%; animation-delay: 1.5s;">
+        <span class="badge bg-body-secondary text-info border border-secondary-subtle shadow-sm rounded-pill p-3 px-4 fw-semibold">
+            <i class="bi bi-cpu-fill me-1 text-info"></i> Cosine Similarity
+        </span>
+    </div>
+    <div class="position-absolute d-none d-lg-block animate-float" style="bottom: 30%; right: 15%; animation-delay: 0.5s;">
+        <span class="badge bg-body-secondary text-warning border border-secondary-subtle shadow-sm rounded-pill p-3 px-4 fw-semibold">
+            <i class="bi bi-shield-lock-fill me-1 text-warning"></i> Plagiarism Filter
+        </span>
+    </div>
+
+    <div class="container position-relative z-1 py-5" style="max-width: 900px;">
+        <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2 mb-4 fw-semibold" data-aos="zoom-in" data-aos-delay="200">
+            <i class="bi bi-stars me-1 text-primary"></i> Next-Gen Talent Acquisition Suite
+        </span>
+        
+        <h1 class="display-3 fw-extrabold tracking-tight mb-4 font-montserrat" data-aos="fade-up" data-aos-delay="300">
+            AI-Powered <span class="text-gradient">Resume Screening</span> & Candidate Ranking
+        </h1>
+        
+        <p class="lead text-muted fs-4 mb-5 mx-auto" style="max-width: 700px;" data-aos="fade-up" data-aos-delay="400">
+            Accelerate your hiring cycle. Extract skills automatically, compute semantic match matrices, verify document authenticity, and rank candidates instantly using advanced NLP algorithms.
+        </p>
+        
+        <div class="d-flex flex-wrap justify-content-center gap-3 mb-5" data-aos="fade-up" data-aos-delay="500">
+            {% if not user.is_authenticated %}
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg" style="transition: all 0.3s ease;">
+                    <i class="bi bi-rocket-takeoff-fill me-2"></i> Get Started Free
+                </a>
+                <a href="#features" class="btn btn-outline-secondary btn-lg px-5 py-3 rounded-pill">
+                    <i class="bi bi-compass-fill me-2"></i> Explore Features
+                </a>
+            {% else %}
+                {% if user.role == 'recruiter' %}
+                    <a href="{% url 'recruiter_dashboard' %}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg">
+                        <i class="bi bi-grid-1x2-fill me-2"></i> Recruiter Dashboard
+                    </a>
+                </li>
+                {% else %}
+                    <a href="{% url 'candidate_dashboard' %}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg">
+                        <i class="bi bi-grid-1x2-fill me-2"></i> Candidate Dashboard
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <!-- Scrolling Down indicator -->
+        <div class="mt-4" data-aos="fade-up" data-aos-delay="600">
+            <a href="#statistics" class="text-muted text-decoration-none small d-inline-flex flex-column align-items-center">
+                <span>Scroll Down</span>
+                <i class="bi bi-chevron-double-down fs-5 mt-1 animate-float"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Cards Section -->
+<div class="container py-5" id="statistics">
+    <div class="row g-4 justify-content-center text-center">
+        <!-- Card 1 -->
+        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-offset="100">
+            <div class="glass-card p-4 h-100">
+                <div class="bg-primary-subtle text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                    <i class="bi bi-file-earmark-code-fill fs-4"></i>
+                </div>
+                <h2 class="fw-extrabold font-montserrat text-gradient mb-1">100k+</h2>
+                <p class="text-muted small mb-0 fw-medium">Resumes Parsed</p>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100" data-aos-offset="100">
+            <div class="glass-card p-4 h-100">
+                <div class="bg-success-subtle text-success rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                    <i class="bi bi-briefcase-fill fs-4"></i>
+                </div>
+                <h2 class="fw-extrabold font-montserrat text-gradient-sec mb-1">500+</h2>
+                <p class="text-muted small mb-0 fw-medium">Active Job Posts</p>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200" data-aos-offset="100">
+            <div class="glass-card p-4 h-100">
+                <div class="bg-info-subtle text-info rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                    <i class="bi bi-buildings-fill fs-4"></i>
+                </div>
+                <h2 class="fw-extrabold font-montserrat text-gradient mb-1">150+</h2>
+                <p class="text-muted small mb-0 fw-medium">Hiring Corporates</p>
+            </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300" data-aos-offset="100">
+            <div class="glass-card p-4 h-100">
+                <div class="bg-warning-subtle text-warning rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                    <i class="bi bi-cpu-fill fs-4"></i>
+                </div>
+                <h2 class="fw-extrabold font-montserrat text-gradient-sec mb-1">98%</h2>
+                <p class="text-muted small mb-0 fw-medium">AI Match Accuracy</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container py-5 border-top border-secondary-subtle" id="features">
+    <div class="text-center mb-5" data-aos="fade-up">
+        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-2 mb-2 fw-semibold">Features</span>
+        <h2 class="fw-extrabold font-montserrat">State-of-the-Art Core Engines</h2>
+        <p class="text-muted mx-auto" style="max-width: 600px;">Integrated algorithms validating resume metadata, detecting formatting quality, and matching skills semantically.</p>
+    </div>
+    
+    <div class="row g-4">
+        <!-- Feature 1 -->
+        <div class="col-md-4" data-aos="fade-up">
+            <div class="glass-card h-100">
+                <div class="d-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-4 mb-4" style="width: 50px; height: 50px;">
+                    <i class="bi bi-file-earmark-pdf-fill fs-4"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Multi-Format Parsing</h4>
+                <p class="text-muted small">Upload PDF or DOCX resumes. The backend utilizes layout extraction engines to read unstructured metadata and isolate contact and skill items.</p>
+            </div>
+        </div>
+        <!-- Feature 2 -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="glass-card h-100">
+                <div class="d-flex align-items-center justify-content-center bg-success-subtle text-success rounded-4 mb-4" style="width: 50px; height: 50px;">
+                    <i class="bi bi-award-fill fs-4"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Composite ATS Score</h4>
+                <p class="text-muted small">Scores formatting, education degrees, experience descriptions, project folders, and certifications dynamically out of 100.</p>
+            </div>
+        </div>
+        <!-- Feature 3 -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="glass-card h-100">
+                <div class="d-flex align-items-center justify-content-center bg-info-subtle text-info rounded-4 mb-4" style="width: 50px; height: 50px;">
+                    <i class="bi bi-diagram-3-fill fs-4"></i>
+                </div>
+                <h4 class="fw-bold mb-3">NLP Semantic Matcher</h4>
+                <p class="text-muted small">Matches resumes to job requirements by calculating Cosine Similarity over term frequency vectors to check the context.</p>
+            </div>
+        </div>
+        <!-- Feature 4 -->
+        <div class="col-md-4" data-aos="fade-up">
+            <div class="glass-card h-100">
+                <div class="d-flex align-items-center justify-content-center bg-warning-subtle text-warning rounded-4 mb-4" style="width: 50px; height: 50px;">
+                    <i class="bi bi-shield-fill-exclamation fs-4"></i>
+                </div>
+                <h4 class="fw-bold mb-3">AI Integrity Warnings</h4>
+                <p class="text-muted small">Spots fake placeholder templates (e.g. Lorem Ipsum), counts skill repeat metrics (stuffing), and verifies plagiarism similarity.</p>
+            </div>
+        </div>
+        <!-- Feature 5 -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="glass-card h-100">
+                <div class="d-flex align-items-center justify-content-center bg-danger-subtle text-danger rounded-4 mb-4" style="width: 50px; height: 50px;">
+                    <i class="bi bi-filter-square-fill fs-4"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Ranked Match Results</h4>
+                <p class="text-muted small">Orders applicant pools under each posting using the AI Match Score, allowing recruiters to filter by skills or name keywords.</p>
+            </div>
+        </div>
+        <!-- Feature 6 -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="glass-card h-100">
+                <div class="d-flex align-items-center justify-content-center bg-secondary-subtle text-secondary rounded-4 mb-4" style="width: 50px; height: 50px;">
+                    <i class="bi bi-file-earmark-spreadsheet-fill fs-4"></i>
+                </div>
+                <h4 class="fw-bold mb-3">CSV Sheets Exporter</h4>
+                <p class="text-muted small">Download recruiter candidate screening ranking sheets as Excel-compatible CSVs with a single click.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section with Timeline -->
+<div class="container py-5 border-top border-secondary-subtle">
+    <div class="text-center mb-5" data-aos="fade-up">
+        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-2 mb-2 fw-semibold">Process Flow</span>
+        <h2 class="fw-extrabold font-montserrat">How the System Operates</h2>
+        <p class="text-muted mx-auto" style="max-width: 600px;">A transparent look at the core pipeline from resume parsing to shortlisting.</p>
+    </div>
+
+    <div class="timeline-premium py-4">
+        <!-- Item 1 -->
+        <div class="timeline-item-premium timeline-left" data-aos="fade-right">
+            <div class="glass-card p-4">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">1</span>
+                    <h5 class="fw-bold mb-0 text-gradient">Resume Upload</h5>
+                </div>
+                <p class="text-muted small mb-0">Candidate uploads their resume file. The parser extracts text automatically from PDF or DOCX.</p>
+            </div>
+        </div>
+        
+        <!-- Item 2 -->
+        <div class="timeline-item-premium timeline-right" data-aos="fade-left">
+            <div class="glass-card p-4">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">2</span>
+                    <h5 class="fw-bold mb-0 text-gradient-sec">ATS Score Breakdown</h5>
+                </div>
+                <p class="text-muted small mb-0">The system calculates layout sub-scores and provides personalized suggestions to improve keywords.</p>
+            </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="timeline-item-premium timeline-left" data-aos="fade-right">
+            <div class="glass-card p-4">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">3</span>
+                    <h5 class="fw-bold mb-0 text-gradient">Semantic Job Match</h5>
+                </div>
+                <p class="text-muted small mb-0">Candidates apply to posted positions. An NLP-based Cosine Similarity algorithm scores resumes against job descriptions.</p>
+            </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="timeline-item-premium timeline-right" data-aos="fade-left">
+            <div class="glass-card p-4">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">4</span>
+                    <h5 class="fw-bold mb-0 text-gradient-sec">Rank & Shortlist</h5>
+                </div>
+                <p class="text-muted small mb-0">Recruiters examine matched applicant lists, filter by keyword attributes, and shortlist candidates.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

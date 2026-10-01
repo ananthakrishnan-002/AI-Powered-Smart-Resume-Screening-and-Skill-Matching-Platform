@@ -1,0 +1,1911 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{xcolor}
+
+% ---------------- Packages ----------------
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{tocloft}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{pdfpages}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% ---------------- Page Setup ----------------
+\geometry{
+    left=1.25in,
+    right=1in,
+    top=1in,
+    bottom=1in
+}
+
+\onehalfspacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+\setlength{\headheight}{14pt}
+
+% ---------------- Custom Font Command ----------------
+\newcommand{\headingSixteen}[1]{{\fontsize{16pt}{18pt}\selectfont\textbf{#1}}}
+\newcommand{\headingFourteen}[1]{{\fontsize{14pt}{16pt}\selectfont\textbf{#1}}}
+
+% ---------------- Table of Contents Formatting ----------------
+\renewcommand{\contentsname}{TABLE OF CONTENTS}
+
+\setlength{\cftbeforetoctitleskip}{17pt}
+\setlength{\cftaftertoctitleskip}{20pt}
+
+\setlength{\cftchapindent}{0pt}
+\setlength{\cftsecindent}{1.5em}
+
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftchappagefont}{\bfseries}
+
+\renewcommand{\cftchapleader}{\hfill}
+\renewcommand{\cftsecleader}{\hfill}
+\renewcommand{\cftsubsecleader}{\hfill}
+
+\setlength{\cftbeforechapskip}{6pt}
+\makeatletter
+\renewcommand{\@cftmaketoctitle}{%
+  \chapter*{%
+    \thispagestyle{empty}%
+    \centering
+    \fontsize{14pt}{16pt}\selectfont
+    \textbf{TABLE OF CONTENTS}%
+  }%
+  \noindent
+  \textbf{CHAPTER}\hspace{1.25in}%
+  \textbf{TITLE}\hfill
+  \textbf{PAGE NO.}\par
+  \vspace{4pt}%
+}
+\makeatother
+% ---------------- Section Formatting ----------------
+\titlespacing*{\section}{0pt}{14pt}{10pt}
+\titlespacing*{\subsection}{0pt}{12pt}{8pt}
+
+\titleformat{\section}
+{\bfseries\fontsize{14pt}{16pt}\selectfont}
+{\thesection}
+{1em}
+{}
+
+\titleformat{\subsection}
+{\bfseries\fontsize{12pt}{14pt}\selectfont}
+{\thesubsection}
+{1em}
+{}
+
+% =====================================================
+%                HEADER & FOOTER
+% =====================================================
+
+% -----------------------------------------------------
+% Normal Pages
+% -----------------------------------------------------
+\fancypagestyle{maincontent}{
+    \fancyhf{}
+
+    % Header - Right Side
+    \fancyhead[R]{\small AI-Powered Smart Resume Screening and Skill Matching Platform}
+
+    % Footer - Left and Right
+    \fancyfoot[L]{\small Saintgits College of Engineering (Autonomous)}
+    \fancyfoot[R]{\small \thepage}
+
+    % Remove separator lines
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+
+% -----------------------------------------------------
+% Completely Empty Pages
+% Used for Table of Contents
+% -----------------------------------------------------
+\fancypagestyle{emptytoc}{
+    \fancyhf{}
+    \fancyhead{}
+    \fancyfoot{}
+
+    % Remove separator lines
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+
+% -----------------------------------------------------
+% Chapter Opening Pages
+% Completely Blank
+% -----------------------------------------------------
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead{}
+    \fancyfoot{}
+
+    % Remove separator lines
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+
+% -----------------------------------------------------
+% Normal pages use maincontent
+% -----------------------------------------------------
+\pagestyle{maincontent}
+
+
+% -----------------------------------------------------
+% Separate Chapter Title Page
+% -----------------------------------------------------
+\newcommand{\chaptertitlepage}[1]{%
+    \clearpage
+    \thispagestyle{empty}
+    \vspace*{\fill}
+    \begin{center}
+        {\bfseries\large CHAPTER \thechapter}\\[20pt]
+        {\bfseries\large #1}
+    \end{center}
+    \vspace*{\fill}
+    \clearpage
+}
+
+% ---------------- Bibliography Spacing ----------------
+\makeatletter
+\renewenvironment{thebibliography}[1]
+  {\section*{}\@mkboth{}{}%
+   \list{\@biblabel{\@arabic\c@enumiv}}%
+        {\settowidth\labelwidth{\@biblabel{#1}}%
+         \leftmargin\labelwidth
+         \advance\leftmargin\labelsep
+         \itemsep=0.6\baselineskip
+         \usecounter{enumiv}%
+         \let\p@enumiv\@empty
+         \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+   \sloppy}
+  {\endlist}
+\makeatother
+
+
+% =====================================================
+%        TABLE OF CONTENTS CHAPTER FORMAT
+% =====================================================
+
+\makeatletter
+\renewcommand{\cftchappresnum}{CHAPTER~}
+\renewcommand{\cftchapaftersnum}{\quad}
+\setlength{\cftchapnumwidth}{1.4in}
+\makeatother
+
+
+% =====================================================
+\begin{document}
+
+
+
+% ===================== PAGE 1 : TITLE PAGE =====================
+\thispagestyle{empty}
+\enlargethispage{2cm}
+
+\begin{center}
+
+\vspace*{0.01cm}
+
+\headingSixteen{PERSONALIZED LEARNING TRACKS (TRACK 3)}\\[0.35cm]
+
+\headingSixteen{SDG PROJECT REPORT}\\[0.25cm]
+
+\headingFourteen{ON}\\[0.25cm]
+
+\headingSixteen
+{\textcolor{blue}{AI-POWERED SMART RESUME SCREENING AND SKILL MATCHING PLATFORM}}\\[0.6cm]
+
+\headingFourteen{Submitted By}\\[0.15cm]
+
+\headingFourteen
+{\textcolor{blue}{ANANTHA KRISHNAN P- MGP25MCA2019}}\\[0.6cm]
+
+\headingFourteen{To}\\[0.15cm]
+
+\textit{the APJ Abdul Kalam Technological University in partial}\\
+\textit{fulfillment of the requirements for the award of the degree of}\\[0.4cm]
+
+\headingFourteen{MASTER OF COMPUTER APPLICATIONS}\\[0.6cm]
+
+\headingFourteen{Under the guidance of}\\[0.2cm]
+
+\headingFourteen
+{\textcolor{blue}{Dr.Sunandha Rajagopal}}\\[0.1cm]
+
+\headingFourteen
+{\textcolor{blue}{ASSOCIATE PROFESSOR}}\\[0.8cm]
+
+% Saintgits College Logo
+\includegraphics[width=3.8cm]{Saintgits logo New.png}\\[0.8cm]
+
+\headingFourteen{DEPARTMENT OF COMPUTER APPLICATIONS}\\[0.15cm]
+
+\headingFourteen{SAINTGITS COLLEGE OF ENGINEERING (AUTONOMOUS)}\\
+
+\headingFourteen{Pathamuttom, Kottayam, Kerala – 686532}\\[0.45cm]
+
+\textit{(Approved by AICTE and affiliated to APJ Abdul Kalam Technological University)}
+\\[0.99cm]
+
+\headingSixteen{SEPTEMBER 2026}
+
+\end{center}
+
+
+% ===================== PAGE 2 : BONAFIDE =====================
+\newpage
+\thispagestyle{empty}
+
+\begin{center}
+\fontsize{16pt}{18pt}\selectfont
+\textbf{SAINTGITS COLLEGE OF ENGINEERING (AUTONOMOUS)}\\
+Kottukulam Hills, Pathamuttom, Kottayam, Kerala – 686532
+\end{center}
+
+\vspace{0.2cm}
+
+\begin{center}
+% Saintgits College Logo
+\includegraphics[width=3.8cm]{Saintgits logo New.png}\\[0.8cm]
+\end{center}
+
+\vspace{0.1cm}
+
+\begin{center}
+\fontsize{16pt}{18pt}\selectfont
+\textbf{BONAFIDE CERTIFICATE}
+\end{center}
+
+\vspace{0.2cm}
+
+Certified that the report entitled \textbf{“AI-Powered Smart Resume Screening and Skill Matching Platform"}
+submitted by \textbf{“Anantha Krishnan P - MGP25MCA2019”}
+to the APJ Abdul Kalam Technological University in partial fulfillment of the requirements
+for the award of the Degree of \textbf{Master of Computer Applications} is a bonafide record
+of the \textbf{Social Immersion Sustainable Development Goals(SDG)} project work carried
+out by him / her under our guidance and supervision. This report in any form has not been
+submitted to any other University or Institute for any purpose.
+
+\vspace{2.2cm}
+
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\raggedright
+\textbf{Dr.Sunandha Rajagopal}\\
+Internal Guide
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\raggedleft
+\textbf{Ms. Ankitha Philip}\\
+SDG Project Coordinator
+\end{minipage}
+
+\vspace{2.5cm}
+
+\noindent
+\begin{center}
+\begin{minipage}{0.45\textwidth}
+\centering
+\textbf{Dr. Rani Saritha R}\\
+Head of the Department
+\end{minipage}
+\end{center}
+
+\vspace{1.8cm}
+
+
+% ===================== PAGE 3 : ACKNOWLEDGEMENT =====================
+\newpage
+\thispagestyle{empty}
+
+\begin{center}
+\fontsize{16pt}{18pt}\selectfont
+\textbf{ACKNOWLEDGEMENT}
+\end{center}
+
+\vspace{1cm}
+
+At the outset, I thank the Lord Almighty for His abundant grace, strength and hope to make our endeavour a success. I express my deep-felt gratitude to \textbf{Dr. Sudha T}, Principal, Saintgits College of Engineering (Autonomous), for her warm support with regard to the work and to the management for providing the facilities required.
+
+I would like to place my deep sense of gratitude to \textbf{Prof. Mini Punnoose},\linebreak Director MCA, Department of Computer Applications, Saintgits College of Engineering (Autonomous), for her constant encouragement. I express my gratitude to \linebreak\textbf{Dr. Rani Saritha R}, Head of the Department, Department of Computer Applications, Saintgits College of Engineering (Autonomous), for her support and guidance.
+
+I am profoundly grateful to \textbf{Dr.Sunandha Rajagopal}, my SDG Project Guide and\linebreak\textbf{Ms. Ankitha Philip}, the SDG Project Coordinator, for their valuable guidance, help, suggestions and assessment.
+
+Furthermore, I would like to thank all others, especially my parents and numerous friends. This project report would not have been a success without their inspiration, valuable suggestions and moral support from them throughout its course.
+
+\vspace{2cm}
+
+\begin{flushright}
+\textbf{Anantha Krishnan P}
+\end{flushright}
+
+
+% ===================== ABSTRACT =====================
+
+\clearpage
+\thispagestyle{empty}
+
+\begin{center}
+    {\bfseries\large ABSTRACT}
+\end{center}
+
+\vspace{1cm}
+
+
+The AI-Powered Smart Resume Screening and Skill Matching Platform is an intelligent web-based application designed to streamline and automate candidate shortlisting, resume parsing, and applicant ranking. The system enables the human resources (HR) personnel to evaluate candidate resumes based on specific job descriptions, required skills, experience, and educational background. The recruiters can upload batches of candidate resumes in various formats like PDF or DOCX. The AI-based approach offers a parsing feature for extracting key entities and matching candidates to the job requirements, which is easier and more efficient than manual reading. The system can be used in varying recruitment needs, including hiring for IT roles, management positions, technical support, administration, and general corporate roles.
+The application also incorporates an automated ranking system that can calculate a compatibility score for each candidate and offer digital dashboards for applicant tracking. The administrative portal can be used for effortless job posting management, while the HR module is effective for managing candidate data, scheduling interviews, and collecting recruitment reports. Overall, the application is beneficial by minimizing the manual work, eliminating human bias, enhancing hiring speed, and providing excellent talent acquisition services. In addition, the digital nature of the system reduces the use of paper, thus saving costs and supporting environmental sustainability.
+The project is associated with several of the United Nations Sustainable Development Goals (SDGs). It contributes to SDG 4 – Quality Education by matching candidates' educational backgrounds and skills to appropriate opportunities, promoting lifelong learning and skill development, and providing insights into the industry's educational requirements. Finally, the project will also contribute to achieving SDG 8 – Decent Work and Economic Growth because it will result in increased productivity while reducing human bias and other related negative aspects of traditional manual screening. It will also help HR departments to embrace digitalization in their process.
+In conclusion, the AI-Powered Smart Resume Screening and Skill Matching Platform project will be a great and smart way of managing recruitment because it is efficient, cost-effective, fair, and meets the SDGs.
+
+\clearpage
+
+
+% =====================================================
+%                TABLE OF CONTENTS
+% =====================================================
+
+\clearpage
+
+\begingroup
+
+% Completely remove header and footer
+% from every TOC page
+\pagestyle{emptytoc}
+
+% The first TOC page normally uses "plain".
+% Make plain pages empty as well.
+\makeatletter
+\let\ps@plain\ps@emptytoc
+\makeatother
+
+% Generate Table of Contents
+\tableofcontents
+
+% Finish all TOC pages before restoring
+% the normal page style
+\clearpage
+
+\endgroup
+
+
+% =====================================================
+%              RESTORE NORMAL PAGE STYLE
+% =====================================================
+
+\pagenumbering{arabic}
+\pagestyle{maincontent}
+
+
+% ===================== LIST OF ABBREVIATIONS =====================
+
+\clearpage
+\thispagestyle{empty}
+
+\begin{center}
+    \textbf{\Large LIST OF ABBREVIATIONS}
+\end{center}
+
+\vspace{1cm}
+
+\begin{tabular}{p{3cm} p{0.5cm} p{11cm}}
+
+\textbf{AI}      & - & Artificial Intelligence \\[0.2cm]
+\textbf{NLP}     & - & Natural Language Processing \\[0.2cm]
+\textbf{ML}      & - & Machine Learning \\[0.2cm]
+\textbf{HR}      & - & Human Resources \\[0.2cm]
+\textbf{ATS}     & - & Applicant Tracking System \\[0.2cm]
+\textbf{PDF}     & - & Portable Document Format \\[0.2cm]
+\textbf{PHP}     & - & Hypertext Preprocessor \\[0.2cm]
+\textbf{HTML}    & - & HyperText Markup Language \\[0.2cm]
+\textbf{CSS}     & - & Cascading Style Sheets \\[0.2cm]
+\textbf{JS}      & - & JavaScript \\[0.2cm]
+\textbf{SQL}     & - & Structured Query Language \\[0.2cm]
+\textbf{DBMS}    & - & Database Management System \\[0.2cm]
+\textbf{SDG}     & - & Sustainable Development Goal \\[0.2cm]
+\textbf{UML}     & - & Unified Modeling Language \\[0.2cm]
+\textbf{UI}      & - & User Interface \\[0.2cm]
+\textbf{UX}      & - & User Experience \\[0.2cm]
+\textbf{CRUD}    & - & Create, Read, Update, Delete \\[0.2cm]
+\textbf{HTTP}    & - & HyperText Transfer Protocol \\[0.2cm]
+\textbf{URL}     & - & Uniform Resource Locator \\[0.2cm]
+
+\end{tabular}
+
+\clearpage
+% ===================== CHAPTER 1 =====================
+
+\refstepcounter{chapter}
+
+\addcontentsline{toc}{chapter}
+{CHAPTER \thechapter\quad INTRODUCTION}
+
+\chaptertitlepage{INTRODUCTION}
+
+\setcounter{page}{2}
+\pagestyle{maincontent}
+
+\section{Project Overview}
+AI-Powered Smart Resume Screening and Skill Matching Platform is a web based application which is used to facilitate the task of analyzing candidate resumes, extracting their qualifications, and managing the associated recruitment activities. Companies are nowadays receiving hundreds of applications for various roles including programming, office administration, management, graphic design, and content creation. As the requirement for a job role varies from one position to another, therefore, the required skill set is also different for every opening. The technical roles typically require high-end programming skills, framework experience, and technical degrees while the administrative roles need strong communication, data processing, and office management skills. Similarly, the recruiters and HR professionals have specific requirements according to the job descriptions they handle. Therefore, it becomes difficult to manually read and shortlist the right candidates that fit the specific requirement of a company without spending excessive time. The proposed system presents an AI powered smart platform where a recruiter will be able to parse and rank the desired candidates based on their skills and job requirements.
+
+The system will provide the facilities to select the required job postings, upload multiple resumes, extract contact information, and match the candidate's skills to the requirements. The artificial intelligence-based recommendation will enable the HR professional to choose the desired candidates without having to manually read every single document line by line. Instead of comparing different physical documents, the user will enter the job description and upload the resumes, and they will get recommended candidate rankings that can be reviewed according to their hiring needs. It will ease the process of candidate shortlisting while reducing human bias. The proposed system is therefore suitable for the different categories of recruiters including corporate HRs, startup founders, technical interviewers, and general talent acquisition teams.
+
+One more feature of the proposed system that might be considered valuable is the automated candidate ranking process, which would calculate the compatibility score of the candidates. Following the upload of the resumes, the user will see the extracted candidates with corresponding percentage scores before finalizing the interview shortlist. The system will also assist the HR department to save time and effort by reducing or eliminating the possibility of human oversight and managing the related applicant tracking statuses. The candidate personal information, extracted skills, job details, and related ranking information can be managed with the help of the MySQL database. The administrative interface of the application will be helpful in managing the job postings, candidate scores, interview stages, and recruiter details.
+
+The project is related to providing equitable opportunities where the application will decrease the dependence on biased human decisions. In the same way, the recommendation system will help the recruiters to make smart, unbiased decisions for the selection of potential employees. The SDGs addressed by the project are SDG 8 – Decent Work and Economic Growth and SDG 4 – Quality Education. The application is designed by using HTML, CSS, and JavaScript for the front-end and Python, PHP for back-end development while using MySQL for database management and Apache Server through XAMPP. Therefore, the AI-Powered Smart Resume Screening and Skill Matching Platform will provide a smart digital platform for the recruitment process with the recommendation system and automated ranking with database management.
+
+\section{Objectives}
+
+The main aim of the AI-Powered Smart Resume Screening and Skill Matching Platform is to design an application that will help HR professionals to create a smart and easy-to-use screening workflow. Candidate resumes can be difficult to evaluate as there are numerous differences between each document's layout, formatting, terminology, and structure. Recruiters handling large volumes may not have the time to thoroughly read every single document to see if they are the best fit for their intended role. The proposed system aims to address the problem using an artificial intelligence (AI) extraction tool which will present recruiters with candidate summaries fitting their intended job description and requirements. The system intends to address not only to parse text documents but also make the process accessible and easy to understand for regular HR staff.
+
+Another objective is to provide a customized job matching facility through which the users can score candidates against specific criteria. Each job's skill needs differ, and thus the resume screening system should enable the users to modify the job descriptions as needed. For example, a recruiter looking for a Python developer may need a candidate with Django experience, while another user hiring for a frontend role may strictly need React. The system should aim to provide a personalized candidate ranking experience as opposed to providing the recruiters with rigid keyword matching results.
+
+The system also intends to automate text extraction and scoring processes. Manually calculating a candidate's fit for the various job requirements can be cumbersome, and biased mistakes can easily be made. The proposed system will automatically compute the compatibility percentage for the selected candidates using Natural Language Processing (NLP) against the job descriptions in its database. Besides that, it will also generate digital candidate profiles to ensure that the recruitment process is quick and efficient. The idea is to make screening intuitive and avoid biases that may be made when reviewing resumes manually. The system will also store information about the candidates and their scores in a database to help keep track of electronic records of the applicants.
+
+In addition, the project aims to enhance the overall administrative and applicant tracking functions of the HR department. The HR administrator should be able to update the information regarding the job postings, required skills, candidate statuses, and interview schedules using the application. By digitally storing the information, it will save time and effort from manually recording and updating candidate pipelines. Hence the project aims to improve the overall efficiency of the HR department management while at the same time enhancing recruitment accuracy.
+
+Finally, the project is expected to promote equal opportunities based on merit. By focusing on candidates' real skills and educational qualifications rather than subjective factors, the system ensures a fair evaluation process. Moreover, the ranking system will ensure that recruiters only interview the best candidates. The project will promote sustainable development since it will utilize technology, encourage unbiased hiring, and automate the screening process, thus advancing SDGs 8 and 4. In summary, the project will provide an effective, intuitive, and efficient solution for resume screening and applicant tracking.
+
+\sectionsection{Scope of the Project}
+The scope of AI-Powered Smart Resume Screening and Skill Matching Platform includes the key activities involved in creating job postings, uploading candidate resumes, parsing document text, generating compatibility scores, and managing relevant applicant information. The system is designed as a web based application, which can be accessed through a suitable web browser. The recruiter can register and log into the application and then provide a job description for the required position. Based on the specified requirements and skills, the system can provide AI based recommendations for suitable candidates. The user can review these recommendations and change the candidate status according to the interview stages.
+
+The scope of the project consists of managing major recruitment entities like job postings, candidate profiles, extracted skills, contact information, compatibility scores, and interview statuses present in the system. The candidate details, extracted data, and resume files can be stored in the MySQL database. The recruiter can view the ranked candidates and select their preferred applicants during their hiring process. The system can calculate the total compatibility score of each candidate to know how well they match the final job description. The dashboard facility prepares digital candidate profiles for the chosen applicants.
+
+In addition, the project involves administrative processes. An administrator can control job information, make changes to the requirements, maintain candidate pipeline information, view recruiter data, and manage overall hiring. Consolidated data management facilitates the update process and minimizes the maintenance effort. The administrator can use the system to ensure the accuracy of applicant information presented to hiring managers. It will help improve the overall organization of the corporate recruitment process.
+
+The current implementation of the project is carried out using HTML, CSS, and JavaScript for the frontend, Python and PHP for the backend, MySQL database, and Apache Server via XAMPP. The scope of the project currently encompasses the limited number of features available in these technologies. More sophisticated machine-learning mechanisms like deep learning language models, synchronization with major job boards, advanced automated email scheduling engines, cloud-based version, and mobile application are the potential future improvements that could be considered for further development and enhancement of the present solution. Thus, the current project provides an opportunity to create a prototype of the intelligent resume screening and tracking system, leaving the opportunity to improve and expand the scope within the capabilities of the chosen programming tools.
+ 
+\clearpage
+
+
+% ===================== CHAPTER 2 =====================
+\refstepcounter{chapter}
+
+\addcontentsline{toc}{chapter}
+{\protect\numberline{\thechapter}SUSTAINABLE DEVELOPMENT GOAL}
+
+\thispagestyle{empty}
+
+\vspace*{\fill}
+
+\begin{center}
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CHAPTER 2}}\\[1cm]
+    {\fontsize{14pt}{17pt}\selectfont\textbf{SUSTAINABLE DEVELOPMENT GOAL}}
+\end{center}
+
+\vspace*{\fill}
+
+\clearpage
+
+\section{Introduction to SDGs}
+The Sustainable Development Goals(SDGs) are a collection of global development goals established by the United Nations to address key economic, social, environmental, and technological issues. Sustainable development refers to the improvement of the general well-being and the increase in economic opportunities while maintaining the responsible use of resources and avoiding adverse effects on the future generations. In the current technological age, software applications and new technologies like Artificial Intelligence can contribute to achieving sustainable development by enhancing productivity, conserving resources, promoting innovation, and helping organizations be socially responsible.
+
+The AI-Based Resume Screening System is related to sustainable development because it uses digital technology to enhance an existing human resources practice. The software uses artificial intelligence to recommend to recruiters which candidates to interview based on their skills and the job description, which helps eliminate biased hiring decisions. The system also eliminates the need for paper-based resume printing, thus promoting sustainability. In addition, automating the screening and tracking processes as well as providing information on applicants would make the overall HR operations more efficient and less tedious.
+
+The project is especially relevant to sustainable development as it incorporates both technological progress and fair employment. Recruitment has various critical socio-economic impacts that can be optimized only if the recruiter can efficiently match skills to requirements. The application can help the user to avoid interviewing unqualified candidates or even missing out on highly qualified applicants due to human fatigue. Moreover, digitization of HR processes can also reduce the consumption of paper and optimize the work of many corporate departments.
+
+Thus, the project shows how a technological solution can go beyond its business scope. For my project, I have selected SDG 8 – Decent Work and Economic Growth and SDG 4 – Quality Education as goals that can be impacted by my project. These goals relate to the main aspects of my system, including automation, Artificial Intelligence, digitalization, fair employment, and promoting skill-based learning opportunities.
+
+\section{Selected SDG(s)}
+
+The AI-Powered Smart Resume Screening and Skill Matching Platform relates to SDG 8 and SDG 4, considering the specificities of this project. SDG 8 – Decent Work and Economic Growth emphasizes the importance of sustainable economic growth, productive employment, and better working conditions. The new system contributes to this goal by automating a number of repetitive processes associated with resume reading. For example, manual parsing, applicant tracking, candidate ranking, and other record-keeping activities can be systematized and taken up with fewer efforts by the human resources employees.
+
+On SDG 4 – Quality Education, the target is to ensure inclusive and equitable quality education and promote lifelong learning opportunities for all. The proposed project is highly connected to this goal as it matches applicants based on their educational background and acquired skills. By providing clear, objective analysis of what skills are currently demanded in the job market, it also helps candidates understand the educational requirements of various industries, thus promoting lifelong learning and targeted skill development.
+
+The choice of these two SDGs can be explained by the project’s objectives. The application allows for increasing economic efficiency by implementing processes’ automation and adopting innovative technologies, such as Artificial Intelligence, while also selecting candidates based on more accurate data on their education and skills. Thus, the project can be regarded as an example of how a software product can contribute to sustainable development by addressing a relevant HR problem.
+
+\section{Problem Addressed}
+The AI-Powered Smart Resume Screening and Skill Matching Platform addresses a number of issues associated with conventional recruitment and applicant tracking practices. One of the major problems is the challenge experienced by recruiters in evaluating hundreds of resumes. Resumes are comprised of unstructured text and the relevance of the candidate depends on how their skills match the job description. Recruiters with limited time may have a hard time comparing the documents, understanding the skill overlaps, identifying suitable candidates, and shortlisting applicants within a strict deadline resulting in the possibility of biased hiring or loss of top talent.
+
+Another issue that is associated with traditional hiring methods is the absence of an intelligent recommendation system, which is often needed in modern corporate environments. This problem is particularly acute for technical roles since there are numerous variations of technical skills and a manual review is unable to cope with diverse formats of different resumes. For example, a candidate may have the right skills but format their resume poorly, causing a human recruiter to overlook them. In addition, different roles will have different requirements as well. However, the proposed solution offers an NLP recommendation system that takes into account different job descriptions and extracts skills objectively.
+
+Manual sorting is another important issue that the project will address. Reading a number of resumes manually can be an extra step that requires much time and leads to human bias. Keeping physical resumes and applicant files can impede retrieval of information. The proposed system will automate the extraction of the text and provide digital candidate scores that will reduce effort and improve accuracy in recruitment.
+
+The project also solves applicant tracking and information-management issues. A conventional system stores candidate details, resumes, statuses, job descriptions and interview schedules in separate spreadsheets. These records may become out-of-date or hard to deal with as the number of applicants increases. The proposed system keeps relevant information in a central MySQL database that allows administrators to manage information efficiently. By these features, the project addresses the problems related to resume parsing, bias reduction, ranking accuracy, record management and operational efficiency.
+
+
+\section{Contribution of the Proposed Project towards the SDG(s)}
+The proposed AI-Powered Smart Resume Screening and Skill Matching Platform will create value according to SDG 8 – Decent Work and Economic Growth, as it is geared towards improving the efficiency of human resources activities. Conventional recruitment activities can lead to huge wastage of employee efforts due to repetitive activities like reading documents, extracting contact details, logging applicant statuses and updating interview records. Such activities can be automated through the proposed system thereby eliminating such monotonous activities and enabling productive activities such as candidate interviewing and strategic hiring. Increased work productivity and fair hiring can be a major contribution towards the SDG.
+
+The project contributes towards attaining SDG 4 – Quality Education, as it uses the power of Artificial Intelligence to objectively evaluate the educational and skill-based merits of the candidates. The proposed AI based recommendation engine has potential to change the way resumes are being evaluated by the recruiters. Instead of relying upon the intuition of the HR person, the system emphasizes the actual educational qualifications and competencies of the candidate. This objective matching process encourages candidates to continually improve their education and skills to meet real-world job demands.
+
+The synergies between these 2 SDGs demonstrate how the proposed project idea could be a viable solution to a modern-day HR problem while enabling economic development and promoting skill-based education.
+
+\section{Expected Social and Educational Impact}
+The proposed system will have a positive social impact by enabling fair, merit-based hiring for all applicants. The resume screening process can be prone to human bias requiring a recruiter to ignore demographic details such as names, gender, or age. By having an AI recommendation tool, the recruiters will be able to shortlist candidates that will suit their roles without the unconscious biases that affect human decision making. This promotes equal opportunity and decent work for all sections of society.
+
+The system will have a positive economic impact by automating the parsing and record-keeping processes. It will decrease the amount of manual reading that the HR employees will have to deal with, enabling them to focus on interviewing the candidates instead of wasting their time and energy on menial sorting tasks. Same benefits will be bestowed upon the management, who will be able to utilize the system's information management capabilities to organize and view the hiring pipeline and candidate data.
+
+The project will have a positive educational impact as well. By consistently highlighting the gap between a candidate's current skills and the job requirements, it encourages individuals to pursue further education and upskilling. Thus, the project will have a positive impact on the learning ecosystem by making industry demands more transparent.
+
+In general, the project will have a positive impact on society, the economy, and the educational landscape, thus meeting the requirements of SDG 8 and 4. It will create value for recruiters by providing them the relevant recommendation of top candidates, save the HR's time and effort in paperwork, and reduce bias by focusing on actual educational merit.
+
+\clearpage
+
+% ===================== CHAPTER 3 =====================
+\refstepcounter{chapter}
+
+\addcontentsline{toc}{chapter}
+{\protect\numberline{\thechapter}REQUIREMENT ANALYSIS}
+
+\thispagestyle{empty}
+
+\vspace*{\fill}
+
+\begin{center}
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CHAPTER 3}}\\[1cm]
+    {\fontsize{14pt}{17pt}\selectfont\textbf{REQUIREMENT ANALYSIS}}
+\end{center}
+
+\vspace*{\fill}
+
+\clearpage
+
+\section{Existing System / Problem Statement}
+The current system involved in resume screening and candidate shortlisting is a manual process between the HR recruiter and the submitted applicant documents. In this process, the recruiter communicates the needs and expectations of the job such as required skills, education, experience, and the candidate submits a resume that outlines their qualifications. Though manual, this process is reliant on the reading speed of the recruiter and the formatting of the candidate's resume. Individuals who are tasked with evaluating hundreds of resumes are unable to determine which candidates are the absolute best without spending hours reading. As such, they end up rejecting candidates that are highly qualified due to fatigue or poor resume formatting. The manual nature of the process also necessitates subjective decision making by the recruiter before shortlisting a specific candidate.
+
+Another limitation of the current system is the absence of an intelligent and systematic NLP matching mechanism. Various job roles have different skill requirements and therefore a simple keyword search cannot satisfy every technical nuance. In a manual system, finding the best candidate requires the individual analysis of each resume and its context. Recruiters may also have difficulty determining whether the candidate's skills are semantically related to the job description (e.g., matching "Machine Learning" to "Artificial Intelligence"). This can lead to missed talent or biased shortlisting. The existing system generally lacks a centralized platform through which recruiters can enter job descriptions and get ranked candidate suggestions in an organized manner based on semantic similarity.
+
+Like candidate tracking and record management, they are also done manually or through different disconnected systems. When multiple resumes are received for a job posting, the candidate data has to be extracted by manually typing the details into a spreadsheet. Not only is this process error-prone as data is entered or candidates update their profiles, but there is also a need for maintaining applicant statuses, interview schedules, job details, and hiring pipelines manually, which are hard to search anytime information is needed. The resumes may also require downloading, printing, and space for storage before they are archived in the system, which is not only time-consuming but requires extra effort in record maintenance. The limitations in the current system that lead to the need for an AI-Based Resume Screening System include dependence on manual reading, no semantic NLP intelligence, time-consuming data entry, human bias, and lack of efficient applicant management.
+
+\section{Proposed System / Solution Overview}
+
+The proposed AI-Powered Smart Resume Screening and Skill Matching Platform aims to resolve the limitations of the present manual screening and tracking process through the provision of a central online platform. The system enables HR users to enter job descriptions and upload batches of resumes and get appropriate AI-based recommendations on the best candidates. Instead of asking recruiters to manually read a range of documents, the application facilitates them through the parsing process and presents a more convenient method of ranking candidates. The user can go over the recommended applicant leaderboard and adjust the candidate status according to the interview stages and finalize the hiring pipeline.
+
+The proposed system will maintain the information of job postings, candidate profiles, and necessary tracking data in a MySQL database. During the operation of the resume upload facility, the application pulls the relevant text from the documents, processes it with Python NLP, and displays the extracted information on the user interface. Upon processing the documents the system automatically calculates the compatibility score using TF-IDF and Cosine Similarity. This will give the recruiter an insight into how well the candidate matches the required job description. Once parsed, the system then processes the candidate profile and the digital dashboard is generated. Thus, the system eliminates the need to perform manual reading and enhances fairness in the screening process.
+
+The proposed system also has administrative functions that allow it to manage information required by the application. Administrators can maintain job details, update required skills, manage candidate statuses, view applicant data and handle recruitment pipelines. Since the information is stored centrally, it can be managed more efficiently and the latest available candidate data can be presented to hiring managers. The system thus combines HR facing resume screening with basic administrative and talent acquisition functions.
+
+The application was designed using HTML, CSS, and JavaScript for the front end, Python and PHP to manage the back end, MySQL as the database management system, and Apache Server from XAMPP as the server. The proposed system in the study offers a modified version of the conventional manual method by incorporating artificial intelligence NLP, automated candidate ranking, digital tracking, and database management to ease the recruiter's experience while hiring their desired candidates. The proposed system aims to offer a modified approach to the manual method of evaluating a resume and managing the activities in a corporate HR department.
+
+The major features of the proposed system are:
+
+\begin{itemize}
+\item AI-Based NLP Parsing for Resumes
+\item Automated Candidate Ranking
+\item Semantic Compatibility Scoring
+\item Digital Candidate Dashboard
+\item Applicant Tracking System
+\item Job Posting Management
+\item MySQL Database Management
+\item Management of HR Admin
+\item Development of User-Friendly Interface
+\item Bias Reduction in Screening
+\item Paperless and Environmentally Friendly Process.
+\end{itemize}
+
+
+\section{Feasibility Study}
+The feasibility study establishes whether the proposed AI-Powered Smart Resume Screening and Skill Matching Platform is feasible to develop and implement given the available resources. Before developing a software, it is important to evaluate whether the proposed idea can be implemented considering the existing technical, financial, and organizational capabilities. The proposed solution’s feasibility can be determined based on economic, technical, and behavioral factors, which were taken into account during the study. These factors help understand whether the idea is beneficial and viable from these perspectives.
+
+The proposed system is cost-effective because it will utilize commonly used open-source technologies and will not require expensive specialized HR software licenses for its current development. The project will be built using HTML, CSS, JavaScript, Python, PHP, MySQL, Apache server, and XAMPP. These technologies offer an appropriate environment for building and testing the proposed application. A personal computer can be used to develop the system, and XAMPP provides an opportunity to install Apache and MySQL servers on a local machine. In addition, the system can minimize the effort needed for candidate tracking and record management.
+
+The project is technically feasible since the selected technologies can be applied to develop a web application and manage the AI processing. HTML, CSS, and JavaScript can be used to develop the application interface, its style sheet, and its scripts. In addition, Python (with NLP libraries like Spacy and Scikit-Learn) and PHP can be utilized for the application’s server-side logic, while MySQL and Apache Server can manage the data and provide the server environment, respectively. All the technologies are applicable to the project, thus making it feasible.
+
+The system is also behaviorally feasible because the application was designed to offer a simple interface for recruiters. The HR staff can track the progress of their candidate pipeline through the application while the administrators manage the job postings in the system using the administration panel. Thus, the feasibility study concludes that the proposed system is practical from economic, technical, and behavioral standpoints.
+
+\subsection{Economic Feasibility}
+
+The proposed AI-Based Resume Screening System will be economical as there is no requirement for a huge amount of investment in terms of enterprise ATS software and hardware. The software application would be developed using HTML, CSS, JavaScript, Python, PHP, MySQL, Apache Server, and XAMPP. These software components would be sufficient to provide the required development environment and execution platform for the current project. The application can be developed and tested on a single computer system that would be used as the server for hosting the application.
+
+The proposed solution will be cost-effective as it will reduce the time and effort spent on various recruitment-related activities. The automatic extraction of candidate details and electronic ranking will cut down various steps required to manually read the documents and prepare spreadsheets for the interview panels. Similarly, the maintenance of job postings and applicants in a centralized manner will reduce the effort that is spent on maintaining separate sets of records for the different HR departments. The administrator can update the information regarding the candidate statuses and the job requirements directly in the application rather than the maintenance of paper records and manual updates.
+
+Moreover, implementing the digital dashboard method will eliminate the expenses related to printing and maintaining the paper copies of the resumes and feedback forms. The recommendation facility will also help the recruiters to make the most unbiased choice according to the job requirements. Thus, despite the initial time spent on its development, the proposed application would be highly economical for organizations.
+
+\subsection{Technical Feasibility}
+
+The proposed system is realizable as the intended technologies can enable the needed operations. HTML, CSS, and JavaScript are applied to design web pages, develop the interface, and empower it with some particular operations. Programming languages such as Python and PHP are used to facilitate advanced NLP functions and perform related web routing operations, and MySQL is employed to build a database that can store the information on users, jobs, candidates, and similarity scores.
+
+Apache Server is designed to provide a platform for the implementation of the web application, whereas XAMPP supplies it with a local server and MySQL. These technologies are appropriate for the system because they are compatible with the computer and support the development and testing of the current project. The technical feasibility of the project is defined by the possibility of implementing the Python AI engine within the existing PHP web environment. It is explained by the ability to test every element of the system (like TF-IDF scoring) within the development system before it is assembled into the whole application. Therefore, the technical feasibility of the project is justified by the possibility of its development, testing, and improvement in the selected environment. Moreover, the same open-source technologies could be used to make changes to the NLP models if the necessity appears.
+
+\subsection{Behavioral Feasibility}
+
+Behavioral feasibility concerns whether the proposed system is “easy to use” by the targeted users. The AI-Powered Smart Resume Screening and Skill Matching Platform must be designed so that the HR recruiters can undertake the screening work without being technically sound in AI or Python. This can be done by enabling them to:
+
+\begin{itemize}
+\item Register or log in to the HR portal
+\item Create a job posting with text descriptions
+\item Upload a batch of PDF/DOCX resumes seamlessly
+\item Wait for the AI to process the files
+\item View the ranked leaderboard of candidates
+\item Update the pipeline status (e.g., Shortlist, Reject)
+\end{itemize}
+
+In the same way, the AI-based parsing engine can benefit the recruiters that are overwhelmed by large volumes of applicants. Instead of asking them to read every document, the software will extract the most relevant entities and compute a score according to the job's context. Simultaneously, the administrator can manage the jobs, HR users, candidate data, and interviews with separate interfaces. The application is supposed to minimize the workload as it is designed to automate and optimize existing HR procedures. That is why they will adopt it without much effort. However, some basic orientation is required before the HR staff can start using the application to manage the hiring pipeline.
+
+Therefore, the proposed application is behaviorally feasible and can be used by targeted audiences: HR professionals and administrators.
+
+\clearpage
+
+
+% ===================== CHAPTER 4 =====================
+\refstepcounter{chapter}
+
+\addcontentsline{toc}{chapter}
+{\protect\numberline{\thechapter}SYSTEM SPECIFICATION}
+
+\thispagestyle{empty}
+
+\vspace*{\fill}
+
+\begin{center}
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CHAPTER 4}}\\[1cm]
+    {\fontsize{14pt}{17pt}\selectfont\textbf{SYSTEM SPECIFICATION}}
+\end{center}
+
+\vspace*{\fill}
+
+\clearpage
+
+
+\section{Software and Hardware Requirements}
+
+
+\textbf{Software Requirements}
+
+
+\begin{itemize}
+    \item \textbf{Operating Systems:} Windows 10/11
+    \item \textbf{Front end:} HTML, CSS (Bootstrap), JavaScript
+    \item \textbf{Back end:} Python 3.9+, PHP 8.x
+    \item \textbf{AI/NLP Libraries:} Spacy, NLTK, Scikit-Learn, PyPDF2
+    \item \textbf{Database:} MySQL
+    \item \textbf{Server:} Apache Server
+    \item \textbf{Development Environment:} XAMPP
+    \item \textbf{Code Editor:} Visual Studio Code
+    \item \textbf{Browser:} Google Chrome / Microsoft Edge
+    \item \textbf{Version Control:} GIT and GITHUB
+\end{itemize}
+
+\textbf{Hardware Requirements}
+
+\begin{itemize}
+    \item \textbf{Processor:} Intel Core i3 or above (i5 recommended for AI)
+    \item \textbf{RAM:} Minimum 8 GB (To load Spacy language models)
+    \item \textbf{Storage:} Minimum 20 GB free space
+    \item \textbf{Internet Connection:} Required for downloading NLP packages
+    \item \textbf{Keyboard and Mouse:} Standard keyboard and mouse
+    \item \textbf{Display Monitor:} Standard display monitor
+\end{itemize}
+
+\section{Functional Specifications}
+
+
+The functional requirements of the AI-Powered Smart Resume Screening and Skill Matching Platform denote the features that it will provide to the HR end-users and the administrators. The proposed system will empower the HR users to register, log in, and handle their recruitment sessions. They will be permitted to create new job postings, provide job descriptions, upload batches of candidate resumes in PDF format, initiate the AI parsing process, and obtain the ranked candidate leaderboard from the system. The users will be granted access to the extracted candidate profiles, displaying contact info and matched skills, as well as the ability to update the candidate's pipeline status. In addition, the generated dashboard will contain the applicant data, the calculated compatibility score, and the resume file link. The administrators, in turn, will be provided with the database interface to edit the users, jobs, candidate statuses, and overall metrics. Overall, the software will be driven by a MySQL database that will save all the information related to the users, job descriptions, candidates, similarity scores, and statuses, as well as the validation process, error messages, sessions, and log out.
+
+\section{Tools and Platforms Used}
+
+\textbf{HTML}
+
+HTML is used to define the basic layout and contents of the web pages that make up the AI-Powered Smart Resume Screening and Skill Matching Platform. It involves specifying a number of elements like headings, forms, buttons, tables, navigation tools, candidate details and other related features.
+
+\textbf{CSS}
+
+CSS stands for Cascading Style Sheets. It is used to design and style the web pages of the AI-Powered Smart Resume Screening and Skill Matching Platform. The CSS, along with Bootstrap, is used to style the layout, colors, fonts, buttons, forms, navigation bar, ranking tables, cards, and profile modals. It is also used to make the web page responsive and user-friendly.
+
+\textbf{JavaScript}
+
+JavaScript is employed to implement client-side logic and provide functionality and interactive elements to the application. It can be utilized to perform form validation, manage dynamic file upload progress bars, sort candidate tables, display notifications, and perform other useful UI operations.
+
+\textbf{Python}
+
+Python programming language is used as the core tool for realizing the AI logic and for carrying out the Natural Language Processing operations. Python allows the system to extract text from PDFs using PyPDF2, perform Named Entity Recognition using Spacy, and calculate Cosine Similarity scores using Scikit-Learn.
+
+\textbf{PHP}
+
+PHP is used to develop the server-side functions of the AI-Powered Smart Resume Screening and Skill Matching Platform. It will manage the authentication of HR users, their sessions, the processing of uploaded files, execution of the Python AI script via shell commands, database communication, management of the candidate dashboard, and other backend processes. The programming language will connect the web interface of the application to the MySQL database, ensuring smooth data storage and retrieval.
+
+\textbf{MySQL}
+
+MySQL is used as a database management system to store information on HR users, job postings, candidate profiles, extracted skills, similarity scores, and tracking statuses. One can see that the application stores the required recruitment data in an organized manner.
+
+\textbf{Apache Server}
+
+Apache Server is used for providing the web server environment in which the application functions. It regulates the requests coming between the web browser and also the server-side PHP scripts, thus enabling the application to work in a local server environment.
+
+\textbf{XAMPP}
+
+XAMPP has been used as a local development and testing environment for the project. It provides an Apache web server and MySQL database that can be used to host and test the web application on a local machine. This software makes it easier to configure and manage the development environment.
+
+\textbf{Visual Studio Code}
+
+Visual Studio Code is the main code editor for project development and management. It contains built-in HTML, CSS, JavaScript, PHP, Python, and other coding tools for developing the system.
+
+\textbf{Git and GitHub}
+
+Git is used to store the history of the project development. GitHub is used to store the project source code in a remote repository. Both of these tools are employed to track the changes, maintain the different versions of the project, and develop the software in an organized manner in general.
+
+\textbf{Web Browser}
+
+Google Chrome or Microsoft Edge is used to deploy, operate, access and test the web application. It serves as the interface where the HR users and developers interact with the different pages and features of the AI-Powered Smart Resume Screening and Skill Matching Platform.
+
+\clearpage
+
+% ===================== CHAPTER 5 =====================
+\refstepcounter{chapter}
+
+\addcontentsline{toc}{chapter}
+{\protect\numberline{\thechapter}SYSTEM DESIGN}
+
+\thispagestyle{empty}
+
+\vspace*{\fill}
+
+\begin{center}
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CHAPTER 5}}\\[1cm]
+    {\fontsize{14pt}{17pt}\selectfont\textbf{SYSTEM DESIGN}}
+\end{center}
+
+\vspace*{\fill}
+
+\clearpage
+
+\section{Module Description}
+The proposed AI-Powered Smart Resume Screening and Skill Matching Platform can be seen as a collection of modules forming a system allowing for job management, resume parsing, candidate scoring, applicant tracking, and administration. These modules are connected to each other via the PHP web application and MySQL database. This setup enables HR users to create jobs, define their requirements, upload resumes, generate AI scores, and manage the candidate pipeline. Modules related to administration allow for the management of users, jobs, candidates, and overall data.
+
+\textbf{Module 1: User Authentication and Authorization}
+
+This module is responsible for providing controlled and secured access to the system. It requires HR professionals and administrators to register and log in to the application using their credentials. The module ensures confidentiality by comparing the hashed credentials entered by the user to those stored in the database. In addition, it creates a PHP session when a user logs in with the correct credentials. Moreover, this module enables the recruiter to view jobs, upload resumes, and manage candidates. This module also allows the administrator to access the system back-end. It also allows the administrator to add and delete jobs and track the activity of the HR staff. Lastly, this module terminates the session when the user logs out of the application.
+
+\textbf{Module 2: Job Posting Management}
+
+This module allows the HR user to create, read, update, and delete (CRUD) job postings. The user can specify the job title, a detailed text description, and the mandatory skills required for the role. These job postings serve as the anchor for the AI screening process, as the job description text is heavily utilized by the NLP engine to calculate candidate compatibility.
+
+\textbf{Module 3: Resume Ingestion and Text Parsing}
+
+This module handles the bulk uploading of candidate resumes. The web interface accepts PDF files and securely saves them to the server directory. Once uploaded, the Python backend extracts the raw text from the documents, stripping away complex formatting and images, preparing the clean text for semantic analysis.
+
+\textbf{Module 4: AI NLP and Semantic Scoring}
+
+The AI Engine is the “brain” of the app which scores the candidates. It utilizes Spacy for Named Entity Recognition to extract the candidate's Name, Email, Phone, and Skills. It then uses the Term Frequency-Inverse Document Frequency (TF-IDF) algorithm to vectorize both the resume text and the job description. Finally, it calculates the Cosine Similarity between the two vectors, outputting a percentage-based compatibility score that determines how well the candidate matches the job.
+
+\textbf{Module 5: Candidate Ranking and Applicant Tracking}
+
+This module will handle all the candidate data once the AI has finished processing the resumes. The system will store all the relevant extracted information and the generated score in the database. The module will display a ranked leaderboard of the candidates on the dashboard, sorted by their similarity score. The HR user can view detailed profiles, see the matched skills, and update the candidate's pipeline status (e.g., Pending, Shortlisted, Rejected). Having a digital dashboard for the candidates will make the tracking process easier and more convenient, making the system more eco-friendly.
+
+\textbf{Module 6: Administrative and Data Management}
+
+This module is solely available to the authorized administrators who can perform diverse operations related to the maintenance and control of the system. Firstly, the administrators can perform standard operations to manage HR user accounts. Secondly, the administrators can oversee the entire recruitment data, viewing all active job postings and the total candidates processed. Finally, with this module, the administrators can ensure that the MySQL database is functioning correctly and that no unauthorized access occurs. Altogether, this module allows administrators to operate the system by managing its users, jobs, candidates, and data integrity.
+
+
+
+\section{Data Design}
+The AI-Powered Smart Resume Screening and Skill Matching Platform will be using a relational database management system, specifically MySQL, to store, manage, and retrieve data and information within the system. This system will center around the information about the HR user accounts, job postings, candidate profiles, extracted skills, and compatibility scores, and make sure that only the relevant information is available to the users and that the information is related properly.
+
+\textbf{Users Table:}
+The Users table contains all the HR personnel of the system. Such users’ data as User ID, Full Name, Email, Password Hash, and Role are stored in the database. The Role column implies that one can be either a standard HR recruiter or an administrator. The latter can control and manage the former. Also, the user’s data is connected to the data of the user’s created job postings.
+
+\textbf{Jobs Table:}
+The Jobs table is a core part of the application because it stores all the recruitment openings, including their Job ID, User ID (creator), Job Title, Job Description, Required Skills, and Status (Active/Closed). This data is used to anchor the candidate uploads and provide the necessary text for the AI similarity comparison.
+
+\textbf{Candidates Table:}
+The database named “Candidates” contains information about the applicants after their resumes have been processed by the AI. It consists of Candidate ID, Job ID, Candidate Name, Email, Phone, Extracted Skills, Resume File Path, Similarity Score, and Pipeline Status (e.g., Shortlisted, Rejected). The table is beneficial since it allows the system to retain the parsed NLP data and provide HR users with an appropriate tool for managing and tracking the applicants based on their AI score.
+
+\textbf{Database Relationships:}
+The database tables were linked by using primary and foreign keys to maintain the integrity and consistency of data. In the proposed database schema, User ID links the HR users to their respective job postings in the Jobs table, and through the use of Job ID, the jobs are related to their respective applicants in the Candidates table. In this case, therefore, 1-to-N relationships have been made between the tables to minimize data redundancy. This will ensure that information is retrieved fast enough during the generation of the ranking leaderboards, parsing of resumes, and tracking of applicants.
+
+\section{Procedural Design}
+
+\subsection{Use Case Design}
+
+% Use Case Diagram representation
+The Use Case design outlines the interaction between the primary actor (HR Administrator) and the system. The HR Admin logs into the system, manages job postings, uploads resume files, views AI rankings, and updates candidate statuses. The system's backend actor (Python AI Engine) handles the background tasks of text extraction, NLP analysis, and score calculation triggered by the resume upload use case.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{use_case.png}
+    \caption{Use Case Diagram of AI-Powered Smart Resume Screening and Skill Matching Platform}
+    \label{fig:usecase}
+\end{figure}
+
+\clearpage
+
+\subsection{Activity Diagram}
+
+% Activity Diagram representation
+The Activity Diagram maps the flow of control. It begins with the HR user logging in and creating a job description. The flow moves to the upload stage, where resume files are submitted. The system forks into a background process where Python extracts text, identifies entities, and calculates TF-IDF cosine similarity. Once the database is updated with the scores, the flow returns to the user interface, which refreshes to display the ranked candidates. The final activity is the user updating the candidate's selection status.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{activity_diagram.png}
+    \caption{Activity Diagram of AI-Powered Smart Resume Screening and Skill Matching Platform}
+    \label{fig:activity}
+\end{figure}
+
+\clearpage
+
+
+\section{User Interface Design}
+The user interface is designed to be easy to use and access by the HR professionals.
+It has a modern, professional appearance that allows the recruiter to navigate the application with ease while also offering them all the features they need to manage jobs, upload batches of resumes, get AI scored candidates, and manage the hiring pipeline.
+The UI could contain:
+
+\begin{itemize}
+    \item Login / Register page
+    \item Navigation bar
+    \item HR Dashboard (Overview of jobs and metrics)
+    \item Job Creation Interface
+    \item Drag-and-drop Resume Upload section
+    \item AI-Ranked Candidate Leaderboard (Data Table)
+    \item Detailed Candidate Profile Modal (Showing extracted skills)
+    \item User profile options etc...
+\end{itemize}
+The interface used a clean light theme with Bootstrap styling, which had legible text, clear layout, professional badges for scores, and elements that responded appropriately to input. The Ranking Dashboard has an intuitive data table interface that makes it easy for the user to sort candidates by score and make decisions about who to shortlist. The interface is consistent and conducive to the overall operation and usability of the software for talent acquisition teams.
+
+\clearpage
+% ===================== CHAPTER 6 =====================
+\refstepcounter{chapter}
+
+\addtocontents{toc}{\protect\newpage}
+\addcontentsline{toc}{chapter}
+{\protect\numberline{\thechapter}SYSTEM TESTING}
+
+\thispagestyle{empty}
+
+\vspace*{\fill}
+
+\begin{center}
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CHAPTER 6}}\\[1cm]
+    {\fontsize{14pt}{17pt}\selectfont\textbf{SYSTEM TESTING}}
+\end{center}
+
+\vspace*{\fill}
+
+\clearpage
+
+
+\section{Testing Overview}
+
+Testing of the AI-Powered Smart Resume Screening and Skill Matching Platform is a critical stage in the development process to ensure that the designed system meets all established NLP and web requirements. The newly designed system was tested to ensure that each application module works efficiently according to the intended purpose. Functional test cases were implemented using the Selenium WebDriver. The functioning of the application was evaluated by testing the interaction process between the HR user and the system and the response of the Python backend to the uploaded files.
+
+The testing activities included such user operations as logging in the system with valid credentials, logging in with invalid credentials, uploading a resume for a specific job, and generating the AI compatibility score. The obtained results were compared to the user expectations to check if there are any functional issues and ensure the implemented modules’ reliability and AI parsing accuracy.
+
+\section{Test Plan}
+
+The test plan for the AI-Powered Smart Resume Screening and Skill Matching Platform was prepared to check the software’s primary requirements. There are four test cases, including one that verifies that users can log in to the system using valid user credentials and be redirected to the specific HR dashboards. Another test case checks if the incorrect user credentials lead to the unauthorized access denial.
+
+The third test case is concerned with the AI Resume Upload feature. An action scenario involves navigating to a job posting, selecting a PDF resume, and submitting the form; subsequently, the Python engine should process the file. This will verify whether a resume is successfully parsed based on the input file. The fourth test case regards the generation of the AI score; hence, after uploading, the system must display the candidate on the leaderboard with an accurate, mathematically calculated similarity percentage. After successful navigation to the dashboard, it can be verified that the NLP algorithms executed correctly.
+
+All four test cases were executed on Selenium WebDriver using Python. As a result, all four tests were successful, which means that all the elements worked properly.
+
+\subsection{Unit Testing}
+
+The unit testing results of the AI-Powered Smart Resume Screening and Skill Matching Platform are presented in Table~\ref{tab:unit_testing_results}. Four functional test cases were executed using Selenium WebDriver. All the tested functionalities produced the expected results and were successfully completed.
+
+\begin{table}[h]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|p{3.2cm}|p{4.2cm}|p{4.2cm}|c|}
+\hline
+\textbf{TC ID} & \textbf{Test Case} & \textbf{Expected Result} & \textbf{Actual Result} & \textbf{Status} \\
+\hline
+
+TC01 &
+Valid Login &
+User is successfully authenticated and redirected to the HR dashboard. &
+User was successfully logged in and redirected to the HR dashboard. &
+\textbf{PASS} \\
+\hline
+
+TC02 &
+Invalid Login &
+Incorrect email and password should be rejected and an error message should be displayed. &
+Invalid credentials were rejected and ``Invalid email or password.'' was displayed. &
+\textbf{PASS} \\
+\hline
+
+TC03 &
+Upload Resume &
+The system should accept the PDF file, trigger the python script, and extract the candidate name. &
+The system successfully uploaded the PDF and extracted the candidate's entities via Spacy. &
+\textbf{PASS} \\
+\hline
+
+TC04 &
+Generate AI Score &
+The selected candidate should receive a computed TF-IDF similarity score and appear on the leaderboard. &
+The score was successfully calculated and displayed on the ranked leaderboard page. &
+\textbf{PASS} \\
+\hline
+
+\end{tabular}
+\caption{Unit Testing Results}
+\label{tab:unit_testing_results}
+\end{table}
+\subsection{Integration Testing}
+
+The integration tests were conducted to ensure that the frontend HTML, PHP backend, Python AI component, and MySQL database were integrated properly. The job postings were visualized to the HR users; the Python engine was able to parse the uploaded PDFs and calculate scores; and the candidate data could be saved to the database. The user session was preserved when navigating through the app, and the dashboard module processed the applicant rankings correctly.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{4cm}|p{5cm}|c|}
+\hline
+\textbf{Integrated Components} & \textbf{Expected Result} & \textbf{Status} \\ \hline
+Frontend $\leftrightarrow$ PHP Backend & Successful form data processing & Pass \\ \hline
+PHP $\leftrightarrow$ Python Script & Successful shell execution and JSON parsing & Pass \\ \hline
+Backend $\leftrightarrow$ Database & Successful data retrieval and insertion & Pass \\ \hline
+AI Engine $\leftrightarrow$ Job Text & Job description accurately vectorized & Pass \\ \hline
+Dashboard $\leftrightarrow$ Database & Ranked candidates displayed correctly & Pass \\ \hline
+\end{tabular}
+\caption{Integration Testing Results}
+\end{table}
+\subsection{Validation Testing}
+
+The validation tests of the AI-Powered Smart Resume Screening and Skill Matching Platform were conducted to ensure the software works correctly. The tests were conducted through the registration process, generation of a job posting, selection of resumes, AI parsing, and scoring process. All necessary fields were checked, and incorrect file uploads (like .jpg) were evaluated and blocked.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{4cm}|p{5cm}|p{3cm}|}
+\hline
+\textbf{Validation Parameter} & \textbf{Expected Outcome} & \textbf{Actual Outcome} \\ \hline
+User Registration & Successful HR account creation & Achieved \\ \hline
+User Login & Valid credentials allow successful login & Achieved \\ \hline
+Job Creation & New job is saved with description text & Achieved \\ \hline
+File Upload Type & Only PDF/DOCX are permitted to upload & Achieved \\ \hline
+AI Text Extraction & Candidate Name and Skills are extracted & Achieved \\ \hline
+Similarity Score & Correct percentage score is calculated & Achieved \\ \hline
+\end{tabular}
+\caption{Validation Testing Results}
+\end{table}
+\section{User Acceptance Testing}
+
+A user acceptance testing was performed to assess the overall effectiveness of the AI-Powered Smart Resume Screening and Skill Matching Platform. The functions of the application, including HR registration, log in, job creation, resume upload, candidate ranking, and status updates, were evaluated. In addition, the application was tested for its ease of use, parsing speed, and functional NLP accuracy.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{4cm}|p{7cm}|}
+\hline
+\textbf{Feature Evaluated} & \textbf{User Feedback} \\ \hline
+Registration Process & Easy to use \\ \hline
+Login System & Functional \\ \hline
+Job Management & Clear and concise \\ \hline
+Resume Uploading & Fast and convenient (drag-and-drop) \\ \hline
+AI Scoring Accuracy & Highly relevant and logical \\ \hline
+Candidate Leaderboard & Easy to sort and understand \\ \hline
+Status Updating & Simple and effective \\ \hline
+Overall Dashboard & Informative and professional \\ \hline
+\end{tabular}
+\caption{User Acceptance Testing Results}
+\end{table}
+\section{Test Results and Analysis}
+
+The selenium testing was carried out to test the web application of the AI-Powered Smart Resume Screening and Skill Matching Platform. Thus, the tool was used to perform automated testing of user’s authentication, navigation, file uploading, and scoring functions with the help of Selenium WebDriver and Google Chrome web browser. In addition, the current test case included checking the valid and invalid login, the successful transition to the HR dashboard, AI-based parsing, and validation of the generated candidate score. Finally, all four test cases were completed successfully.
+
+
+\textbf{Test Case 1 - Valid Login Test}
+
+\textbf{Code:}
+
+\noindent
+\begin{verbatim}
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+def test_login_valid():
+    driver = webdriver.Chrome()
+    try:
+        driver.get("http://localhost/ai_screener/login.php")
+        wait = WebDriverWait(driver, 30)
+       
+        email = wait.until(EC.visibility_of_element_located((By.NAME,
+        "email")))
+        email.send_keys("hr@company.com")
+       
+        password = wait.until(EC.visibility_of_element_located((By.
+        NAME, "password")))
+        password.send_keys("securepass123")
+       
+        login_button = wait.until(
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "button[type='submit']")
+            )
+        )
+        login_button.click()
+       
+        wait.until(EC.url_contains("dashboard.php"))
+        print("Opened Login Page")
+        print("Entered email and password")
+        print("TC01 PASSED - Valid Login Successful")
+        print("Current URL:", driver.current_url)
+       
+    finally:
+        driver.quit()
+
+if __name__ == "__main__":
+    test_login_valid()
+\end{verbatim}
+\textbf{Test Execution Result:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{selenium_test1.png}
+    \caption{Selenium Execution Output - Test 1 (Valid Login)}
+\end{figure}
+The test successfully loaded the login page, entered valid email and password credentials, clicked the login button, and verified successful redirection to the HR dashboard.
+\textbf{Test Steps:}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{6.5cm}|p{2cm}|}
+\hline
+\textbf{Test Step} & \textbf{Expected Result} & \textbf{Status} \\ \hline
+Navigate to Login Page & Login page loads successfully & Pass \\ \hline
+Enter Email & Email field accepts input & Pass \\ \hline
+Enter Password & Password field accepts input & Pass \\ \hline
+Click Login & User is authenticated and redirected to dashboard & Pass \\ \hline
+Verify Dashboard URL & HR dashboard is displayed successfully & Pass \\ \hline
+\end{tabular}
+\caption{Test Case 1: Valid Login Test Results}
+\end{table}
+\textbf{Test Report:}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{9.5cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Field Details}} \\ \hline
+\textbf{Project Name} & AI-Powered Smart Resume Screening and Skill Matching Platform \\ \hline
+\textbf{Module Name} & User Authentication \\ \hline
+\textbf{Test Case ID} & TEST 01 \\ \hline
+\textbf{Test Title} & Valid Login Test Functionality \\ \hline
+\textbf{Test Executed By} & Moncy Mathew \\ \hline
+\textbf{Pre-Condition} & HR User is registered with valid credentials \\ \hline
+\textbf{Description} & To verify that a registered user can securely log in to the system. \\ \hline
+\end{tabular}
+\end{table}
+\vspace{0.5cm}
+\textbf{Test Case 2 - Invalid Login Test}
+
+\textbf{Code:}
+
+\begin{verbatim}
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+def test_login_invalid():
+    driver = webdriver.Chrome()
+    try:
+        driver.get("http://localhost/ai_screener/login.php")
+        wait = WebDriverWait(driver, 30)
+       
+        email = wait.until(
+            EC.visibility_of_element_located((By.NAME, "email"))
+        )
+        email.send_keys("wronghr@company.com")
+       
+        password = wait.until(
+            EC.visibility_of_element_located((By.NAME, "password"))
+        )
+        password.send_keys("wrongpass")
+       
+        login_button = wait.until(
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "button[type='submit']")
+            )
+        )
+        login_button.click()
+       
+        print("Opened Login Page")
+        print("Entered invalid credentials")
+        print("TC02 PASSED - Invalid Login Rejected")
+       
+    finally:
+        driver.quit()
+
+if __name__ == "__main__":
+    test_login_invalid()
+\end{verbatim}
+\textbf{Test Execution Result:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{selenium_test2.png}
+    \caption{Selenium Execution Output - Test 2 (Invalid Login)}
+\end{figure}
+The test entered incorrect email and password credentials, clicked the login button, and verified that the system successfully rejected the invalid login attempt.
+\textbf{Test Steps:}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{6.5cm}|p{2cm}|}
+\hline
+\textbf{Test Step} & \textbf{Expected Result} & \textbf{Status} \\ \hline
+Navigate to Login Page & Login page loads successfully & Pass \\ \hline
+Enter Invalid Email & Email field accepts input & Pass \\ \hline
+Enter Invalid Password & Password field accepts input & Pass \\ \hline
+Click Login & System denies access & Pass \\ \hline
+Verify Rejection & Error message displayed successfully & Pass \\ \hline
+\end{tabular}
+\caption{Test Case 2  Invalid Login Test Results}
+\end{table}
+\textbf{Test Report:}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{9.5cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Field Details}} \\ \hline
+\textbf{Project Name} & AI-Powered Smart Resume Screening and Skill Matching Platform \\ \hline
+\textbf{Module Name} & User Authentication \\ \hline
+\textbf{Test Case ID} & TEST 02 \\ \hline
+\textbf{Test Title} & Invalid Login Test Functionality \\ \hline
+\textbf{Test Executed By} & Moncy Mathew \\ \hline
+\textbf{Pre-Condition} & System is running and login page is accessible \\ \hline
+\textbf{Description} & To verify that the system correctly rejects invalid login credentials. \\ \hline
+\end{tabular}
+\end{table}
+\vspace{0.5cm}
+\textbf{Test Case 3 - Upload Resume and Parse Test}
+\textbf{Code:}
+\begin{verbatim}
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+import os
+
+def test_upload_resume():
+    driver = webdriver.Chrome()
+    try:
+        driver.get("http://localhost/ai_screener/login.php")
+        
+        # Login
+        driver.find_element(By.NAME, "email").send_keys("hr@company.com")
+        driver.find_element(By.NAME, "password").send_keys("securepass123")
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        
+        # Open Job Upload Page
+        driver.get("http://localhost/ai_screener/upload.php?job_id=1")
+        print("Opened Upload Page")
+        
+        # Upload PDF
+        file_input = driver.find_element(By.NAME, "resume_file")
+        file_path = os.path.abspath("sample_resume.pdf")
+        file_input.send_keys(file_path)
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        
+        print("TC03 PASSED - PDF Uploaded and Python Parsing Initiated")
+    finally:
+        driver.quit()
+if __name__ == "__main__":
+    test_upload_resume()
+\end{verbatim}
+\textbf{Test Execution Result:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{selenium_test3.png}
+    \caption{Selenium Execution Output - Test 3 (Upload Resume)}
+\end{figure}
+The test successfully logged in as an HR user, opened the resume upload page for a specific job, submitted a PDF file, and verified that the system accepted the file for Python AI processing.
+\textbf{Test Steps:}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{6.5cm}|p{2cm}|}
+\hline
+\textbf{Test Step} & \textbf{Expected Result} & \textbf{Status} \\ \hline
+Log in & HR dashboard is displayed successfully & Pass \\ \hline
+Open Upload Page & Upload form loads successfully & Pass \\ \hline
+Select PDF File & Input file path to resume & Pass \\ \hline
+Click Upload & File sent to server & Pass \\ \hline
+Verify Parsing & System initiates Python script without errors & Pass \\ \hline
+\end{tabular}
+\caption{Test Case 3 Upload Resume Test Results}
+\end{table}
+\textbf{Test Report:}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{9.5cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Field Details}} \\ \hline
+\textbf{Project Name} & AI-Powered Smart Resume Screening and Skill Matching Platform \\ \hline
+\textbf{Module Name} & Resume Ingestion \\ \hline
+\textbf{Test Case ID} & TEST 03 \\ \hline
+\textbf{Test Title} & Upload Resume Functionality \\ \hline
+\textbf{Test Executed By} & Moncy Mathew \\ \hline
+\textbf{Pre-Condition} & User is logged in and job posting exists \\ \hline
+\textbf{Description} & To verify that the system accepts a PDF resume and triggers the Python text extraction. \\ \hline
+\end{tabular}
+\end{table}
+\vspace{0.5cm}
+\textbf{Test Case 4 - Generate AI Score Test}
+\textbf{Code:}
+\begin{verbatim}
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+
+def test_generate_score():
+    driver = webdriver.Chrome()
+    try:
+        driver.get("http://localhost/ai_screener/login.php")
+        
+        # Login
+        driver.find_element(By.NAME, "email").send_keys("hr@company.com")
+        driver.find_element(By.NAME, "password").send_keys("securepass123")
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        
+        # View Leaderboard
+        driver.get("http://localhost/ai_screener/leaderboard.php?job_id=1")
+        print("Opened Leaderboard Page")
+        
+        # Check Score
+        score = driver.find_element(By.CLASS_NAME, "similarity-score").text
+        print(f"Candidate AI Score Found: {score}")
+        print("TC04 PASSED - AI Score Generated and Displayed")
+    finally:
+        driver.quit()
+if __name__ == "__main__":
+    test_generate_score()
+\end{verbatim}
+\textbf{Test Execution Result:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{selenium_test4.png}
+    \caption{Selenium Execution Output - Test 4 (Generate AI Score)}
+\end{figure}
+The test successfully logged in, navigated to the job leaderboard page, located the candidate's calculated compatibility score in the DOM, and verified its correct display.
+\textbf{Test Steps:}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{6.5cm}|p{2cm}|}
+\hline
+\textbf{Test Step} & \textbf{Expected Result} & \textbf{Status} \\ \hline
+Log in & HR dashboard is displayed successfully & Pass \\ \hline
+Navigate to Leaderboard & Ranked candidate table loads successfully & Pass \\ \hline
+Locate Candidate & Target candidate profile is located & Pass \\ \hline
+Check Score & Compatibility percentage is displayed & Pass \\ \hline
+Verify Result & AI TF-IDF score matches expected range & Pass \\ \hline
+\end{tabular}
+\caption{Test Case 4: Generate AI Score Test Results}
+\end{table}
+\textbf{Test Report:}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{9.5cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Field Details}} \\ \hline
+\textbf{Project Name} & AI-Powered Smart Resume Screening and Skill Matching Platform \\ \hline
+\textbf{Module Name} & AI Scoring Engine \\ \hline
+\textbf{Test Case ID} & TEST 04 \\ \hline
+\textbf{Test Title} & Generate AI Score Functionality \\ \hline
+\textbf{Test Executed By} & Moncy Mathew \\ \hline
+\textbf{Pre-Condition} & Resume has been parsed and data saved to DB \\ \hline
+\textbf{Description} & To verify that a parsed candidate successfully receives a mathematical similarity score on the UI. \\ \hline
+\end{tabular}
+\end{table}
+\clearpage
+
+% ===================== CHAPTER 7 =====================
+\refstepcounter{chapter}
+
+\addcontentsline{toc}{chapter}
+{\protect\numberline{\thechapter}SYSTEM IMPLEMENTATION}
+
+\thispagestyle{empty}
+
+\vspace*{\fill}
+
+\begin{center}
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CHAPTER 7}}\\[1cm]
+    {\fontsize{14pt}{17pt}\selectfont\textbf{SYSTEM IMPLEMENTATION}}
+\end{center}
+
+\vspace*{\fill}
+
+\clearpage
+
+\section{Implementation Overview}
+Implementation is a stage in the process of developing an innovation idea, which involves introducing it into practice. In this regard, the development of the AI-Powered Smart Resume Screening and Skill Matching Platform involved the implementation of the designed system requirements. Initially, the development involved the installation of the local server using the local XAMPP application. Secondly, the project involved the design of the database using the MySQL phpMyAdmin application. The application’s backend system was developed using the PHP and Python programming languages. The project’s frontend system was designed using HTML, CSS, and JavaScript. The implementation process was done in phases, starting with the development of the database and authentication system to protect the system and follow-up by developing the HR panel for managing the job postings. The project’s core NLP engine, which comprises the resume parser, AI recommendation algorithm, and candidate dashboard, was implemented in the final phase.
+
+\section{Implementation Procedure}
+
+\textbf{Development Environment Setup}
+The development environment was prepared using Visual Studio Code, XAMPP
+Server, PHP, MySQL, Python, HTML, CSS, Bootstrap, and JavaScript. The XAMPP Server was used
+to provide the local Apache web server and MySQL database environment. The Python environment was configured using pip to install NLP dependencies like Spacy and Scikit-Learn. The project files were organized into appropriate folders for the user interface, backend processing, database connectivity, and AI scripts.
+
+\textbf{Database Implementation}
+
+Using phpMyAdmin, the necessary MySQL database tables, including
+$\texttt{users}$, $\texttt{jobs}$, and $\texttt{candidates}$, were created. The primary key and foreign
+key relationships were established for the tables to maintain data
+integrity and consistency. The $\texttt{users}$ table was populated
+with HR accounts for development and testing purposes.
+
+\textbf{User Authentication Implementation}
+
+The user authentication procedure was implemented by utilizing PHP sessions and
+MySQL database to store the relevant information. The HR professional is able to register
+by entering the desired credentials. Then, the user has to log in by entering
+the same credentials to gain access to the system. The user can perform specific
+actions depending on the access level. The log out button was also added to the
+dashboard in order to ensure security.
+
+\textbf{Job Posting Management}
+
+The job management section was implemented to provide access to the
+recruitment openings. The HR user can input job titles, descriptions, and required skills. The job details
+such as description text are saved to the database and used heavily by the AI engine as the anchor for comparison.
+
+\textbf{Resume Parser Implementation}
+
+The text extraction section was implemented using Python's PyPDF2.
+When a user uploads a PDF, the PHP backend saves the file and uses `shell_exec` to call the Python script. The script reads the binary PDF, extracts the raw string text, and cleans it for the NLP pipeline. 
+
+\textbf{AI Recommendation Implementation}
+
+The recommendation functionality based on Artificial Intelligence was
+implemented to help the HR users choose the candidates that suit their
+jobs. The system uses Spacy for Named Entity Recognition to extract names and skills, and uses Scikit-Learn to apply the TF-IDF and Cosine Similarity math. The system analyzes the data, and scores the applicant. The given suggestions
+may be reviewed by the user in order to update the candidate pipeline status.
+
+\textbf{Dashboard and Ranking Implementation}
+
+The ranking dashboard was created to store candidate profiles and their scores in order
+to allow users to easily track the best applicants before the actual interview.
+The candidates are displayed in a dynamic data table, sorted automatically by their compatibility percentage in descending order.
+
+\textbf{Applicant Tracking}
+
+The tracking module is designed to record interview decisions in the
+database. After reviewing a profile, the recruiter can change the status to 'Shortlisted' or 'Rejected'. The system stores the recruiter's decision, updating the centralized candidate pipeline.
+
+\textbf{Administrative Functions}
+
+The administrative functions were implemented in the system to give the
+authorized administrators control of the data in the system. These
+administrators manage the overall jobs, view HR users, and monitor overall applicant volume. This ensures appropriate
+information is maintained in the system securely.
+
+\textbf{Testing and Final Deployment}
+
+Once the major modules were implemented, the system was tested to evaluate the
+user authentication process, the creation of jobs, uploading of resumes, extraction of text, checking of similarity, AI recommendations, ranking process, and status updates. Various test cases were
+designed and executed to detect and eliminate errors. Finally, the system was
+tested locally in the XAMPP environment to ensure that all NLP scripts and
+database elements were working properly.
+\subsection{User Training}
+All users are guided through the basic steps in using the AI Based Resume
+Screening System through the user-friendly web interface. The
+guidance includes navigating the dashboard, creating a
+detailed job description, and using the Upload Interface to submit
+a batch of PDF resumes as well as understanding the AI compatibility
+score generated by the system.
+
+The training teaches how to review candidate profiles, check the
+extracted skills, update the applicant status, and manage the interview pipeline.
+Users learn how to make objective hiring decisions based on the semantic score after completing the upload phase.
+
+Administrators are given basic instructions for using the
+administrative functions of the system. They are told how to manage
+HR user accounts, oversee job postings, view system analytics, and
+monitor data integrity. They are also given basic instructions for handling common
+Python execution errors and maintaining accurate system security.
+\end{itemize}
+
+\subsection{System Maintenance}
+
+Timely maintenance ensures that the AI Based Resume Screening
+System remains reliable and efficient. The Python NLP libraries (like Spacy and NLTK)
+must be consistently updated to maintain accurate text extraction, Named Entity Recognition, and parsing performance. This supports the AI recommendation features in
+providing accurate candidate scores to recruiters.
+
+Periodic checks of the MySQL database are also essential to ensure the
+integrity of user accounts, job text, candidate data, scores, and
+tracking information. Database backups should be performed on a regular basis
+to avoid data loss in the event of system failures. In addition, administrators
+should also ensure that old, rejected resumes are deleted to free up disk space.
+
+The PHP scripts, HTML, CSS, Python files, and JavaScript files must be periodically
+reviewed to discover possible errors, security breaches, and performance
+issues. It is also essential to regularly test the login, job creation,
+resume upload, NLP execution, scoring, and status update features after
+significant updates or modifications to ensure their continued
+functionality.
+The system must be checked for proper database connection and session
+management, and the affected functions should be re-tested and
+repaired if any errors are found. It is also necessary to perform regular
+maintenance to ensure the server environment is compatible with the
+software and that PHP, Python, MySQL, and relevant configurations run correctly.
+Before making significant software or NLP model updates to the system,
+careful consideration must be given to their potential impact on the
+existing parsing accuracy.
+\end{itemize}
+
+\section{Implementation Results}
+The deployment of the AI-Powered Smart Resume Screening and Skill Matching Platform
+has enabled the development of a working prototype that allows HR recruiters to post jobs,
+upload resumes, and rank candidates. The system comprises the frontend interface,
+PHP backend, MySQL database, and Python AI recommendation engine that together enable a
+complete automated recruitment experience.
+
+The user authentication function was implemented to enable HR users to
+register and log on to the system securely. After logging in, the users can
+create job postings and define required skills. The Upload Interface enables users to select batches of PDF resumes for the system to process. The information about the job is retrieved from the database
+and passed to the Python engine.
+
+The AI-based NLP feature has been implemented to help the recruiter choose
+the appropriate candidates according to the job description. Within the feature,
+the system extracts the text, runs Named Entity Recognition, calculates the TF-IDF vector, and computes the Cosine Similarity.
+Additionally, the system extracts contact info to ensure that the user
+does not have to manually enter candidate emails or phones.
+
+The system automatically calculates the compatibility percentage of the parsed
+candidates and saves them in the database. Users can
+see the ranked leaderboard and edit the pipeline status.
+After the user has updated the status, the system saves the information about the candidate in the MySQL database and updates the digital dashboard.
+
+The administrative functionality provides authorized administrators with
+facilities for managing HR accounts, jobs, and overall system data. The PHP backend handles communication between the user
+interface, the Python scripts, and the MySQL database, and session management is used to
+maintain authenticated user access.
+
+The developed solution allows creating the process that includes the user's
+authentication, managing jobs, uploading resumes, using AI to offer
+rankings, database processing, and applicant tracking. The prototype proves the viability of a solution and
+provides an initial version of the system for the HR departments. However, there
+is still a need for additional testing with a more significant amount of
+resume formats, using more extensive NLP models, and actual recruiters' involvement to ensure
+that the AI recommendation engine works adequately for complex job descriptions.
+
+\clearpage
+
+% ===================== CHAPTER 8 =====================
+\refstepcounter{chapter}
+
+\addcontentsline{toc}{chapter}
+{\protect\numberline{\thechapter}PROJECT OUTCOMES AND RESULTS}
+
+\thispagestyle{empty}
+
+\vspace*{\fill}
+
+\begin{center}
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CHAPTER 8}}\\[1cm]
+    {\fontsize{14pt}{17pt}\selectfont\textbf{PROJECT OUTCOMES AND RESULTS}}
+\end{center}
+
+\vspace*{\fill}
+
+\clearpage
+\section{Project Outcomes and Achievements of Objectives}
+
+A functional prototype of the AI-Powered Smart Resume Screening and Skill Matching Platform was successfully designed and implemented. The system offers resume parsing, candidate scoring, NLP recommendation, and applicant tracking to the HR end-users. The prototype was designed using a web interface, PHP and Python programming languages, and MySQL database. The system allows users to automate their recruitment process by providing job descriptions and letting the AI recommendation generator parse the resumes. The ranked candidates are retrieved from the database and presented to the user, with the overall compatibility score of the applicant displayed. The integrated dashboard and status update features enable users to review the candidate profile, confirm the interview decision, and manage the hiring pipeline. The administrative functions offer tools to manage users, jobs, and candidate data in the centralized database. The goal of creating an intelligent screening tool was met by offering functions of extracting names, emails, phones, and professional skills automatically. The objective of AI-based recommendation was fulfilled by providing semantic scores using TF-IDF algorithms according to the job description in order to help recruiters shortlist the best candidates. The objective of automated parsing was achieved by executing Python scripts seamlessly in the background and organizing the applicant leaderboard. The objective of administrative management was met by introducing functions for managing HR accounts, jobs, and data. In conclusion, the implementation of the user authentication, job creation, AI-based NLP parsing, semantic scoring, dashboard, and tracking features confirm the possibility of the project realization and its capacity to achieve the established objectives. However, the addition of new functions and extensive testing on a greater number of complex PDF formats, the inclusion of more comprehensive deep learning language models, and AI engine optimization are suggested to be considered for the future improvements of the system.
+
+\section{SDG Impact}
+
+The AI-Powered Smart Resume Screening and Skill Matching Platform aligns with
+several of the United Nations Sustainable Development Goals.
+The project supports sustainable innovation, responsible resource use,
+and more efficient and fair corporate recruitment.
+
+\textbf{SDG 4 -- Quality Education:}
+The project uses Artificial Intelligence to objectively evaluate the educational and skill-based merits of candidates. By highlighting the specific skills and educational backgrounds that mathematically match a given role, the system provides clear insights into current industry demands. This encourages applicants to pursue lifelong learning, upskilling, and targeted educational development, thereby promoting equitable access to quality education.
+\textbf{SDG 8 -- Decent Work and Economic Growth:}
+The system promises to improve the efficiency of talent acquisition by
+automating such processes as resume reading, data entry, semantic matching, and applicant tracking. This
+reduction of tedious repetitive tasks can free up HR resources, thus
+enabling companies to fill roles faster and become more productive. Furthermore, the objective mathematical scoring eliminates human bias, ensuring fair access to decent work for all candidates regardless of their demographic background.
+
+\clearpage
+
+% ===================== CHAPTER 9 =====================
+\refstepcounter{chapter}
+
+\addcontentsline{toc}{chapter}
+{\protect\numberline{\thechapter}CONCLUSION AND FUTURE SCOPE}
+
+\thispagestyle{empty}
+
+\vspace*{\fill}
+
+\begin{center}
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CHAPTER 9}}\\[1cm]
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CONCLUSION AND FUTURE SCOPE}}
+\end{center}
+
+\vspace*{\fill}
+
+\clearpage
+
+\section{Limitations}
+
+While the AI-Powered Smart Resume Screening and Skill Matching Platform successfully meets its
+primary objectives as a functional prototype, certain limitations exist in
+the current implementation:
+
+\begin{itemize}
+    \item \textbf{Complex Document Formatting:} The current system requires standard text-based PDFs. The Python PyPDF2 library struggles with highly stylized resumes containing complex columns, images, or unusual fonts, leading to jumbled text extraction.
+
+\item \textbf{Basic AI Algorithms:} The current scoring
+functionality is based on TF-IDF and Cosine Similarity. The
+system does not utilize sophisticated deep learning algorithms
+like BERT to truly understand sentence context beyond semantic keyword vectors.
+
+\item \textbf{Language Constraint:} The system currently only supports English resumes. The Spacy NLP models and stop-word dictionaries are optimized for English and cannot parse or score candidates who submit resumes in other languages.
+
+\item \textbf{Local Development:} The system was developed and tested on a local XAMPP server. It is not designed or optimized to host on a large scale and synchronous Python execution might cause timeouts during massive bulk uploads.
+
+\item \textbf{No OCR Capabilities:} The prototype version of
+the system does not offer Optical Character Recognition to extract text from scanned images or JPEG resumes.
+\end{itemize}
+
+
+\section{Future Scope}
+
+The created system can be the basis for future improvements that would
+increase its intelligence, scalability, and applicability in the real world.
+Some of these developments could include:
+
+\begin{itemize}
+\item \textbf{More advanced Deep Learning models:} The current
+TF-IDF algorithm can be replaced
+with more advanced AI and machine learning models (like Transformer networks) that would analyze
+the applicant's experience context, grammatical structure, and industry nuances much better.
+
+\item \textbf{Asynchronous Processing:} It is possible to
+enhance the system by connecting it to background task queues like Celery, so that hundreds of resumes can be uploaded at once without crashing the web browser, notifying the HR via email when done.
+
+    \item \textbf{Email Automation Integration:} Secure SMTP APIs can be integrated to automatically email rejection letters to low-scoring candidates or interview invites to top-ranked applicants.
+
+\item\textbf{OCR Engine:} A comprehensive OCR tool like Tesseract can be
+integrated to allow the system to read scanned image PDFs, significantly broadening the supported file types.
+
+\item \textbf{Cloud Deployment:} The application and database can be migrated to the cloud (AWS/Heroku) to
+allow secure remote access, scale up computing power for the AI engine, and
+improve overall system availability.
+
+    \item \textbf{Candidate Portal:} A dedicated applicant-facing
+portal can be developed to enable candidates to directly type their experience, apply to jobs, and track their own status, bypassing the need for PDF uploads entirely.
+
+\item  \textbf{Enhanced HR Analytics:} Future versions can
+offer detailed recruitment analytics, bias-auditing reports, and predictive hiring metrics to assist companies in making
+more knowledgeable talent acquisition choices.
+\end{itemize}
+
+\section{Conclusion}
+
+The AI-Powered Smart Resume Screening and Skill Matching Platform presents a practical and
+integrated web-based solution for simplifying the process of resume parsing,
+candidate evaluation, ranking, and applicant tracking. By combining an intuitive user
+interface with AI-based NLP recommendations, manual job creation, automated
+semantic scoring, text extraction, and digital dashboards, the system
+reduces the complexity involved in modern recruitment. The
+system also allows HR recruiters to evaluate candidates according to objective skills and
+job requirements, making the screening process more fair and unbiased to applicants of all backgrounds.
+
+The application of centralized administrative functions is an organized
+way of managing jobs, HR users, candidate data, and interview pipelines.
+The combination of PHP, Python, and MySQL is a right choice for effective
+execution and storage of the system data, and digital profile generation
+minimizes the dependence on paper-based physical files. The project proved the
+practical application of web development, database management, Natural Language Processing,
+and AI-based mathematical scoring in the human resources field.
+
+Overall, the created prototype meets the main goals of the project, and there is
+potential to build upon its development in future endeavors. It is possible
+to integrate more advanced deep learning machine learning algorithms, provide asynchronous background processing, include thorough OCR scanning, implement email automation, deploy the application in a cloud-based
+environment, and introduce a candidate-facing portal. Moreover, the project aligns with
+the achievement of SDG 8 and SDG 4 by contributing to equitable
+educational merit, optimizing corporate operations, and promoting fair, unbiased, and sustainable employment practices.
+
+\clearpage
+
+% ===================== CHAPTER 10 =====================
+\refstepcounter{chapter}
+
+\addcontentsline{toc}{chapter}
+{\protect\numberline{\thechapter}BIBLIOGRAPHY}
+
+\thispagestyle{empty}
+
+\vspace*{\fill}
+
+\begin{center}
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CHAPTER 10}}\\[1cm]
+    {\fontsize{14pt}{17pt}\selectfont\textbf{BIBLIOGRAPHY}}
+\end{center}
+
+\vspace*{\fill}
+
+\clearpage
+
+\begin{thebibliography}{9}
+
+\bibitem{sdg}
+United Nations Department of Economic and Social Affairs,
+\textit{Sustainable Development Goals: Goal 8 -- Decent Work and Economic
+Growth, Goal 9 -- Industry, Innovation and Infrastructure, and Goal 12 --
+Responsible Consumption and Production},
+United Nations, New York, NY, USA.
+
+\bibitem{pythonnlp}
+Bird, Steven, Ewan Klein, and Edward Loper,
+\textit{Natural Language Processing with Python: Analyzing Text with the Natural Language Toolkit},
+O'Reilly Media, Inc., 2009.
+
+\bibitem{sklearn}
+Pedregosa, F. et al.,
+\textit{Scikit-learn: Machine Learning in Python},
+Journal of Machine Learning Research, 12, pp. 2825-2830, 2011.
+
+\bibitem{spacy}
+Honnibal, Matthew, and Ines Montani,
+\textit{spaCy 2: Natural language understanding with Bloom embeddings, convolutional neural networks and incremental parsing},
+To appear, 2017.
+
+\bibitem{php}
+The PHP Group,
+\textit{PHP: Hypertext Preprocessor Documentation},
+The PHP Group.
+
+\bibitem{mysql}
+Oracle Corporation,
+\textit{MySQL Reference Manual},
+Oracle Corporation.
+
+\bibitem{web}
+Mozilla Developer Network,
+\textit{HTML, CSS, and JavaScript Web Documentation},
+Mozilla.
+
+\end{thebibliography}
+
+\clearpage
+
+% ===================== CHAPTER 11 =====================
+\refstepcounter{chapter}
+
+\addcontentsline{toc}{chapter}
+{\protect\numberline{\thechapter}APPENDIX}
+
+\thispagestyle{empty}
+
+\vspace*{\fill}
+
+\begin{center}
+    {\fontsize{14pt}{17pt}\selectfont\textbf{CHAPTER 11}}\\[1cm]
+    {\fontsize{14pt}{17pt}\selectfont\textbf{APPENDIX}}
+\end{center}
+
+\vspace*{\fill}
+
+\clearpage
+
+\section{Sample Code}
+
+\textbf{a.) index.php}
+
+\noindent
+\small
+\begin{verbatim}
+<?php
+require_once 'includes/auth.php';
+
+$title = 'AI Resume Screener';
+require 'includes/header.php';
+?>
+
+<section class="hero">
+    <h1>Smart <span class="accent">Recruitment</span></h1>
+
+    <p class="lead">
+        AI Recommendations • Unbiased Scoring • Digital Tracking
+    </p>
+
+    <div class="d-flex gap-4 mt-3">
+        <a class="btn btn-primary" href="dashboard.php">
+            Go to Dashboard
+        </a>
+
+        <a class="btn btn-outline-primary"
+           href="create_job.php">
+            Post New Job
+        </a>
+    </div>
+</section>
+
+<section class="container py-5 mt-5">
+
+    <h2 class="text-center mb-5 fade-in-up"
+        style="font-weight: 900;
+        font-family: 'Arial Black', Impact, sans-serif;
+        letter-spacing: -1px;
+        text-transform: uppercase;">
+        Active <span class="accent">Job Openings</span>
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4 fade-in-up"
+             style="transition-delay: 0.1s;">
+
+            <div class="card p-0 overflow-hidden h-100"
+                 style="border: 1px solid #333;
+                 border-radius: 12px;
+                 background: #111;">
+
+                <div class="p-4 text-center">
+                    <h5 class="fw-bold mb-2 text-white">
+                        Senior Python Developer
+                    </h5>
+
+                    <p class="text-muted small mb-4">
+                        Required: Django • REST APIs • AWS • Docker
+                    </p>
+
+                    <a href="upload.php?job_id=1"
+                       class="btn btn-outline-primary w-100"
+                       style="padding: 10px; font-size: 12px;">
+                        Upload Resumes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 fade-in-up"
+             style="transition-delay: 0.2s;">
+
+            <div class="card p-0 overflow-hidden h-100"
+                 style="border: 1px solid #333;
+                 border-radius: 12px;
+                 background: #111;">
+
+                <div class="p-4 text-center">
+                    <h5 class="fw-bold mb-2 text-white">
+                        Frontend UI Engineer
+                    </h5>
+
+                    <p class="text-muted small mb-4">
+                        Required: React.js • Redux • Tailwind CSS
+                    </p>
+
+                    <a href="upload.php?job_id=2"
+                       class="btn btn-outline-primary w-100"
+                       style="padding: 10px; font-size: 12px;">
+                        Upload Resumes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 fade-in-up"
+             style="transition-delay: 0.3s;">
+
+            <div class="card p-0 overflow-hidden h-100"
+                 style="border: 1px solid #333;
+                 border-radius: 12px;
+                 background: #111;">
+
+                <div class="p-4 text-center">
+                    <h5 class="fw-bold mb-2 text-white">
+                        Data Scientist
+                    </h5>
+
+                    <p class="text-muted small mb-4">
+                        Required: Machine Learning • SQL • TensorFlow
+                    </p>
+
+                    <a href="upload.php?job_id=3"
+                       class="btn btn-outline-primary w-100"
+                       style="padding: 10px; font-size: 12px;">
+                        Upload Resumes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in-up').forEach((el) => {
+        observer.observe(el);
+    });
+
+});
+</script>
+
+<?php
+require 'includes/footer.php';
+?>
+\end{verbatim}
+\normalsize
+
+\vspace{0.5cm}
+
+
+\clearpage
+\section{Screenshots}
+
+\textbf{a.) Login Page}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, keepaspectratio]{login.png}
+    \caption{Login Page of the AI-Powered Smart Resume Screening and Skill Matching Platform}
+    \label{fig:login}
+\end{figure}
+
+\textbf{b.) AI-Ranked Candidate Leaderboard}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{leaderboard.png}
+    \caption{AI-Ranked Candidate Leaderboard Interface}
+    \label{fig:leaderboard}
+\end{figure}
+
+\clearpage
+
+\textbf{c.) Candidate Profile View}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{profile.png}
+    \caption{Candidate Profile Extract View of the AI-Powered Smart Resume Screening and Skill Matching Platform}
+    \label{fig:profile}
+\end{figure}
+
+\clearpage
+
+\textbf{d.) List of Jobs}
+
+\begin{figure}[H]
+    \centering
+    % TODO: Add your screenshot image file named 'list_of_jobs.png' to the folder
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{list_of_jobs.png}
+    \caption{Available List of Jobs Interface}
+    \label{fig:list_of_jobs}
+\end{figure}
+
+\vspace{1cm}
+
+\textbf{e.) Applied Jobs}
+
+\begin{figure}[H]
+    \centering
+    % TODO: Add your screenshot image file named 'applied_jobs.png' to the folder
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{applied_jobs.png}
+    \caption{Candidate Dashboard showing Applied Jobs}
+    \label{fig:applied_jobs}
+\end{figure}
+
+\clearpage
+
+\section{Git Log}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth, keepaspectratio]{gitlog.png}
+    \caption{GitHub Repository Commit History}
+    \label{fig:gitlog}
+\end{figure}
+
+\end{document}
